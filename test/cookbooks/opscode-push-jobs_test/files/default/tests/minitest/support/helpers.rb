@@ -18,7 +18,7 @@
 #
 
 module Helpers
-  module Opscode-push-jobsTest
+  module OpscodePushJobsTest
     include MiniTest::Chef::Assertions
     include MiniTest::Chef::Context
     include MiniTest::Chef::Resources

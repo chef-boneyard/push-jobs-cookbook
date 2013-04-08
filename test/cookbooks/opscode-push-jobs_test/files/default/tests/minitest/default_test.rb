@@ -20,9 +20,6 @@
 require File.expand_path('../support/helpers', __FILE__)
 
 describe "opscode-push-jobs_test::default" do
-  include Helpers::Opscode-push-jobsTest
+  include Helpers::OpscodePushJobsTest
 
-  it 'has a behavior to test' do
-    # some assertion or other tests
-  end
 end

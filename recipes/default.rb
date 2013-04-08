@@ -18,44 +18,4 @@
 # limitations under the License.
 #
 
-package_file = nil
-
-if node['opscode_push_jobs']['package_url']
-  require 'uri'
-  uri = URI.parse(node['opscode_push_jobs']['package_url'])
-  package_file = uri.path.split('/')[2]
-
-  remote_file "#{Chef::Config[:file_cache_path]}/#{package_file}" do
-    source node['opscode_push_jobs']['package_url']
-    mode 00644
-  end
-
-end
-
-package "opscode-push-jobs-client" do
-  if node['opscode_push_jobs']['package_url']
-    provider Chef::Provider::Package::Dpkg
-    source "#{Chef::Config[:file_cache_path]}/#{package_file}"
-  end
-end
-
-directory "/etc/chef" do
-  owner "root"
-  group "root"
-  mode 00755
-end
-
-template "/etc/chef/push-jobs-client.rb" do
-  source "push-jobs-client.rb.erb"
-  owner "root"
-  group "root"
-  mode 00644
-  variables(:whitelist => node['opscode_push_jobs']['whitelist'])
-  notifies :restart, "runit_service[opscode-push-jobs-client]"
-end
-
-include_recipe "runit"
-
-runit_service "opscode-push-jobs-client" do
-  default_logger true
-end
+include_recipe "opscode-push-jobs::#{node['platform_family']}"

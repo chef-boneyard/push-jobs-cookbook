@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: opscode-push-jobs
-# Recipe:: debian
+# Recipe:: config
 #
 # Author:: Joshua Timberman <joshua@opscode.com>
 # Copyright (c) 2013, Opscode, Inc. <legal@opscode.com>
@@ -18,25 +18,21 @@
 # limitations under the License.
 #
 
-package_file = Opscode::Pushjobs.package_file(node['opscode_push_jobs']['package_url'])
-
-remote_file "#{Chef::Config[:file_cache_path]}/#{package_file}" do
-  source node['opscode_push_jobs']['package_url']
-  checksum node['opscode_push_jobs']['package_checksum']
-  mode 00644
-  notifies :install, "package[opscode-push-jobs-client]", :immediately
-end
-
-package "opscode-push-jobs-client" do
-  if node['opscode_push_jobs']['package_url']
-    provider Chef::Provider::Package::Dpkg
-    source "#{Chef::Config[:file_cache_path]}/#{package_file}"
+directory Chef::Config.platform_specific_path("/etc/chef") do
+  unless platform_family?("windows")
+    owner "root"
+    group "root"
+    mode 00755
   end
 end
 
-include_recipe "opscode-push-jobs::config"
-include_recipe "runit"
-
-runit_service "opscode-push-jobs-client" do
-  default_logger true
+template Chef::Config.platform_specific_path("/etc/chef/push-jobs-client.rb") do
+  source "push-jobs-client.rb.erb"
+  unless platform_family?("windows")
+    owner "root"
+    group "root"
+    mode 00644
+  end
+  variables(:whitelist => node['opscode_push_jobs']['whitelist'])
+  notifies :restart, node['opscode_push_jobs']['service_string']
 end

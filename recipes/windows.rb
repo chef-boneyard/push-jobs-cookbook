@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: opscode-push-jobs
-# Recipe:: debian
+# Recipe:: windows
 #
 # Author:: Joshua Timberman <joshua@opscode.com>
 # Copyright (c) 2013, Opscode, Inc. <legal@opscode.com>
@@ -20,23 +20,26 @@
 
 package_file = Opscode::Pushjobs.package_file(node['opscode_push_jobs']['package_url'])
 
-remote_file "#{Chef::Config[:file_cache_path]}/#{package_file}" do
+# OC-7332: need the version as part of the DisplayName. Hardcoding is
+# fine for now, it will be removed from the installer when the ticket
+# is resolved.
+display_name = "Opscode Push Jobs Client Installer for Windows v0.0.1"
+
+windows_package display_name do
   source node['opscode_push_jobs']['package_url']
   checksum node['opscode_push_jobs']['package_checksum']
-  mode 00644
-  notifies :install, "package[opscode-push-jobs-client]", :immediately
-end
-
-package "opscode-push-jobs-client" do
-  if node['opscode_push_jobs']['package_url']
-    provider Chef::Provider::Package::Dpkg
-    source "#{Chef::Config[:file_cache_path]}/#{package_file}"
-  end
 end
 
 include_recipe "opscode-push-jobs::config"
-include_recipe "runit"
 
-runit_service "opscode-push-jobs-client" do
-  default_logger true
+registry_key "HKLM\\SYSTEM\\CurrentControlSet\\Services\\pushy-client" do
+  values([{
+        :name => "Parameters",
+        :type => :string,
+        :data => "-c c:\chef\push-jobs-client.rb"
+      }])
+end
+
+service "pushy-client" do
+  action [:enable, :start]
 end

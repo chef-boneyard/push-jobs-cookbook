@@ -24,7 +24,6 @@ remote_file "#{Chef::Config[:file_cache_path]}/#{package_file}" do
   source node['opscode_push_jobs']['package_url']
   checksum node['opscode_push_jobs']['package_checksum']
   mode 00644
-  notifies :install, "package[opscode-push-jobs-client]", :immediately
 end
 
 package "opscode-push-jobs-client" do

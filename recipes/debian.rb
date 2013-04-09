@@ -22,6 +22,9 @@ package_file = nil
 if node['opscode_push_jobs']['package_url']
   require 'uri'
   uri = URI.parse(node['opscode_push_jobs']['package_url'])
+  # This bit of awkwardness is to make sure the file gets downloaded
+  # from the folder in the bucket properly.
+  uri.path.gsub!(/%2F/, '/')
   package_file = uri.path.split('/')[2]
 
   remote_file "#{Chef::Config[:file_cache_path]}/#{package_file}" do

@@ -24,11 +24,7 @@ module Opscode
   class Pushjobs
 
     def self.package_file(url="http://www.opscode.com/chef/install.sh")
-      package_file = nil
-      uri = ::URI.parse(url)
-      # This bit of awkwardness is to make sure the file gets downloaded
-      # from the folder in the bucket properly.
-      uri.path.gsub!(/%2F/, '/')
+      uri = ::URI.parse(::URI.unescape(url))
       package_file = uri.path.split('/')[2]
       package_file
     end

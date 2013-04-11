@@ -1,7 +1,7 @@
 # opscode-push-jobs cookbook
 
 Installs the Opscode Push Jobs client package and sets it up to run as
-a service under runit.
+a service.
 
 # Requirements
 
@@ -10,7 +10,15 @@ Jobs feature.
 
 * Chef: 11.4.0 or higher
 * runit cookbook
-* Ubuntu platform
+
+## Platform
+
+* Ubuntu
+* Windows
+
+Tested on Ubuntu 12.04, 12.10 and Windows 2008 R2. It may work on
+other debian or windows platform families with or without
+modification.
 
 # Usage
 
@@ -27,7 +35,26 @@ automatically generated from the attribute
       "apt-get-update" => "apt-get update"
     }
 
-In a future release, an LWRP will be added to automatically add push
+As this is an attribute, interesting uses arise from orchestrating a
+Chef Client run. Assuming the above is present on the node prior to
+running the recipe, run Chef Client with this command from the local
+workstation:
+
+    knife job start chef-client A_NODE_NAME
+
+New jobs can be added to the whitelist simply by creating attributes.
+This can be done with `knife exec`:
+
+    knife exec -E 'nodes.transform("name:A_NODE_NAME") do |n|
+      n.set["opscode_push_jobs"]["whitelist"]["ntpdate"] = "ntpdate -u time"
+    end'
+
+Then, run the chef-client job, and then the ntpdate job:
+
+    knife job start chef-client A_NODE_NAME
+    knife job start ntpdate A_NODE_NAME
+
+In a future release, an LWRP may be added to automatically add push
 jobs.
 
 # Attributes
@@ -39,19 +66,58 @@ for default values.
 
 ## default
 
-The default recipe installs the client by downloading a package URL if
-the attribute is set, or otherwise from a package repository.
+The default recipe includes the appropriate recipe based on the node's
+`platform_family`.
+
+## config
 
 While the push jobs client will use the Chef client configuration by
 default, this recipe writes a separate configuration file that reads
 in the `/etc/chef/client.rb`.
 
+## debian
+
+If the `node['opscode_push_jobs']['package_url']` attribute is set,
+this recipe will download the Opscode Push Jobs Client package from
+the URL. Otherwise, it assumes that the package is available from a
+repository already configured (e.g., an internal repo).
+
+The config recipe (above) will be included to write out the whitelist
+of jobs as a separate configuration file.
+
+It will also set up the Opscode Push Jobs Client daemon as a service
+using `runit`. The default logger is used, so the log will be
+`/var/log/opscode-push-jobs-client/current`.
+
+## knife
+
+If the `node['opscode_push_jobs']['gem_url']` attribute is set, this
+recipe will download the knife-pushy gem to the system. Otherwise, it
+assumes the gem is published to rubygems.org. Then the gem is
+installed using `gem_package`.
+
+Use this recipe on workstation systems that should manage running jobs
+with the knife plugin.
+
+## windows
+
+The `node['opscode_push_jobs']['package_url']` attribute must be set
+to use this recipe, as Windows does not have the concept of a package
+manager with remote repositories. The URL will be used (with the
+checksum attribute) to install the package using the `windows_package`
+resource from the `windows` cookbook.
+
+The config recipe (above) will be included to write out the whitelist
+of jobs as a separate configuration file
+(`c:\chef\push-jobs-client.rb`). The registry key for the client
+service (`pushy-client`) will be updated to use this file.
+
+The client service will be enabled and started.
+
 # Author & License
 
 * Author: Joshua Timberman (<joshua@opscode.com>)
 * Copyright (c): 2013 Opscode, Inc. (<legal@opscode.com>)
-
-License:: Apache License, Version 2.0
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

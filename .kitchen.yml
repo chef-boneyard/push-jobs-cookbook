@@ -1,36 +1,35 @@
 ---
 driver_plugin: vagrant
 platforms:
+- name: debian-6
+  driver_config:
+    box: opscode-debian-6.0.7
+    box_url: http://opscode-vm.s3.amazonaws.com/vagrant/opscode_debian-6.0.7_chef-11.2.0.box
+    require_chef_omnibus: 11.4.0
+
+- name: ubuntu-12.10
+  driver_config:
+    box: canonical-ubuntu-12.10
+    box_url: http://cloud-images.ubuntu.com/vagrant/quantal/current/quantal-server-cloudimg-amd64-vagrant-disk1.box
+    require_chef_omnibus: 11.4.0
+
 - name: ubuntu-12.04
   driver_config:
     box: canonical-ubuntu-12.04
     box_url: http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box
     require_chef_omnibus: 11.4.0
-  run_list:
-  - recipe[apt]
-# - name: ubuntu-10.04
-#   driver_config:
-#     box: opscode-ubuntu-10.04
-#     box_url: http://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-10.04_chef-11.2.0.box
-#     require_chef_omnibus: 11.4.0
-#   run_list:
-#   - recipe[apt]
-# - name: centos-6.3
-#   driver_config:
-#     box: opscode-centos-6.3
-#     box_url: http://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-6.3_chef-11.2.0.box
-#     require_chef_omnibus: 11.4.0
-#   run_list:
-#   - recipe[yum::epel]
-# - name: centos-5.8
-#   driver_config:
-#     box: opscode-centos-5.8
-#     box_url: http://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-5.8_chef-11.2.0.box
-#     require_chef_omnibus: 11.4.0
-#   run_list:
-#   - recipe[yum::epel]
+
+- name: ubuntu-10.04
+  driver_config:
+    box: opscode-ubuntu-10.04
+    box_url: http://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-10.04_chef-11.2.0.box
+    require_chef_omnibus: 11.4.0
+
 suites:
 - name: default
   run_list:
-  - recipe[opscode-push-jobs_test]
-  attributes: {}
+  - recipe[opscode-push-jobs]
+  attributes:
+    opscode_push_jobs:
+      package_url: "https://pushy-release.s3.amazonaws.com/1.0.0beta/opscode-push-jobs-client_0.0.1%2B20130307153525.git.98.c04f587-1.ubuntu.10.04_amd64.deb"
+      whitelist: {chef-client: "chef-client"}

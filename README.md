@@ -13,12 +13,16 @@ Jobs feature.
 
 ## Platform
 
+* Debian
 * Ubuntu
 * Windows
 
-Tested on Ubuntu 12.04, 12.10 and Windows 2008 R2. It may work on
-other debian or windows platform families with or without
-modification.
+Tested on Debian 6.0.7, Ubuntu 10.04, 12.04, 12.10, and Windows 2008
+R2. It may work on other debian or windows platform families with or
+without modification.
+
+Testing for Debian/Ubuntu can be done with Test Kitchen, see
+TESTING.md in this repository.
 
 # Usage
 

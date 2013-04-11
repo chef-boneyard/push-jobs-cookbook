@@ -38,6 +38,7 @@ registry_key "HKLM\\SYSTEM\\CurrentControlSet\\Services\\pushy-client" do
         :type => :string,
         :data => "-c c:\chef\push-jobs-client.rb"
       }])
+  notifies :restart, node['opscode_push_jobs']['service_string']
 end
 
 service "pushy-client" do

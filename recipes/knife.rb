@@ -18,11 +18,15 @@
 # limitations under the License.
 #
 
-remote_file "#{Chef::Config[:file_cache_path]}/knife-pushy-0.1.gem" do
-  source node['opscode_push_jobs']['gem_url']
-  notifies :install, "gem_package[knife-pushy]", :immediately
+if node['opscode_push_jobs']['gem_url']
+  remote_file "#{Chef::Config[:file_cache_path]}/knife-pushy-0.1.gem" do
+    source node['opscode_push_jobs']['gem_url']
+    notifies :install, "gem_package[knife-pushy]", :immediately
+  end
 end
 
 gem_packge "knife-pushy" do
-  source "#{Chef::Config[:file_cache_path]}/knife-pushy-0.1.gem"
+  if node['opscode_push_jobs']['gem_url']
+    source "#{Chef::Config[:file_cache_path]}/knife-pushy-0.1.gem"
+  end
 end

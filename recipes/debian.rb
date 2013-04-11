@@ -18,12 +18,14 @@
 # limitations under the License.
 #
 
-package_file = Opscode::Pushjobs.package_file(node['opscode_push_jobs']['package_url'])
+if node['opscode_push_jobs']['package_url']
+  package_file = Opscode::Pushjobs.package_file(node['opscode_push_jobs']['package_url'])
 
-remote_file "#{Chef::Config[:file_cache_path]}/#{package_file}" do
-  source node['opscode_push_jobs']['package_url']
-  checksum node['opscode_push_jobs']['package_checksum']
-  mode 00644
+  remote_file "#{Chef::Config[:file_cache_path]}/#{package_file}" do
+    source node['opscode_push_jobs']['package_url']
+    checksum node['opscode_push_jobs']['package_checksum']
+    mode 00644
+  end
 end
 
 package "opscode-push-jobs-client" do

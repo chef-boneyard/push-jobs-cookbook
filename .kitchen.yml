@@ -34,8 +34,8 @@ platforms:
 suites:
 - name: default
   run_list:
-  - recipe[opscode-push-jobs]
+  - recipe[push-jobs]
   attributes:
-    opscode_push_jobs:
+    push_jobs:
       package_url: "https://pushy-release.s3.amazonaws.com/1.0.0beta/opscode-push-jobs-client_0.0.1%2B20130307153525.git.98.c04f587-1.ubuntu.10.04_amd64.deb"
       whitelist: {chef-client: "chef-client"}

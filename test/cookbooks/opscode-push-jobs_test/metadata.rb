@@ -1,6 +1,6 @@
-name              "opscode-push-jobs"
+name              "push-jobs_test"
 maintainer        "Opscode, Inc."
 maintainer_email  "cookbooks@opscode.com"
 license           "Apache 2.0"
-description       "This cookbook is used with test-kitchen to test the parent, opscode-push-jobs cookbok"
+description       "This cookbook is used with test-kitchen to test the parent, push-jobs cookbok"
 version           "1.0.0"

@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: opscode-push-jobs
+# Cookbook Name:: push-jobs
 # Recipe:: config
 #
 # Author:: Joshua Timberman <joshua@opscode.com>
@@ -33,6 +33,6 @@ template Chef::Config.platform_specific_path("/etc/chef/push-jobs-client.rb") do
     group "root"
     mode 00644
   end
-  variables(:whitelist => node['opscode_push_jobs']['whitelist'])
-  notifies :restart, node['opscode_push_jobs']['service_string']
+  variables(:whitelist => node['push_jobs']['whitelist'])
+  notifies :restart, node['push_jobs']['service_string']
 end

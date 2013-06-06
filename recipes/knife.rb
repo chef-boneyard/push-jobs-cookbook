@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: opscode-push-jobs
+# Cookbook Name:: push-jobs
 # Recipe:: knife
 #
 # Author:: Joshua Timberman <joshua@opscode.com>
@@ -18,15 +18,15 @@
 # limitations under the License.
 #
 
-if node['opscode_push_jobs']['gem_url']
+if node['push_jobs']['gem_url']
   remote_file "#{Chef::Config[:file_cache_path]}/knife-pushy-0.1.gem" do
-    source node['opscode_push_jobs']['gem_url']
+    source node['push_jobs']['gem_url']
     notifies :install, "gem_package[knife-pushy]", :immediately
   end
 end
 
 gem_packge "knife-pushy" do
-  if node['opscode_push_jobs']['gem_url']
+  if node['push_jobs']['gem_url']
     source "#{Chef::Config[:file_cache_path]}/knife-pushy-0.1.gem"
   end
 end

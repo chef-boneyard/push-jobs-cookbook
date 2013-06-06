@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: opscode-push-jobs
+# Cookbook Name:: push-jobs
 # Library:: helpers
 #
 # Author:: Joshua Timberman <joshua@opscode.com>

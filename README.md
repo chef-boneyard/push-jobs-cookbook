@@ -1,7 +1,10 @@
-# opscode-push-jobs cookbook
+# push-jobs cookbook
 
 Installs the Opscode Push Jobs client package and sets it up to run as
 a service.
+
+The official documentation is on
+[docs.opscode.com](http://docs.opscode.com/pushy.html)
 
 # Requirements
 
@@ -32,9 +35,9 @@ node's run list.
 In order for the push jobs to be used, a whitelist of job names and
 their commands must be set in the configuration file. This is
 automatically generated from the attribute
-`node['opscode_push_jobs']['whitelist']`. For example:
+`node['push_jobs']['whitelist']`. For example:
 
-    node.set['opscode_push_jobs']['whitelist'] = {
+    node.set['push_jobs']['whitelist'] = {
       "chef-client" => "chef-client",
       "apt-get-update" => "apt-get update"
     }
@@ -50,7 +53,7 @@ New jobs can be added to the whitelist simply by creating attributes.
 This can be done with `knife exec`:
 
     knife exec -E 'nodes.transform("name:A_NODE_NAME") do |n|
-      n.set["opscode_push_jobs"]["whitelist"]["ntpdate"] = "ntpdate -u time"
+      n.set["push_jobs"]["whitelist"]["ntpdate"] = "ntpdate -u time"
     end'
 
 Then, run the chef-client job, and then the ntpdate job:
@@ -81,7 +84,7 @@ in the `/etc/chef/client.rb`.
 
 ## debian
 
-If the `node['opscode_push_jobs']['package_url']` attribute is set,
+If the `node['push_jobs']['package_url']` attribute is set,
 this recipe will download the Opscode Push Jobs Client package from
 the URL. Otherwise, it assumes that the package is available from a
 repository already configured (e.g., an internal repo).
@@ -91,11 +94,11 @@ of jobs as a separate configuration file.
 
 It will also set up the Opscode Push Jobs Client daemon as a service
 using `runit`. The default logger is used, so the log will be
-`/var/log/opscode-push-jobs-client/current`.
+`/var/log/push-jobs-client/current`.
 
 ## knife
 
-If the `node['opscode_push_jobs']['gem_url']` attribute is set, this
+If the `node['push_jobs']['gem_url']` attribute is set, this
 recipe will download the knife-pushy gem to the system. Otherwise, it
 assumes the gem is published to rubygems.org. Then the gem is
 installed using `gem_package`.
@@ -105,7 +108,7 @@ with the knife plugin.
 
 ## windows
 
-The `node['opscode_push_jobs']['package_url']` attribute must be set
+The `node['push_jobs']['package_url']` attribute must be set
 to use this recipe, as Windows does not have the concept of a package
 manager with remote repositories. The URL will be used (with the
 checksum attribute) to install the package using the `windows_package`

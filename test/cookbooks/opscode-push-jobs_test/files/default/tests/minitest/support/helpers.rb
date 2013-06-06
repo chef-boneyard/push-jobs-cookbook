@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: opscode-push-jobs_test
+# Cookbook Name:: push-jobs_test
 # Recipe:: default
 #
 # Copyright 2013, Opscode, Inc.
@@ -18,7 +18,7 @@
 #
 
 module Helpers
-  module OpscodePushJobsTest
+  module PushJobsTest
     include MiniTest::Chef::Assertions
     include MiniTest::Chef::Context
     include MiniTest::Chef::Resources

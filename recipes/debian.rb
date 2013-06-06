@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: opscode-push-jobs
+# Cookbook Name:: push-jobs
 # Recipe:: debian
 #
 # Author:: Joshua Timberman <joshua@opscode.com>
@@ -18,26 +18,26 @@
 # limitations under the License.
 #
 
-if node['opscode_push_jobs']['package_url']
-  package_file = Opscode::Pushjobs.package_file(node['opscode_push_jobs']['package_url'])
+if node['push_jobs']['package_url']
+  package_file = Opscode::Pushjobs.package_file(node['push_jobs']['package_url'])
 
   remote_file "#{Chef::Config[:file_cache_path]}/#{package_file}" do
-    source node['opscode_push_jobs']['package_url']
-    checksum node['opscode_push_jobs']['package_checksum']
+    source node['push_jobs']['package_url']
+    checksum node['push_jobs']['package_checksum']
     mode 00644
   end
 end
 
-package "opscode-push-jobs-client" do
-  if node['opscode_push_jobs']['package_url']
+package "push-jobs-client" do
+  if node['push_jobs']['package_url']
     provider Chef::Provider::Package::Dpkg
     source "#{Chef::Config[:file_cache_path]}/#{package_file}"
   end
 end
 
-include_recipe "opscode-push-jobs::config"
+include_recipe "push-jobs::config"
 include_recipe "runit"
 
-runit_service "opscode-push-jobs-client" do
+runit_service "push-jobs-client" do
   default_logger true
 end

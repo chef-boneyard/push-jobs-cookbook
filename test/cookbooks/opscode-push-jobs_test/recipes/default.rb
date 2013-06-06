@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: opscode-push-jobs_test
+# Cookbook Name:: push-jobs_test
 # Recipe:: default
 #
 # Copyright 2013, Opscode, Inc.
@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-include_recipe "opscode-push-jobs::default"
+include_recipe "push-jobs::default"

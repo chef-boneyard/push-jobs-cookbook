@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: opscode-push-jobs
+# Cookbook Name:: push-jobs
 # Recipe:: windows
 #
 # Author:: Joshua Timberman <joshua@opscode.com>
@@ -18,7 +18,7 @@
 # limitations under the License.
 #
 
-package_file = Opscode::Pushjobs.package_file(node['opscode_push_jobs']['package_url'])
+package_file = Opscode::Pushjobs.package_file(node['push_jobs']['package_url'])
 
 # OC-7332: need the version as part of the DisplayName. Hardcoding is
 # fine for now, it will be removed from the installer when the ticket
@@ -26,11 +26,11 @@ package_file = Opscode::Pushjobs.package_file(node['opscode_push_jobs']['package
 display_name = "Opscode Push Jobs Client Installer for Windows v0.0.1"
 
 windows_package display_name do
-  source node['opscode_push_jobs']['package_url']
-  checksum node['opscode_push_jobs']['package_checksum']
+  source node['push_jobs']['package_url']
+  checksum node['push_jobs']['package_checksum']
 end
 
-include_recipe "opscode-push-jobs::config"
+include_recipe "push-jobs::config"
 
 registry_key "HKLM\\SYSTEM\\CurrentControlSet\\Services\\pushy-client" do
   values([{
@@ -38,7 +38,7 @@ registry_key "HKLM\\SYSTEM\\CurrentControlSet\\Services\\pushy-client" do
         :type => :string,
         :data => "-c c:\\chef\\push-jobs-client.rb"
       }])
-  notifies :restart, node['opscode_push_jobs']['service_string']
+  notifies :restart, node['push_jobs']['service_string']
 end
 
 service "pushy-client" do

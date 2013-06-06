@@ -16,13 +16,13 @@
 # limitations under the License.
 #
 
-default['opscode_push_jobs']['package_url'] = nil
-default['opscode_push_jobs']['gem_url']     = nil
-default['opscode_push_jobs']['whitelist']   = {}
+default['push_jobs']['package_url'] = nil
+default['push_jobs']['gem_url']     = nil
+default['push_jobs']['whitelist']   = {}
 
 case node['platform_family']
 when 'debian'
-  default['opscode_push_jobs']['service_string'] = 'runit_service[opscode-push-jobs-client]'
+  default['push_jobs']['service_string'] = 'runit_service[push-jobs-client]'
 when 'windows'
-  default['opscode_push_jobs']['service_string'] = 'service[pushy-client]'
+  default['push_jobs']['service_string'] = 'service[pushy-client]'
 end

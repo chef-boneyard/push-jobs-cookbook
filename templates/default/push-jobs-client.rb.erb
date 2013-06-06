@@ -4,7 +4,7 @@
 
 Chef::Config.from_file("/etc/chef/client.rb")
 
-# The whitelist comes from node['opscode_push_jobs']['whitelist']
+# The whitelist comes from node['push_jobs']['whitelist']
 whitelist(<%= @whitelist.inspect %>)
 
 # We're under runit, so don't output timestamp

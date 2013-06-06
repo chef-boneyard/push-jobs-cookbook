@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: opscode-push-jobs_test
+# Cookbook Name:: push-jobs_test
 # Recipe:: default
 #
 # Copyright 2013, Opscode, Inc.
@@ -19,7 +19,7 @@
 
 require File.expand_path('../support/helpers', __FILE__)
 
-describe "opscode-push-jobs_test::default" do
-  include Helpers::OpscodePushJobsTest
+describe "push-jobs_test::default" do
+  include Helpers::PushJobsTest
 
 end

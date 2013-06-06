@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: opscode-push-jobs
+# Cookbook Name:: push-jobs
 # Recipe:: default
 #
 # Author:: Joshua Timberman <joshua@opscode.com>
@@ -18,4 +18,4 @@
 # limitations under the License.
 #
 
-include_recipe "opscode-push-jobs::#{node['platform_family']}"
+include_recipe "push-jobs::#{node['platform_family']}"

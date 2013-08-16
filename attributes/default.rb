@@ -22,7 +22,7 @@ default['push_jobs']['whitelist']   = {}
 
 case node['platform_family']
 when 'debian'
-  default['push_jobs']['service_string'] = 'runit_service[push-jobs-client]'
+  default['push_jobs']['service_string'] = 'runit_service[opscode-push-jobs-client]'
 when 'windows'
   default['push_jobs']['service_string'] = 'service[pushy-client]'
 end

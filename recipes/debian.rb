@@ -28,8 +28,8 @@ if node['push_jobs']['package_url']
   end
 end
 
-package "push-jobs-client" do
-  if node['push_jobs']['package_url']
+if node['push_jobs']['package_url']
+  package "push-jobs-client" do
     provider Chef::Provider::Package::Dpkg
     source "#{Chef::Config[:file_cache_path]}/#{package_file}"
   end
@@ -38,6 +38,7 @@ end
 include_recipe "push-jobs::config"
 include_recipe "runit"
 
-runit_service "push-jobs-client" do
+runit_service "opscode-push-jobs-client" do
   default_logger true
+  retries 4
 end

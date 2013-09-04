@@ -18,6 +18,7 @@
 #
 
 module Helpers
+  # Helper module for Push Jobs Testing, put your own functions here
   module PushJobsTest
     include MiniTest::Chef::Assertions
     include MiniTest::Chef::Context

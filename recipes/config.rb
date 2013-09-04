@@ -18,19 +18,19 @@
 # limitations under the License.
 #
 
-directory Chef::Config.platform_specific_path("/etc/chef") do
-  unless platform_family?("windows")
-    owner "root"
-    group "root"
+directory Chef::Config.platform_specific_path('/etc/chef') do
+  unless platform_family?('windows')
+    owner 'root'
+    group 'root'
     mode 00755
   end
 end
 
-template Chef::Config.platform_specific_path("/etc/chef/push-jobs-client.rb") do
-  source "push-jobs-client.rb.erb"
-  unless platform_family?("windows")
-    owner "root"
-    group "root"
+template Chef::Config.platform_specific_path('/etc/chef/push-jobs-client.rb') do
+  source 'push-jobs-client.rb.erb'
+  unless platform_family?('windows')
+    owner 'root'
+    group 'root'
     mode 00644
   end
   variables(:whitelist => node['push_jobs']['whitelist'])

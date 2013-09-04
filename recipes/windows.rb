@@ -18,29 +18,27 @@
 # limitations under the License.
 #
 
-package_file = Opscode::Pushjobs.package_file(node['push_jobs']['package_url'])
-
 # OC-7332: need the version as part of the DisplayName. Hardcoding is
 # fine for now, it will be removed from the installer when the ticket
 # is resolved.
-display_name = "Opscode Push Jobs Client Installer for Windows v0.0.1"
+display_name = 'Opscode Push Jobs Client Installer for Windows v0.0.1'
 
 windows_package display_name do
   source node['push_jobs']['package_url']
   checksum node['push_jobs']['package_checksum']
 end
 
-include_recipe "push-jobs::config"
+include_recipe 'push-jobs::config'
 
-registry_key "HKLM\\SYSTEM\\CurrentControlSet\\Services\\pushy-client" do
+registry_key 'HKLM\\SYSTEM\\CurrentControlSet\\Services\\pushy-client' do
   values([{
-        :name => "Parameters",
+        :name => 'Parameters',
         :type => :string,
-        :data => "-c c:\\chef\\push-jobs-client.rb"
+        :data => '-c c:\\chef\\push-jobs-client.rb'
       }])
   notifies :restart, node['push_jobs']['service_string']
 end
 
-service "pushy-client" do
+service 'pushy-client' do
   action [:enable, :start]
 end

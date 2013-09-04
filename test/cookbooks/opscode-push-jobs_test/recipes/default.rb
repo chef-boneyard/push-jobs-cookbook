@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-include_recipe "push-jobs::default"
+include_recipe 'push-jobs::default'

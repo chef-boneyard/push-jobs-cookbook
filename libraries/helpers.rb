@@ -21,9 +21,10 @@
 require 'uri'
 
 module Opscode
+  # Helper libraries for installing Push
   class Pushjobs
 
-    def self.package_file(url="http://www.opscode.com/chef/install.sh")
+    def self.package_file(url = 'http://www.opscode.com/chef/install.sh')
       uri = ::URI.parse(::URI.unescape(url))
       package_file = uri.path.split('/')[2]
       package_file

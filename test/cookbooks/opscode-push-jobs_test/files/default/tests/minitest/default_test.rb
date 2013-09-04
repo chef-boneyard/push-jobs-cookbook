@@ -19,7 +19,7 @@
 
 require File.expand_path('../support/helpers', __FILE__)
 
-describe "push-jobs_test::default" do
+describe 'push-jobs_test::default' do
   include Helpers::PushJobsTest
 
 end

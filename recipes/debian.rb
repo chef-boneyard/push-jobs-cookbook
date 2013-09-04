@@ -38,6 +38,6 @@ end
 include_recipe 'push-jobs::config'
 include_recipe 'runit'
 
-runit_service 'push-jobs-client' do
+runit_service 'opscode-push-jobs-client' do
   default_logger true
 end

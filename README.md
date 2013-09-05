@@ -8,7 +8,7 @@ The official documentation is on
 
 # Requirements
 
-Requires Opscode Hosted Chef or Opscode Private Chef with the Push
+Requires Opscode Enterprise Chef with the Push
 Jobs feature.
 
 * Chef: 11.4.0 or higher
@@ -20,12 +20,11 @@ Jobs feature.
 * Ubuntu
 * Windows
 
-Tested on Debian 6.0.7, Ubuntu 10.04, 12.04, 12.10, and Windows 2008
-R2. It may work on other debian or windows platform families with or
+Tested on Ubuntu 10.04, 12.04, CentOS 6.4, and Windows 2008
+R2. It may work on other debian, rhel, or windows platform families with or
 without modification.
 
-Testing for Debian/Ubuntu can be done with Test Kitchen, see
-TESTING.md in this repository.
+Testing for Ubuntu/CentOS can be done with Test Kitchen, see TESTING.md in this repository.
 
 # Usage
 
@@ -76,21 +75,14 @@ for default values.
 The default recipe includes the appropriate recipe based on the node's
 `platform_family`.
 
-## config
-
-While the push jobs client will use the Chef client configuration by
-default, this recipe writes a separate configuration file that reads
-in the `/etc/chef/client.rb`.
-
-## debian
+## linux
 
 If the `node['push_jobs']['package_url']` attribute is set,
 this recipe will download the Opscode Push Jobs Client package from
-the URL. Otherwise, it assumes that the package is available from a
-repository already configured (e.g., an internal repo).
+the URL.
 
-The config recipe (above) will be included to write out the whitelist
-of jobs as a separate configuration file.
+The recipe will write out the whitelist of
+jobs as a separate configuration file.
 
 It will also set up the Opscode Push Jobs Client daemon as a service
 using `runit`. The default logger is used, so the log will be
@@ -99,9 +91,7 @@ using `runit`. The default logger is used, so the log will be
 ## knife
 
 If the `node['push_jobs']['gem_url']` attribute is set, this
-recipe will download the knife-pushy gem to the system. Otherwise, it
-assumes the gem is published to rubygems.org. Then the gem is
-installed using `gem_package`.
+recipe will download the knife-pushy gem to the system.
 
 Use this recipe on workstation systems that should manage running jobs
 with the knife plugin.
@@ -114,16 +104,15 @@ manager with remote repositories. The URL will be used (with the
 checksum attribute) to install the package using the `windows_package`
 resource from the `windows` cookbook.
 
-The config recipe (above) will be included to write out the whitelist
-of jobs as a separate configuration file
-(`c:\chef\push-jobs-client.rb`). The registry key for the client
-service (`pushy-client`) will be updated to use this file.
+The recipe will write out the whitelist of
+jobs as a separate configuration file.
 
 The client service will be enabled and started.
 
 # Author & License
 
 * Author: Joshua Timberman (<joshua@opscode.com>)
+* Author: Charles Johnson (<charles@opscode.com>)
 * Copyright (c): 2013 Opscode, Inc. (<legal@opscode.com>)
 
 Licensed under the Apache License, Version 2.0 (the "License");

@@ -3,6 +3,7 @@
 # Library:: helpers
 #
 # Author:: Joshua Timberman <joshua@opscode.com>
+# Author:: Charles Johnson <charles@opscode.com>
 # Copyright (c) 2013, Opscode, Inc. <legal@opscode.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,15 +21,12 @@
 
 require 'uri'
 
-module Opscode
-  # Helper libraries for installing Push
-  class Pushjobs
-
-    def self.package_file(url = 'http://www.opscode.com/chef/install.sh')
-      uri = ::URI.parse(::URI.unescape(url))
-      package_file = uri.path.split('/')[2]
-      package_file
-    end
-
+# Helper functions for Push Jobs cookbook
+module PushJobsHelper
+  def self.package_file(url = 'http://www.opscode.com/chef/install.sh')
+    uri = ::URI.parse(::URI.unescape(url))
+    package_file = File.basename(uri.path)
+    package_file
   end
+
 end

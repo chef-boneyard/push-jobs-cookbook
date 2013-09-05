@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: push-jobs
-# Recipe:: windows
+# Recipe:: linux
 #
 # Author:: Joshua Timberman <joshua@opscode.com>
 # Author:: Charles Johnson <charles@opscode.com>
@@ -19,39 +19,47 @@
 # limitations under the License.
 #
 
-# Do not continue if trying to run the Windows recipe on non-Windows
-return 'This recipe only supports Windows' unless node['platform_family'] == 'windows'
+# Do not continue if trying to run the Linux recipe on Windows
+return 'This recipe does not support Windows' if node['platform_family'] == 'windows'
 
 # Do not continue without a download URL
 return 'Please define the [\'push_jobs\'][\'package_url\'] attribute before continuing.' unless node['push_jobs']['package_url']
 
-# OC-7332: need the version as part of the DisplayName. Hardcoding is
-# fine for now, it will be removed from the installer when the ticket
-# is resolved.
-display_name = 'Opscode Push Jobs Client Installer for Windows v0.0.1'
+package_file = PushJobsHelper.package_file(node['push_jobs']['package_url'])
 
-windows_package display_name do
+remote_file "#{Chef::Config[:file_cache_path]}/#{package_file}" do
   source node['push_jobs']['package_url']
   checksum node['push_jobs']['package_checksum']
+  mode 00644
 end
 
-directory Chef::Config.platform_specific_path('/etc/chef')
+package 'opscode-push-jobs-client' do
+  case node['platform_family']
+  when 'debian'
+    provider Chef::Provider::Package::Dpkg
+  when 'rhel'
+    provider Chef::Provider::Package::Rpm
+  end
+  source "#{Chef::Config[:file_cache_path]}/#{package_file}"
+end
+
+directory Chef::Config.platform_specific_path('/etc/chef') do
+  owner 'root'
+  group 'root'
+  mode 00755
+end
 
 template Chef::Config.platform_specific_path('/etc/chef/push-jobs-client.rb') do
   source 'push-jobs-client.rb.erb'
+  owner 'root'
+  group 'root'
+  mode 00644
   variables(:whitelist => node['push_jobs']['whitelist'])
   notifies :restart, node['push_jobs']['service_string']
 end
 
-registry_key 'HKLM\\SYSTEM\\CurrentControlSet\\Services\\pushy-client' do
-  values([{
-        :name => 'Parameters',
-        :type => :string,
-        :data => '-c c:\\chef\\push-jobs-client.rb'
-      }])
-  notifies :restart, node['push_jobs']['service_string']
-end
+include_recipe 'runit'
 
-service 'pushy-client' do
-  action [:enable, :start]
+runit_service 'opscode-push-jobs-client' do
+  default_logger true
 end

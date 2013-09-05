@@ -17,3 +17,5 @@ Gemfile.lock
 bin/*
 .bundle/*
 
+
+/tmp/

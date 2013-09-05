@@ -1,5 +1,6 @@
 #
 # Author:: Joshua Timberman <jtimberman@champagne.int.housepub.org>
+# Author:: Charles Johnson <charles@opscode.com>
 # Copyright:: Copyright (c) 2013, Joshua Timberman
 # License:: Apache License, Version 2.0
 #
@@ -17,11 +18,14 @@
 #
 
 default['push_jobs']['package_url'] = nil
-default['push_jobs']['gem_url']     = nil
+default['push_jobs']['package_checksum'] = ''
+default['push_jobs']['gem_url'] = nil
+default['push_jobs']['gem_checksum'] = ''
+
 default['push_jobs']['whitelist']   = {}
 
 case node['platform_family']
-when 'debian'
+when 'debian', 'rhel'
   default['push_jobs']['service_string'] = 'runit_service[opscode-push-jobs-client]'
 when 'windows'
   default['push_jobs']['service_string'] = 'service[pushy-client]'

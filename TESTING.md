@@ -23,3 +23,12 @@ Once the above are installed, you should be able to run Test Kitchen:
 
     kitchen list
     kitchen test
+
+This cookbook has the following Test-Kitchen coverage:
+
+| Test Coverage  | Ubuntu 12.04  | Ubuntu 10.04 | Centos 6.4 | Centos 5.9 | Windows 2008 R2 |
+| -------------- |:-------------:|:------------:|:----------:|:----------:|:---------------:|
+| default        | **Y**         | **Y**        | **Y**      | **N**      | **N**           |
+| linux          | **Y**         | **Y**        | **Y**      | **N**      | **N**           |
+| knife          | **N**         | **N**        | **N**      | **N**      | **N**           |
+| windows        | **N**         | **N**        | **N**      | **N**      | **N**           |

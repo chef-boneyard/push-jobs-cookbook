@@ -3,6 +3,7 @@
 # Recipe:: knife
 #
 # Author:: Joshua Timberman <joshua@opscode.com>
+# Author:: Charles Johnson <charles@opscode.com>
 # Copyright (c) 2013, Opscode, Inc. <legal@opscode.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,14 +19,17 @@
 # limitations under the License.
 #
 
-remote_file "#{Chef::Config[:file_cache_path]}/knife-pushy-0.1.gem" do
+# Do not continue without a download URL
+return 'Please define the [\'push_jobs\'][\'gem_url\'] attribute before continuing.' unless node['push_jobs']['gem_url']
+
+package_file = PushJobsHelper.package_file(node['push_jobs']['gem_url'])
+
+remote_file "#{Chef::Config[:file_cache_path]}/#{package_file}" do
   source node['push_jobs']['gem_url']
-  notifies :install, 'gem_package[knife-pushy]', :immediately
-  only_if node['push_jobs']['gem_url']
+  checksum node['push_jobs']['gem_checksum']
+  mode 00644
 end
 
-gem_packge 'knife-pushy' do
-  if node['push_jobs']['gem_url']
-    source "#{Chef::Config[:file_cache_path]}/knife-pushy-0.1.gem"
-  end
+gem_package package_file do
+  source "#{Chef::Config[:file_cache_path]}/#{package_file}"
 end

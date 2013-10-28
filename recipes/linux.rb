@@ -52,7 +52,7 @@ else
     # opscode-push-jobs-client-1.0.0-1.el5.x86_64.rpm
     # opscode-push-jobs-client-1.0.0-1.el6.i686.rpm
     # opscode-push-jobs-client-1.0.0-1.el6.x86_64.rpm
-    package_file = "opscode-push-jobs-client-#{package_version}.#{node['platform_version']}.#{node['kernel']['machine']}.rpm"
+    package_file = "opscode-push-jobs-client-#{package_version}.el#{node['platform_version'].to_i}.#{node['kernel']['machine']}.rpm"
   else
     package_file = nil
   end
@@ -60,7 +60,7 @@ else
   package_url = "https://opscode-push-jobs-client.s3.amazonaws.com/#{package_version}/#{package_file}"
   package_checksum = node['push_jobs']['default_package_checksums'][package_file]
   if !package_checksum
-    raise "Unable to determine proper Pushy package for platform #{node['platform']} version #{node['platform_version']} on #{node['kernel']['machine']}.  Please specify package_url and package_checksum explicitly."
+    raise "Unable to determine proper Push Jobs Client package for platform #{node['platform']} version #{node['platform_version']} on #{node['kernel']['machine']}.  Please specify package_url and package_checksum explicitly."
   end
 end
 

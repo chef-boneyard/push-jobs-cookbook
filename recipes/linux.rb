@@ -58,7 +58,7 @@ else
   end
 
   package_url = "https://opscode-push-jobs-client.s3.amazonaws.com/#{package_version}/#{package_file}"
-  package_checksum = PushJobsHelper::DEFAULT_CHECKSUMS[package_file]
+  package_checksum = node['push_jobs']['default_package_checksums'][package_file]
   if !package_checksum
     raise "Unable to determine proper Pushy package for platform #{node['platform']} version #{node['platform_version']} on #{node['kernel']['machine']}.  Please specify package_url and package_checksum explicitly."
   end

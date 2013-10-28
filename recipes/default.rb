@@ -25,5 +25,5 @@ when 'windows'
 when 'debian', 'rhel'
   include_recipe 'push-jobs::linux'
 else
-  log 'This cookbook is currently only supported on Windows, Debian-family linux, and Redhat-family linux.'
+  raise 'This cookbook is currently only supported on Windows, Debian-family linux, and Redhat-family linux.'
 end

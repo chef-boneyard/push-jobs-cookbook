@@ -4,12 +4,13 @@ maintainer_email 'cookbooks@opscode.com'
 license          'Apache 2.0'
 description      'Installs the Opscode Push Jobs Client'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '0.4.0'
+version          '1.0.0'
 
 # Tested on Ubuntu 10.04, 12.04
 # Tested on CentOS 6.4
 supports 'ubuntu'
 supports 'centos'
+supports 'debian'
 supports 'windows'
 
 # For per-platform resources, respectively

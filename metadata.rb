@@ -10,6 +10,7 @@ version          '1.0.0'
 # Tested on CentOS 6.4
 supports 'ubuntu'
 supports 'centos'
+supports 'debian'
 supports 'windows'
 
 # For per-platform resources, respectively

@@ -19,6 +19,7 @@
 
 default['push_jobs']['package_url'] = nil
 default['push_jobs']['package_checksum'] = ''
+default['push_jobs']['package_version'] = '1.0.0-1'
 default['push_jobs']['gem_url'] = nil
 default['push_jobs']['gem_checksum'] = ''
 

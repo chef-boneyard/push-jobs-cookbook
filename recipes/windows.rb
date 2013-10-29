@@ -26,7 +26,7 @@ if node['push_jobs']['package_url']
   package_url = node['push_jobs']['package_url']
   package_checksum = node['push_jobs']['package_checksum']
 else
-  package_file = 'opscode-push-jobs-client-1.0.0+20131028192012-1.windows.msi'
+  package_file = 'opscode-push-jobs-client-1.0.0%2B20131028192012-1.windows.msi'
   package_url = "https://opscode-push-jobs-client.s3.amazonaws.com/1.0.0-1/#{package_file}"
   package_checksum = node['push_jobs']['default_package_checksums'][package_file]
 end

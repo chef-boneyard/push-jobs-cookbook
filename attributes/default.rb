@@ -34,7 +34,7 @@ end
 
 # These are the sha256 checksums of each platform's package, for when they are determined and retrieved algorithmically
 default['push_jobs']['default_package_checksums'] = {
-  'opscode-push-jobs-client-1.0.0+20131028192012-1.windows.msi' => 'ab3deb425682b1f025fce1980b91ed88d0912051c0801c7a295a17c2ac75096a',
+  'opscode-push-jobs-client-1.0.0%2B20131028192012-1.windows.msi' => 'ab3deb425682b1f025fce1980b91ed88d0912051c0801c7a295a17c2ac75096a',
   'opscode-push-jobs-client-1.0.0-1.el5.i686.rpm' => '0e6023b7d1b853eed63133f7d1e63fd6d55f5a06793098f016063669162bfae8',
   'opscode-push-jobs-client-1.0.0-1.el5.x86_64.rpm' => 'fadfa187e67f79f5d079843c7758a369dd9237be2db83fad46b24d607f827056',
   'opscode-push-jobs-client-1.0.0-1.el6.i686.rpm' => 'acda0d7389b81ead4e83883177a6c28fdafdd1f889229cc5c4c90646213a8c88',

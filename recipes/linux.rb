@@ -80,10 +80,12 @@ package 'opscode-push-jobs-client' do
   source "#{Chef::Config[:file_cache_path]}/#{package_file}"
 end
 
-directory Chef::Config.platform_specific_path('/etc/chef') do
-  owner 'root'
-  group 'root'
-  mode 00755
+unless File.exists?(Chef::Config.platform_specific_path('/etc/chef'))
+  directory Chef::Config.platform_specific_path('/etc/chef') do
+    owner 'root'
+    group 'root'
+    mode 00755
+  end
 end
 
 template Chef::Config.platform_specific_path('/etc/chef/push-jobs-client.rb') do

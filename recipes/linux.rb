@@ -47,7 +47,7 @@ else
     package_machine = node['kernel']['machine']
     package_machine = 'amd64' if package_machine == 'x86_64'
     package_file = "opscode-push-jobs-client_#{package_version}.ubuntu.#{node['platform_version']}_#{package_machine}.deb"
-  elsif platform?('centos')
+  elsif platform_family?('rhel')
     # opscode-push-jobs-client-1.0.0-1.el5.i686.rpm
     # opscode-push-jobs-client-1.0.0-1.el5.x86_64.rpm
     # opscode-push-jobs-client-1.0.0-1.el6.i686.rpm

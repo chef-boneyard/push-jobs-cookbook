@@ -1,36 +1,13 @@
 ---
 driver_plugin: vagrant
 driver_config:
-  require_chef_omnibus: 11.4.0
-
-provisioner: chef_solo
+  require_chef_omnibus: 'latest'
+provisioner: chef_zero
 platforms:
-
 - name: ubuntu-12.04
-  driver_config:
-    box: opscode-ubuntu-12.04
-  attributes:
-    push_jobs:
-      package_url: "https://opc11-tech-preview.s3.amazonaws.com/opscode-push-jobs-client_0.9.0-tech.preview.1%2B20130621231152.git.1.b4a8992-1.ubuntu.11.04_amd64.deb?AWSAccessKeyId=AKIAJFEFN6I3YE4UAMLA&Expires=1378919575&Signature=b9AGjsuFrdNAUDh8uZGhPe9IKVM%3D"
-      package_checksum: "1fdd05487749f7ad5f1d475cea5b62c4bd4f187eeaa2d90d37cf8d5be1e6e928"
-
 - name: ubuntu-10.04
-  driver_config:
-    box: opscode-ubuntu-10.04
-  attributes:
-    push_jobs:
-      package_url: "https://opc11-tech-preview.s3.amazonaws.com/opscode-push-jobs-client_0.9.0-tech.preview.1%2B20130621231152.git.1.b4a8992-1.ubuntu.10.04_amd64.deb?AWSAccessKeyId=AKIAJFEFN6I3YE4UAMLA&Expires=1378919575&Signature=yA1vo0gvoCNFsuWqCHwamIiSyx8%3D"
-      package_checksum: "617b380efa46b1d0661636179fbfc2bb1db1b407e39388a6bbdb1972be2f0728"
-
-
 - name: centos-6.4
-  driver_config:
-    box: opscode-centos-6.4
-  attributes:
-    push_jobs:
-      package_url: "https://opc11-tech-preview.s3.amazonaws.com/opscode-push-jobs-client-0.9.0_tech.preview.1%2B20130621231152.git.1.b4a8992-1.el6.x86_64.rpm?AWSAccessKeyId=AKIAJFEFN6I3YE4UAMLA&Expires=1378919575&Signature=BM4gvp7HOqJxp03YovculAUN8js%3D"
-      package_checksum: "617b380efa46b1d0661636179fbfc2bb1db1b407e39388a6bbdb1972be2f0728"
-
+- name: centos-5.9
 suites:
 - name: default
   run_list:

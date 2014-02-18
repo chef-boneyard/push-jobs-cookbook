@@ -1,13 +1,13 @@
 name             'push-jobs'
-maintainer       'Opscode, Inc.'
-maintainer_email 'cookbooks@opscode.com'
+maintainer       'Chef, Inc.'
+maintainer_email 'cookbooks@getchef.com'
 license          'Apache 2.0'
-description      'Installs the Opscode Push Jobs Client'
+description      'Installs the Chef Push Jobs Client'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '1.0.0'
 
 # Tested on Ubuntu 10.04, 12.04
-# Tested on CentOS 6.4
+# Tested on CentOS 6.4, 5.9
 supports 'ubuntu'
 supports 'centos'
 supports 'debian'
@@ -19,7 +19,7 @@ depends 'windows'
 
 attribute('push_jobs/package_url',
           :description => 'URL to a client package to download
-          for installing Opscode Push Job Client')
+          for installing Chef Push Job Client')
 
 attribute('push_jobs/package_checksum',
           :description => 'Checksum of the package file from package_url,

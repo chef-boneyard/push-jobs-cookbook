@@ -1,7 +1,8 @@
 #
 # Author:: Joshua Timberman <jtimberman@champagne.int.housepub.org>
-# Author:: Charles Johnson <charles@opscode.com>
-# Copyright:: Copyright (c) 2013, Joshua Timberman
+# Author:: Charles Johnson <charles@getchef.com>
+# Author:: Christopher Maier <cm@getchef.com>
+# Copyright 2013-2014 Chef, Inc. <legal@getchef.com>
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");

@@ -2,9 +2,10 @@
 # Cookbook Name:: push-jobs
 # Recipe:: default
 #
-# Author:: Joshua Timberman <joshua@opscode.com>
-# Author:: Charles Johnson <charles@opscode.com>
-# Copyright (c) 2013, Opscode, Inc. <legal@opscode.com>
+# Author:: Joshua Timberman <joshua@getchef.com>
+# Author:: Charles Johnson <charles@getchef.com>
+# Author:: Christopher Maier <cm@getchef.com>
+# Copyright 2013-2014, Chef, Inc. <legal@getchef.com>
 #
 # Licensed under the Apache License, Version 2.0 (the 'License');
 # you may not use this file except in compliance with the License.

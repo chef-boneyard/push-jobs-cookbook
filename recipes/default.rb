@@ -19,6 +19,10 @@
 # limitations under the License.
 #
 
+unless (node['push_jobs']['package_url'] && node['push_jobs']['package_checksum'])
+  raise "Please specify ['push_jobs']['package_url'] and ['push_jobs']['package_checksum'] attributes."
+end
+
 case node['platform_family']
 when 'windows'
   include_recipe 'push-jobs::windows'

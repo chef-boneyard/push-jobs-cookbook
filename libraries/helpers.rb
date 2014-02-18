@@ -28,5 +28,4 @@ module PushJobsHelper
     package_file = File.basename(uri.path)
     package_file
   end
-
 end

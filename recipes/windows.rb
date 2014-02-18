@@ -22,12 +22,7 @@
 # Do not continue if trying to run the Windows recipe on non-Windows
 raise 'This recipe only supports Windows' unless node['platform_family'] == 'windows'
 
-# OC-7332: need the version as part of the DisplayName. Hardcoding is
-# fine for now, it will be removed from the installer when the ticket
-# is resolved.
-display_name = 'Opscode Push Jobs Client Installer for Windows v0.0.1'
-
-windows_package display_name do
+windows_package "Opscode Push Jobs Client Installer for Windows" do
   source node['push_jobs']['package_url']
   checksum node['push_jobs']['package_checksum']
 end

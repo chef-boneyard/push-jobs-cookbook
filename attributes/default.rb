@@ -19,7 +19,6 @@
 
 default['push_jobs']['package_url']      = nil
 default['push_jobs']['package_checksum'] = ''
-default['push_jobs']['package_version']  = '1.0.0-1'
 default['push_jobs']['gem_url']          = nil
 default['push_jobs']['gem_checksum']     = ''
 
@@ -30,35 +29,4 @@ when 'debian', 'rhel'
   default['push_jobs']['service_string'] = 'runit_service[opscode-push-jobs-client]'
 when 'windows'
   default['push_jobs']['service_string'] = 'service[pushy-client]'
-end
-
-# These are the sha256 checksums of each platform's package, for when they are determined and retrieved algorithmically
-default['push_jobs']['default_package_checksums'] = {
-  'opscode-push-jobs-client-1.0.0%2B20131028192012-1.windows.msi' => 'ab3deb425682b1f025fce1980b91ed88d0912051c0801c7a295a17c2ac75096a',
-  'opscode-push-jobs-client-1.0.0-1.el5.i686.rpm'                 => '0e6023b7d1b853eed63133f7d1e63fd6d55f5a06793098f016063669162bfae8',
-  'opscode-push-jobs-client-1.0.0-1.el5.x86_64.rpm'               => 'fadfa187e67f79f5d079843c7758a369dd9237be2db83fad46b24d607f827056',
-  'opscode-push-jobs-client-1.0.0-1.el6.i686.rpm'                 => 'acda0d7389b81ead4e83883177a6c28fdafdd1f889229cc5c4c90646213a8c88',
-  'opscode-push-jobs-client-1.0.0-1.el6.x86_64.rpm'               => 'aaf73394de3bcea955fd791aa50d0ee27aaea8a0ac54fb839d31313912814343',
-  'opscode-push-jobs-client_1.0.0-1.ubuntu.10.04_amd64.deb'       => '1dbfaf2f2e7c427c3dc53cc66df03c38dc4a91f4dc07145ec300da35de0cbf86',
-  'opscode-push-jobs-client_1.0.0-1.ubuntu.10.04_i386.deb'        => '6a72eb218c66bf4155ed71ce358724d905c351c8e8894a2eb6806387ac7a9066',
-  'opscode-push-jobs-client_1.0.0-1.ubuntu.11.04_amd64.deb'       => '8aa01ffbeba089cc321fc0a0aab2e8064f69120165e638e79d3b1cd713904f1a',
-  'opscode-push-jobs-client_1.0.0-1.ubuntu.11.04_i386.deb'        => 'db91e682c782e32042d43d9ec39eec0d47f9348ea998177d3b2ae29402640035',
-  'opscode-push-jobs-client_1.0.0-1.ubuntu.12.04_amd64.deb'       => 'b32e439f1fd6f38dc7acfeb2d31fb173e9d5b3cbb439f88cee0ed19b2229e97b'
-}
-
-package_version = node['push_jobs']['package_version']
-package_machine = node['kernel']['machine']
-url_host        = "https://opscode-push-jobs-client.s3.amazonaws.com/#{package_version}"
-
-case node['platform_family']
-when 'debian'
-  package_machine = 'amd64' if package_machine == 'x86_64'
-  case node['platform']
-  when 'ubuntu'
-    default['push_jobs']['package_url'] = "#{url_host}/opscode-push-jobs-client_#{package_version}.ubuntu.#{node['platform_version']}_#{package_machine}.deb"
-  end
-when 'rhel'
-  default['push_jobs']['package_url'] = "#{url_host}/opscode-push-jobs-client-#{package_version}.el#{node['platform_version'].to_i}.#{node['kernel']['machine']}.rpm"
-when 'windows'
-  default['push_jobs']['package_url'] = "#{url_host}/opscode-push-jobs-client-1.0.0%2B20131028192012-1.windows.msi"
 end

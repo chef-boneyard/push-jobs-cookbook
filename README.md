@@ -1,14 +1,14 @@
 # push-jobs cookbook
 
-Installs the Opscode Push Jobs client package and sets it up to run as
+Installs the Chef Push Jobs client package and sets it up to run as
 a service.
 
 The official documentation is on
-[docs.opscode.com](http://docs.opscode.com/pushy.html)
+[docs.getchef.com](http://docs.getchef.com/pushy.html)
 
 # Requirements
 
-Requires Opscode Enterprise Chef with the Push
+Requires Enterprise Chef with the Push
 Jobs feature.
 
 * Chef: 11.4.0 or higher
@@ -78,12 +78,12 @@ The default recipe includes the appropriate recipe based on the node's
 ## linux
 
 The `node['push_jobs']['package_url']` attribute must be set for this
-recipe to download the Opscode Push Jobs Client package from the URL.
+recipe to download the Chef Push Jobs Client package from the URL.
 
 The recipe will write out the whitelist of
 jobs as a separate configuration file.
 
-It will also set up the Opscode Push Jobs Client daemon as a service
+It will also set up the Chef Push Jobs Client daemon as a service
 using `runit`. The default logger is used, so the log will be
 `/var/log/push-jobs-client/current`.
 
@@ -110,10 +110,12 @@ The client service will be enabled and started.
 
 # Author & License
 
-* Author: Joshua Timberman (<joshua@opscode.com>)
-* Author: Charles Johnson (<charles@opscode.com>)
-* Copyright (c): 2013 Opscode, Inc. (<legal@opscode.com>)
+* Author: Joshua Timberman (<joshua@getchef.com>)
+* Author: Charles Johnson (<charles@getchef.com>)
+* Author: Christopher Maier (<cm@getchef.com>)
+* Copyright: 2013-2014 Chef, Inc. (<legal@getchef.com>)
 
+```text
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -125,3 +127,4 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+```

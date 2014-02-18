@@ -11,7 +11,7 @@ describe 'push-jobs::windows' do
 
   it 'Installs the MSI file' do
     pending 'Extend the package matcher for Windows_package'
-    display_name = 'Opscode Push Jobs Client Installer for Windows v0.0.1'
+    display_name = 'Opscode Push Jobs Client Installer for Windows'
     expect(chef_run).to install_windows_package "#{display_name}"
   end
 

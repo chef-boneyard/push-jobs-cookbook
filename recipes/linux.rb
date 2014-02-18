@@ -22,13 +22,9 @@
 # Do not continue if trying to run the Linux recipe on Windows
 raise 'This recipe does not support Windows' if node['platform_family'] == 'windows'
 
-if node['push_jobs']['package_url'] && node['push_jobs']['package_checksum']
-  package_url      = node['push_jobs']['package_url']
-  package_file     = PushJobsHelper.package_file(node['push_jobs']['package_url'])
-  package_checksum = node['push_jobs']['package_checksum']
-else
-  raise "Unable to determine proper Push Jobs Client package for platform #{node['platform']} version #{node['platform_version']} on #{node['kernel']['machine']}.  Please specify package_url and package_checksum explicitly."
-end
+package_url      = node['push_jobs']['package_url']
+package_file     = PushJobsHelper.package_file(node['push_jobs']['package_url'])
+package_checksum = node['push_jobs']['package_checksum']
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{package_file}" do
   source package_url

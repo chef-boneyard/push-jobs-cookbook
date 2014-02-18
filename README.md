@@ -77,9 +77,8 @@ The default recipe includes the appropriate recipe based on the node's
 
 ## linux
 
-If the `node['push_jobs']['package_url']` attribute is set,
-this recipe will download the Opscode Push Jobs Client package from
-the URL.
+The `node['push_jobs']['package_url']` attribute must be set for this
+recipe to download the Opscode Push Jobs Client package from the URL.
 
 The recipe will write out the whitelist of
 jobs as a separate configuration file.

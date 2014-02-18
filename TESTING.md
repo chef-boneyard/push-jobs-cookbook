@@ -19,6 +19,12 @@ Install the Vagrant driver for Test Kitchen.
 
     gem install kitchen-vagrant
 
+Currently, it is necessary to supply both
+`node['push_jobs']['package_url']` and
+`node['push_jobs']['package_checksum']` attributes.  See the
+`.kitchen.local.yml.example` file for how you can do this.  Simply
+copy that file to `.kitchen.local.yml` and edit it as appropriate.
+
 Once the above are installed, you should be able to run Test Kitchen:
 
     kitchen list

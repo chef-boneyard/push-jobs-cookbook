@@ -1,5 +1,5 @@
 name             'push-jobs'
-maintainer       'Chef, Inc.'
+maintainer       'Chef Software, Inc.'
 maintainer_email 'cookbooks@getchef.com'
 license          'Apache 2.0'
 description      'Installs the Chef Push Jobs Client'

@@ -113,7 +113,7 @@ The client service will be enabled and started.
 * Author: Joshua Timberman (<joshua@getchef.com>)
 * Author: Charles Johnson (<charles@getchef.com>)
 * Author: Christopher Maier (<cm@getchef.com>)
-* Copyright: 2013-2014 Chef, Inc. (<legal@getchef.com>)
+* Copyright: 2013-2014 Chef Software, Inc. (<legal@getchef.com>)
 
 ```text
 Licensed under the Apache License, Version 2.0 (the "License");

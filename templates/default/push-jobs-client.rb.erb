@@ -5,7 +5,7 @@
 Chef::Config.from_file("/etc/chef/client.rb")
 
 # The whitelist comes from node['push_jobs']['whitelist']
-whitelist(<%= @whitelist.inspect %>)
+whitelist(<%= @whitelist.to_hash.inspect %>)
 
 # We're under runit, so don't output timestamp
 Mixlib::Log::Formatter.show_time = false

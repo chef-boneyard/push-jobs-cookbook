@@ -24,6 +24,10 @@ unless (node['push_jobs']['package_url'] && node['push_jobs']['package_checksum'
   raise "Please specify ['push_jobs']['package_url'] and ['push_jobs']['package_checksum'] attributes."
 end
 
+unless (node['push_jobs']['whitelist'].is_a? Hash)
+  raise "node['push_jobs']['whitelist'] should have a hash value!"
+end
+
 case node['platform_family']
 when 'windows'
   include_recipe 'push-jobs::windows'

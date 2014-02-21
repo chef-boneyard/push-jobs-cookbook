@@ -4,7 +4,7 @@ Installs the Chef Push Jobs client package and sets it up to run as
 a service.
 
 The official documentation is on
-[docs.getchef.com](http://docs.getchef.com/pushy.html)
+[docs.getchef.com](http://docs.opscode.com/pushy.html)
 
 # Requirements
 

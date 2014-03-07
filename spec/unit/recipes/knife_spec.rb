@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'push-jobs::knife' do
   let(:chef_run) do
-    runner = ChefSpec::ChefRunner.new
+    runner = ChefSpec::Runner.new
     runner.node.set['push_jobs']['gem_url'] = 'http://foo.bar.com/knife-pushy-0.1.gem?key=value'
     runner.converge('recipe[push-jobs::knife]')
   end

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'push-jobs::windows' do
 
   let(:chef_run) do
-    runner = ChefSpec::ChefRunner.new(platform: 'windows', version: '2008R2')
+    runner = ChefSpec::Runner.new(platform: 'windows', version: '2008R2')
     runner.node.set['push_jobs']['package_url'] = 'http://foo.bar.com/opscode-push-jobs-client_x86_64.msi?key=value'
     runner.node.set['push_jobs']['whitelist'] = { 'chef-client' => 'chef-client' }
     runner.converge('recipe[push-jobs::windows]')

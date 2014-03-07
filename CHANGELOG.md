@@ -1,3 +1,8 @@
+# 2.2.0 - 2014-03-07
+- Move config and service resources to separate recipes
+- Add new helper methods for config path
+- Update ChefSpec to v3 and specs to match
+
 # 2.0.1 - 2014-02-20
 - Make whitelist rendering is more robust
 - Ensure `node['push_jobs']['whitelist']` is a Hash (or subclass

@@ -4,7 +4,7 @@ source "https://rubygems.org"
   gem "thor-foodcritic", "~> 0.2"
 
 group :test do
-  gem "chefspec", "~> 2.0"
+  gem "chefspec", "~> 3.2.0"
   gem "foodcritic", "~> 2.0"
   gem "rake", "~> 10.1"
   gem "tailor", "~> 1.2"

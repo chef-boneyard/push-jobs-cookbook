@@ -20,6 +20,7 @@
 #
 
 require 'uri'
+require 'chef/config'
 
 # Helper functions for Push Jobs cookbook
 module PushJobsHelper
@@ -27,5 +28,13 @@ module PushJobsHelper
     uri = ::URI.parse(::URI.unescape(url))
     package_file = File.basename(uri.path)
     package_file
+  end
+
+  def self.config_path
+    ::File.join(config_dir, 'push-jobs-client.rb')
+  end
+
+  def self.config_dir
+    Chef::Config.platform_specific_path('/etc/chef')
   end
 end

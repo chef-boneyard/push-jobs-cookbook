@@ -34,34 +34,14 @@ remote_file "#{Chef::Config[:file_cache_path]}/#{package_file}" do
 end
 
 package 'opscode-push-jobs-client' do
-  case node['platform_family']
-  when 'debian'
-    provider Chef::Provider::Package::Dpkg
-  when 'rhel'
-    provider Chef::Provider::Package::Rpm
-  end
+  provider case node['platform_family']
+           when 'debian'
+             Chef::Provider::Package::Dpkg
+          when 'rhel'
+            Chef::Provider::Package::Rpm
+          end
   source "#{Chef::Config[:file_cache_path]}/#{package_file}"
 end
 
-unless File.exists?(Chef::Config.platform_specific_path('/etc/chef'))
-  directory Chef::Config.platform_specific_path('/etc/chef') do
-    owner 'root'
-    group 'root'
-    mode 00755
-  end
-end
-
-template Chef::Config.platform_specific_path('/etc/chef/push-jobs-client.rb') do
-  source 'push-jobs-client.rb.erb'
-  owner 'root'
-  group 'root'
-  mode 00644
-  variables(:whitelist => node['push_jobs']['whitelist'])
-  notifies :restart, node['push_jobs']['service_string']
-end
-
-include_recipe 'runit'
-
-runit_service 'opscode-push-jobs-client' do
-  default_logger true
-end
+include_recipe 'push-jobs::config'
+include_recipe 'push-jobs::service'

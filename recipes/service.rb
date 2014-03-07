@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: push-jobs
-# Recipe:: windows
+# Recipe:: service
 #
 # Author:: Joshua Timberman <joshua@getchef.com>
 # Author:: Charles Johnson <charles@getchef.com>
@@ -20,13 +20,26 @@
 # limitations under the License.
 #
 
-# Do not continue if trying to run the Windows recipe on non-Windows
-raise 'This recipe only supports Windows' unless node['platform_family'] == 'windows'
+case node['platform_family']
+when 'windows'
+  registry_key 'HKLM\\SYSTEM\\CurrentControlSet\\Services\\pushy-client' do
+    values([{
+          :name => 'Parameters',
+          :type => :string,
+          :data => "-c #{PushJobsHelper.config_path}"
+          }])
+    notifies :restart, node['push_jobs']['service_string']
+  end
 
-windows_package "Opscode Push Jobs Client Installer for Windows" do
-  source node['push_jobs']['package_url']
-  checksum node['push_jobs']['package_checksum']
+  service 'pushy-client' do
+    action [:enable, :start]
+    subscribes :restart, "template[#{PushJobsHelper.config_path}]"
+  end
+when 'debian', 'rhel'
+  include_recipe 'runit'
+
+  runit_service 'opscode-push-jobs-client' do
+    default_logger true
+    subscribes :restart, "template[#{PushJobsHelper.config_path}]"
+  end
 end
-
-include_recipe 'push-jobs::config'
-include_recipe 'push-jobs::service'

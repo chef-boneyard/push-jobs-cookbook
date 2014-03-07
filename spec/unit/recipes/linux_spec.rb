@@ -17,14 +17,8 @@ describe 'push-jobs::linux' do
     expect(chef_run).to install_package 'opscode-push-jobs-client'
   end
 
-  it 'Creates the /etc/chef directory' do
-    expect(chef_run).to create_directory '/etc/chef'
-  end
-
-  it 'Creates the /etc/chef/push-jobs-client.rb file' do
-    expect(chef_run).to create_file_with_content '/etc/chef/push-jobs-client.rb', 'whitelist({"chef-client"=>"chef-client"})'
-    file = chef_run.template('/etc/chef/push-jobs-client.rb')
-    expect(file).to be_owned_by('root', 'root')
+  it 'includes the config recipe' do
+    expect(chef_run).to include_recipe("#{described_cookbook}::config")
   end
 
   it 'starts the opscode-push-jobs-client' do

@@ -15,12 +15,8 @@ describe 'push-jobs::windows' do
     expect(chef_run).to install_windows_package "#{display_name}"
   end
 
-  it 'Creates the /etc/chef directory' do
-    expect(chef_run).to create_directory '/etc/chef'
-  end
-
-  it 'Creates the /etc/chef/push-jobs-client.rb file' do
-    expect(chef_run).to create_file_with_content '/etc/chef/push-jobs-client.rb', 'whitelist({"chef-client"=>"chef-client"})'
+  it 'Includes the config recipe' do
+    expect(chef_run).to include_recipe "#{described_cookbook}::config"
   end
 
   it 'Configures the pushy-client registry key' do

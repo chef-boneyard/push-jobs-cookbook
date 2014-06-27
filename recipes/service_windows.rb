@@ -2,9 +2,6 @@
 # Cookbook Name:: push-jobs
 # Recipe:: service
 #
-# Author:: Joshua Timberman <joshua@getchef.com>
-# Author:: Charles Johnson <charles@getchef.com>
-# Author:: Christopher Maier <cm@getchef.com>
 # Author:: Tyler Fitch <tfitch@getchef.com>
 # Copyright 2013-2014 Chef Software, Inc. <legal@getchef.com>
 #
@@ -21,17 +18,16 @@
 # limitations under the License.
 #
 
-supported_init_styles = %w{
-  runit
-  windows
-}
-
-init_style = node['push_jobs']['init_style']
-
-# Services moved to recipes
-if supported_init_styles.include? init_style
-  include_recipe "push-jobs::service_#{init_style}"
-else
-  log 'Could not determine service init style, manual intervention required to start up the chef-client service.'
+registry_key 'HKLM\\SYSTEM\\CurrentControlSet\\Services\\pushy-client' do
+  values([{
+        :name => 'Parameters',
+        :type => :string,
+        :data => "-c #{PushJobsHelper.config_path}"
+        }])
+  notifies :restart, node['push_jobs']['service_string']
 end
 
+service 'pushy-client' do
+  action [:enable, :start]
+  subscribes :restart, "template[#{PushJobsHelper.config_path}]"
+end

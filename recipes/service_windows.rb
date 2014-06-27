@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: push-jobs
-# Recipe:: service
+# Recipe:: service_windows
 #
 # Author:: Tyler Fitch <tfitch@getchef.com>
 # Copyright 2013-2014 Chef Software, Inc. <legal@getchef.com>

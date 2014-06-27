@@ -32,6 +32,6 @@ init_style = node['push_jobs']['init_style']
 if supported_init_styles.include? init_style
   include_recipe "push-jobs::service_#{init_style}"
 else
-  log 'Could not determine service init style, manual intervention required to start up the chef-client service.'
+  log 'Could not determine service init style, manual intervention required to start up the push-jobs-client service.'
 end
 

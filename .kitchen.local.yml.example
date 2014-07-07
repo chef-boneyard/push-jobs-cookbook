@@ -10,7 +10,17 @@ platforms:
     push_jobs:
       package_url: "http://example.com/push-jobs-client-1.0.0-1.deb"
       package_checksum: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+- name: ubuntu-10.04
+  attributes:
+    push_jobs:
+      package_url: "http://example.com/push-jobs-client-1.0.0-1.deb"
+      package_checksum: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 - name: centos-6.4
+  attributes:
+    push_jobs:
+      package_url: "http://example.com/push-jobs-client-1.0.0-1.rpm"
+      package_checksum: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+- name: centos-5.10
   attributes:
     push_jobs:
       package_url: "http://example.com/push-jobs-client-1.0.0-1.rpm"

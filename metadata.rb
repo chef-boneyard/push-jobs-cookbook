@@ -6,8 +6,8 @@ description      'Installs the Chef Push Jobs Client'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '2.2.1'
 
-# Tested on Ubuntu 14.04, 12.04
-# Tested on CentOS 6.4
+# Tested on Ubuntu 14.04, 12.04, 10.04
+# Tested on CentOS 6.4, 5.10
 supports 'ubuntu'
 supports 'centos'
 supports 'debian'

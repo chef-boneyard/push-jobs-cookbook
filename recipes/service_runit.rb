@@ -1,10 +1,7 @@
 #
 # Cookbook Name:: push-jobs
-# Recipe:: service
+# Recipe:: service_runit
 #
-# Author:: Joshua Timberman <joshua@getchef.com>
-# Author:: Charles Johnson <charles@getchef.com>
-# Author:: Christopher Maier <cm@getchef.com>
 # Author:: Tyler Fitch <tfitch@getchef.com>
 # Copyright 2013-2014 Chef Software, Inc. <legal@getchef.com>
 #
@@ -21,17 +18,9 @@
 # limitations under the License.
 #
 
-supported_init_styles = %w{
-  runit
-  windows
-}
+include_recipe 'runit'
 
-init_style = node['push_jobs']['init_style']
-
-# Services moved to recipes
-if supported_init_styles.include? init_style
-  include_recipe "push-jobs::service_#{init_style}"
-else
-  log 'Could not determine service init style, manual intervention required to start up the push-jobs-client service.'
+runit_service 'opscode-push-jobs-client' do
+  default_logger true
+  subscribes :restart, "template[#{PushJobsHelper.config_path}]"
 end
-

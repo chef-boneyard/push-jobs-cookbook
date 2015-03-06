@@ -141,6 +141,20 @@ manager with remote repositories. The URL will be used (with the
 checksum attribute) to install the package using the `windows_package`
 resource from the `windows` cookbook.
 
+# Verify Push Jobs Client Connection
+
+If the push-jboss client has been successfully installed on a node, the 
+client should be able to successfully respond to a `knife job` directed
+to the node.  If the node is not responding correctly, please consult the 
+logs `/var/log/push-jobs-client/current` (for Debian and Rhel families) and
+look for entries similar to the following:
+
+    INFO: [pclient] Starting client ...
+    INFO: [pclient] Retrieving configuration from https://private-chef-server/organizations/org1/pushy/config/pc_6_1 ...
+    INFO: [pclient] Connecting to command channel at tcp://private-chef-server:10002
+    INFO: [pclient] Listening for server heartbeat at tcp://private-chef-server:10000
+    INFO: [pclient] Started client.
+
 # Author & License
 
 * Author: Joshua Timberman (<joshua@getchef.com>)

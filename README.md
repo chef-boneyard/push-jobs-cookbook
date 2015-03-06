@@ -147,6 +147,21 @@ manager with remote repositories. The URL will be used (with the
 checksum attribute) to install the package using the `windows_package`
 resource from the `windows` cookbook.
 
+# Client Connection Configuration
+
+The push job client establishes a command and heartbeat channel to the
+push server over **tcp**.  The tcp connection information is read from 
+the Chef Server upon startup of the push client service from an endpoint
+similar to the following:
+
+    https://private-chef-server/organizations/org1/pushy/config/
+
+The connection information for the push server is established when the
+push server is installed and the Chef Server is reconfigured.  In the case
+the Chef Server is not providing the correct push server configuration, 
+please verify hostnames are correct and that both the push server and 
+Chef Server have been reconfigured.
+
 # Verify Push Jobs Client Connection
 
 If the push-jboss client has been successfully installed on a node, the 

@@ -27,6 +27,16 @@ without modification.
 
 Testing for Ubuntu/CentOS can be done with Test Kitchen, see TESTING.md in this repository.
 
+# Install the Workstation
+To set up the Chef push jobs workstation, install the knife push plugin. The simplest way to install the plugin is by entering the following command at a shell prompt:
+
+    chef gem install knife-push  
+
+Alternatives to chef gem install be found at https://docs.chef.io/plugin_knife_custom.html#install-a-plugin. Once installed, the following subcommands will be available: 
+* knife job list
+* knife job start
+* knife job status.
+
 # Usage
 
 Set the appropriate attributes and include the default recipe in a

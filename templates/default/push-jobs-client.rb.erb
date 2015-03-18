@@ -6,7 +6,15 @@
 <%= key %>='<%= value %>'
 <% end %>
 
-Chef::Config.from_file(PathHelper.join(Chef::Config.platform_specific_path("/etc/chef/"), "client.rb"))
+#Chef::Config.from_file(PathHelper.join(Chef::Config.platform_specific_path("/etc/chef/"), "client.rb"))
+
+node_name  `hostname`.chomp
+
+chef_server_url  "<%= @chef_server_url %>"
+
+client_key                  '/etc/chef/secure/client.pem'
+trusted_certs_dir           '/etc/chef/secure/trusted_certs'
+verify_api_cert false
 
 # The whitelist comes from node['push_jobs']['whitelist']
 whitelist(<%= @whitelist.to_hash.inspect %>)

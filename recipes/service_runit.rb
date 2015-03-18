@@ -23,4 +23,6 @@ include_recipe 'runit'
 runit_service 'opscode-push-jobs-client' do
   default_logger true
   subscribes :restart, "template[#{PushJobsHelper.config_path}]"
+  action [ :enable, :start ]
+  retries 15
 end

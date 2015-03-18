@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe 'push-jobs::linux' do
-  let(:chef_run) do
-    runner = ChefSpec::Runner.new(platform: 'ubuntu', version: '10.04')
+  cached(:chef_run) do
+    runner = ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '10.04')
     runner.converge('recipe[push-jobs::config]')
   end
 

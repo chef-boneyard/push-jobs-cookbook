@@ -18,18 +18,19 @@
 # limitations under the License.
 #
 
-default['push_jobs']['package_url']      = nil
-default['push_jobs']['package_checksum'] = ''
-default['push_jobs']['gem_url']          = nil
-default['push_jobs']['gem_checksum']     = ''
-
-default['push_jobs']['whitelist']   = { 'chef-client' => 'chef-client' }
+default['push_jobs']['package_url']           = nil
+default['push_jobs']['package_checksum']      = ''
+default['push_jobs']['gem_url']               = nil
+default['push_jobs']['gem_checksum']          = ''
+default['push_jobs']['whitelist']             = { 'chef-client' => 'chef-client' }
+default['push_jobs']['cookbook']              = 'push-jobs'
+default['push_jobs']['environment_variables'] = {}
 
 case node['platform_family']
 when 'debian', 'rhel'
-  default['push_jobs']['service_string'] = 'runit_service[opscode-push-jobs-client]'
-  default['push_jobs']['init_style']     = 'runit'
+  default['push_jobs']['service_string']      = 'runit_service[opscode-push-jobs-client]'
+  default['push_jobs']['init_style']          = 'runit'
 when 'windows'
-  default['push_jobs']['service_string'] = 'service[pushy-client]'
-  default['push_jobs']['init_style']     = 'windows'
+  default['push_jobs']['service_string']      = 'service[pushy-client]'
+  default['push_jobs']['init_style']          = 'windows'
 end

@@ -32,7 +32,7 @@ end
 
 template PushJobsHelper.config_path do
   source 'push-jobs-client.rb.erb'
-  cookbook node['push_jobs']['cookbook']
+  cookbook node['push_jobs']['config']['template_cookbook']
   unless platform_family?('windows')
     owner 'root'
     group 'root'

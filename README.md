@@ -95,8 +95,9 @@ This recipe ensures the platform-specific configuration directory
 (`push-jobs-client.rb`) using the `whitelist` attribute.
 Any environment variables can be set using `environment_variables`
 attribute with key value pairs.
-In order to override this configuration file in wrapper cookbook
-set the `cookbook` attribute to the name of the wrapper cookbook.
+If you need to further customize the push-jobs-client.rb file,
+you can provide your own template in a wrapper cookbook and set the
+`['config']['template_cookbook']` attribute to the name of that wrapper cookbook.
 
 
 The path to the configuration file is set using the `PushJobsHelper`

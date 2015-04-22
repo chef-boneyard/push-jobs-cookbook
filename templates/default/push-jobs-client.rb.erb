@@ -2,7 +2,11 @@
 #
 # Local modifications will be overwritten!
 
-Chef::Config.from_file("/etc/chef/client.rb")
+<% @env_variables.each do |key, value| %>
+  <%= key %>=<%= value %>
+<% end %>
+
+Chef::Config.from_file('/etc/chef/client.rb')
 
 # The whitelist comes from node['push_jobs']['whitelist']
 whitelist(<%= @whitelist.to_hash.inspect %>)

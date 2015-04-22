@@ -93,6 +93,12 @@ The default recipe includes the appropriate recipe based on the node's
 This recipe ensures the platform-specific configuration directory
 (`/etc/chef`) is created, and renders the configuration file
 (`push-jobs-client.rb`) using the `whitelist` attribute.
+Any environment variables can be set using `environment_variables`
+attribute with key value pairs.
+You can provide your own `push-jobs-client.rb.erb` template file in
+a wrapper cookbook and set the `['config']['template_cookbook']`
+attribute to the name of that wrapper cookbook.
+
 
 The path to the configuration file is set using the `PushJobsHelper`
 module's `#config_path` method. This is done to ensure the correct

@@ -16,3 +16,4 @@ suites:
   attributes:
     push_jobs:
       whitelist: {chef-client: "chef-client"}
+      environment_variables: {LC_ALL: "en_US.UTF-8"}

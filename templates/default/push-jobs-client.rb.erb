@@ -3,7 +3,7 @@
 # Local modifications will be overwritten!
 
 <% @env_variables.each do |key, value| %>
-  <%= key %>=<%= value %>
+<%= key %>='<%= value %>'
 <% end %>
 
 Chef::Config.from_file('/etc/chef/client.rb')

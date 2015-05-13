@@ -4,7 +4,7 @@ Installs the Chef Push Jobs client package and sets it up to run as
 a service.
 
 The official documentation is on
-[docs.getchef.com](http://docs.opscode.com/push_jobs.html)
+[docs.chef.io](http://docs.chef.io/push_jobs.html)
 
 # Requirements
 
@@ -26,6 +26,16 @@ R2. It may work on other debian, rhel, or windows platform families with or
 without modification.
 
 Testing for Ubuntu/CentOS can be done with Test Kitchen, see TESTING.md in this repository.
+
+# Install the Workstation
+To set up the Chef push jobs workstation, install the knife push plugin. The simplest way to install the plugin is by entering the following command at a shell prompt:
+
+    chef gem install knife-push  
+
+Alternatives to chef gem install be found at https://docs.chef.io/plugin_knife_custom.html#install-a-plugin. Once installed, the following subcommands will be available: 
+* knife job list
+* knife job start
+* knife job status.
 
 # Usage
 
@@ -136,6 +146,35 @@ to use this recipe, as Windows does not have the concept of a package
 manager with remote repositories. The URL will be used (with the
 checksum attribute) to install the package using the `windows_package`
 resource from the `windows` cookbook.
+
+# Client Connection Configuration
+
+The push job client establishes a command and heartbeat channel to the
+push server over **tcp**.  The tcp connection information is read from 
+the Chef Server upon startup of the push client service from an endpoint
+similar to the following:
+
+    https://private-chef-server/organizations/org1/pushy/config/
+
+The connection information for the push server is established when the
+push server is installed and the Chef Server is reconfigured.  In the case
+the Chef Server is not providing the correct push server configuration, 
+please verify hostnames are correct and that both the push server and 
+Chef Server have been reconfigured.
+
+# Verify Push Jobs Client Connection
+
+If the push-jboss client has been successfully installed on a node, the 
+client should be able to successfully respond to a `knife job` directed
+to the node.  If the node is not responding correctly, please consult the 
+logs `/var/log/push-jobs-client/current` (for Debian and Rhel families) and
+look for entries similar to the following:
+
+    INFO: [pclient] Starting client ...
+    INFO: [pclient] Retrieving configuration from https://private-chef-server/organizations/org1/pushy/config/pc_6_1 ...
+    INFO: [pclient] Connecting to command channel at tcp://private-chef-server:10002
+    INFO: [pclient] Listening for server heartbeat at tcp://private-chef-server:10000
+    INFO: [pclient] Started client.
 
 # Author & License
 

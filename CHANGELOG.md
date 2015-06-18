@@ -1,3 +1,12 @@
+# 2.3.0 - 2015-06-18
+- Support environment variables in config file
+- Correctly generate the chef client config.rb path on windows boxes.
+- Greatly improved README
+
+# 2.2.1 - 2014-07-09
+- Refactored the service creation in the same manner as chef-client cookbook.
+- Changed up the kitchen file to remove CentOS 5.9 and switched out Ubuntu 10.04 for Ubuntu 14.04.
+
 # 2.2.0 - 2014-03-07
 - Move config and service resources to separate recipes
 - Add new helper methods for config path

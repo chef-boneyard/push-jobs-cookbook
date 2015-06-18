@@ -164,7 +164,7 @@ Chef Server have been reconfigured.
 
 # Verify Push Jobs Client Connection
 
-If the push-jboss client has been successfully installed on a node, the 
+If the push client has been successfully installed on a node, the 
 client should be able to successfully respond to a `knife job` directed
 to the node.  If the node is not responding correctly, please consult the 
 logs `/var/log/push-jobs-client/current` (for Debian and Rhel families) and

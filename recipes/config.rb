@@ -45,5 +45,6 @@ template PushJobsHelper.config_path do
     trusted_certs_path: node['push_jobs']['chef']['trusted_certs_path'],
     whitelist: node['push_jobs']['whitelist'],
     env_variables: node['push_jobs']['environment_variables'],
-    verify_api_cert: node['push_jobs']['chef']['verify_api_cert'])
+    verify_api_cert: node['push_jobs']['chef']['verify_api_cert'],
+    ssl_verify_mode: node['push_jobs']['chef']['ssl_verify_mode'])
 end

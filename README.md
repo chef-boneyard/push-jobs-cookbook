@@ -1,19 +1,20 @@
 # push-jobs cookbook
 
-Installs the Chef Push Jobs client package and sets it up to run as
+Installs the Chef Push client package and sets it up to run as
 a service.
 
 The official documentation is on
-[docs.getchef.com](http://docs.opscode.com/push_jobs.html)
+[docs.chef.io](http://docs.chef.io/push_jobs.html)
 
 # Requirements
 
-Requires Enterprise Chef with the Push
+Requires Chef Server with the Push
 Jobs feature.
 
 * Chef: 11.4.0 or higher
 * runit cookbook
 * windows cookbook
+* chef-ingredient cookbook
 
 ## Platform
 
@@ -29,18 +30,12 @@ Testing for Ubuntu/CentOS can be done with Test Kitchen, see TESTING.md in this 
 
 # Usage
 
-Set the appropriate attributes and include the default recipe in a
-node's run list. The URL to the package to install and its SHA256
-checksum are required so the package may be retrieved. For example:
+Include the default recipe in a node's run list. On Windows, the URL to the package to install and its SHA256 checksum are required so the package may be retrieved. For example:
 
-    node.set['push_jobs']['package_url'] = "http://www.example.com/pkgs/opscode-push-jobs-client_1.0.1-1.ubuntu.12.04_amd64.deb"
+    node.set['push_jobs']['package_url'] = "http://www.example.com/pkgs/opscode-push-jobs-client-windows-1.1.5-1.windows.msi"
     node.set['push_jobs']['package_checksum'] = "a-sha256-checksum"
 
-In order for the push jobs to be used, a whitelist of job names and
-their commands must be set in the configuration file. This is
-automatically generated from the attribute
-`node['push_jobs']['whitelist']`. This attribute must be a Hash. For
-example:
+Set a whitelist of job names and their commands in the configuration file. This is automatically generated from the `node['push_jobs']['whitelist']` attribute Hash, such as:
 
     node.set['push_jobs']['whitelist'] = {
       "chef-client" => "chef-client",
@@ -84,7 +79,7 @@ together (include the `default` recipe), or as necessary.
 The default recipe includes the appropriate recipe based on the node's
 `platform_family`. It will `raise` an error if:
 
-- The package URL and checksum attributes are not set.
+- The package URL and checksum attributes are not set on Windows
 - The whitelist is not a Hash.
 - The node's platform is not supported.
 
@@ -107,8 +102,7 @@ file path is used on Linux and Windows platforms, as it uses
 
 ## linux
 
-The `node['push_jobs']['package_url']` attribute must be set for this
-recipe to download the Chef Push Jobs Client package from the URL.
+This recipe downloads and installs the Chef Push client from CHEF's public repositories. Setting the `node['push_jobs']['package_version']` attribute installs a specific version from the public repositories. Setting the `node['push_jobs']['package_url']` and `node['push_jobs']['package_checksum']` attributes together will override the default behavior and download the package from the specified URL.
 
 ## knife
 
@@ -131,9 +125,8 @@ template is changed, using `subscribes` notification.
 
 ## windows
 
-The `node['push_jobs']['package_url']` attribute must be set
-to use this recipe, as Windows does not have the concept of a package
-manager with remote repositories. The URL will be used (with the
+The `node['push_jobs']['package_url']` and `node['push_jobs']['package_checksum']` attributes must be set
+to use this recipe. The URL will be used (with the
 checksum attribute) to install the package using the `windows_package`
 resource from the `windows` cookbook.
 

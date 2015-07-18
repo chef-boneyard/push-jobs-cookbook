@@ -20,6 +20,7 @@
 
 default['push_jobs']['package_url']                 = nil
 default['push_jobs']['package_checksum']            = ''
+default['push_jobs']['package_version']             = nil
 default['push_jobs']['gem_url']                     = nil
 default['push_jobs']['gem_checksum']                = ''
 default['push_jobs']['whitelist']                   = { 'chef-client' => 'chef-client' }

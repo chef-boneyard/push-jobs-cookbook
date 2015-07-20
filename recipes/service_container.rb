@@ -2,8 +2,8 @@
 # Cookbook Name:: push-jobs
 # Recipe:: service_runit
 #
-# Author:: Tyler Fitch <tfitch@getchef.com>
-# Copyright 2013-2014 Chef Software, Inc. <legal@getchef.com>
+# Author:: Mark Anderson <mark@chef.io>
+# Copyright 2015 Chef Software, Inc. <legal@chef.io>
 #
 # Licensed under the Apache License, Version 2.0 (the 'License');
 # you may not use this file except in compliance with the License.
@@ -18,17 +18,18 @@
 # limitations under the License.
 #
 
-include_recipe 'runit'
+require 'chef-init'
+require 'chef/provider/container_service'
+require 'chef/resource/container_service'
 
 debug_flag = node[:push_jobs]['debug'] || ":info"
 
-runit_service 'opscode-push-jobs-client' do
-  options({
-            :debug => debug_flag,
-            :config => PushJobsHelper.config_path
-          })
-  default_logger true
+service 'opscode-push-jobs-client' do
+  provider Chef::Provider::ContainerService::Runit
+#  options({
+#            :debug => debug_flag,
+#            :config => PushJobsHelper.config_path
+#          })
+  action [:start]
   subscribes :restart, "template[#{PushJobsHelper.config_path}]"
-  action [ :enable, :start ]
-  retries 15
 end

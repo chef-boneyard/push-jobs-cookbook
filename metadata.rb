@@ -7,7 +7,7 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '2.4.0'
 
 # Tested on Ubuntu 14.04, 12.04, 10.04
-# Tested on CentOS 6.4, 5.10
+# Tested on CentOS 7.1, 6.6, 5.11
 supports 'ubuntu'
 supports 'centos'
 supports 'debian'

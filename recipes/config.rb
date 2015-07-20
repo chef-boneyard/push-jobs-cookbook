@@ -38,5 +38,9 @@ template PushJobsHelper.config_path do
     group 'root'
     mode 00644
   end
-  variables(:whitelist => node['push_jobs']['whitelist'], :env_variables => node['push_jobs']['environment_variables'])
+  variables(
+    :chef_server_url => Chef::Config.chef_server_url,
+    :whitelist => node['push_jobs']['whitelist'],
+    :env_variables => node['push_jobs']['environment_variables'])
+
 end

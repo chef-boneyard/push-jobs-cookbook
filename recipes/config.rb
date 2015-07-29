@@ -40,7 +40,10 @@ template PushJobsHelper.config_path do
   end
   variables(
     :chef_server_url => Chef::Config.chef_server_url,
+    :node_name => Chef::Config[:node_name],
+    :client_key_path => node['push_jobs']['chef']['client_key_path'],
+    :trusted_certs_path => node['push_jobs']['chef']['trusted_certs_path'],
     :whitelist => node['push_jobs']['whitelist'],
-    :env_variables => node['push_jobs']['environment_variables'])
-
+    :env_variables => node['push_jobs']['environment_variables'],
+    :verify_api_cert => node['push_jobs']['chef']['verify_api_cert'])
 end

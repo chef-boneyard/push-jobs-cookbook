@@ -1,3 +1,7 @@
+v2.4.1 (2015-07-29)
+-------------------
+- #41 - fix client path and node_name
+
 v2.4.0 (2015-07-20)
 -------------------
 - Using chef-ingredient

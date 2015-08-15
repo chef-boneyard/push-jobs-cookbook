@@ -29,13 +29,15 @@ default['push_jobs']['environment_variables']       = { 'LC_ALL' => 'en_US.UTF-8
 
 case node['platform_family']
 when 'debian', 'rhel'
-  default['push_jobs']['service_string']            = 'runit_service[opscode-push-jobs-client]'
-  default['push_jobs']['init_style']                = 'runit'
+  default['push_jobs']['service_string']             = 'runit_service[opscode-push-jobs-client]'
+  default['push_jobs']['init_style']                 = 'runit'
+  default['push_jobs']['chef']['client_key_path']    = '/etc/chef/client.pem'
+  default['push_jobs']['chef']['trusted_certs_path'] = '/etc/chef/trusted_certs'
 when 'windows'
-  default['push_jobs']['service_string']            = 'service[pushy-client]'
-  default['push_jobs']['init_style']                = 'windows'
+  default['push_jobs']['service_string']             = 'service[pushy-client]'
+  default['push_jobs']['init_style']                 = 'windows'
+  default['push_jobs']['chef']['client_key_path']    = 'c:\chef\client.pem'
+  default['push_jobs']['chef']['trusted_certs_path'] = 'c:\chef\trusted_certs'
 end
 
-default['push_jobs']['chef']['client_key_path']     = '/etc/chef/client.pem'
-default['push_jobs']['chef']['trusted_certs_path']  = '/etc/chef/trusted_certs'
 default['push_jobs']['chef']['verify_api_cert']     = false

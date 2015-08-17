@@ -9,13 +9,13 @@ describe 'push-jobs::windows' do
     runner.converge('recipe[push-jobs::windows]')
   end
 
+  it 'Includes the config recipe' do
+    expect(chef_run).to include_recipe "#{described_cookbook}::config"
+  end
+
   it 'Installs the MSI file' do
     display_name = 'Opscode Push Jobs Client Installer for Windows'
     expect(chef_run).to install_windows_package "#{display_name}"
-  end
-
-  it 'Includes the config recipe' do
-    expect(chef_run).to include_recipe "#{described_cookbook}::config"
   end
 
   it 'Configures the pushy-client registry key' do

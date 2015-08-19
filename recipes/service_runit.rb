@@ -20,7 +20,7 @@
 
 include_recipe 'runit'
 
-debug_flag = node[:push_jobs]['debug'] || ":info"
+debug_flag = node['push_jobs']['debug'] || ":info"
 
 runit_service 'opscode-push-jobs-client' do
   options({

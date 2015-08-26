@@ -39,3 +39,5 @@ end
 default['push_jobs']['chef']['client_key_path']     = '/etc/chef/client.pem'
 default['push_jobs']['chef']['trusted_certs_path']  = '/etc/chef/trusted_certs'
 default['push_jobs']['chef']['verify_api_cert']     = false
+
+default['push_jobs']['logging_level'] = 'info'

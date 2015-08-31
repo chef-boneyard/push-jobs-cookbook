@@ -18,16 +18,21 @@
 # limitations under the License.
 #
 
-registry_key 'HKLM\\SYSTEM\\CurrentControlSet\\Services\\pushy-client' do
+
+version = PushJobsHelper.parse_version(node, node['push_jobs']['package_url'])
+service_name = PushJobsHelper.windows_service_name(node, version)
+
+registry_key "HKLM\\SYSTEM\\CurrentControlSet\\Services\\#{service_name}" do
   values([{
            name: 'Parameters',
            type: :string,
            data: "-c #{PushJobsHelper.config_path}"
          }])
-  notifies :restart, node['push_jobs']['service_string']
+  notifies :restart, "service[#{service_name}]"
+
 end
 
-service 'pushy-client' do
+service service_name do
   action [:enable, :start]
   subscribes :restart, "template[#{PushJobsHelper.config_path}]"
 end

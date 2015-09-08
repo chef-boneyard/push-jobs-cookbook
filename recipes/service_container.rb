@@ -22,7 +22,7 @@ require 'chef-init'
 require 'chef/provider/container_service'
 require 'chef/resource/container_service'
 
-debug_flag = node[:push_jobs]['debug'] || ":info"
+debug_flag = node['push_jobs']['debug'] || ":info"
 
 service 'opscode-push-jobs-client' do
   provider Chef::Provider::ContainerService::Runit

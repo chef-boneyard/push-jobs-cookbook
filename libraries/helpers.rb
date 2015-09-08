@@ -37,4 +37,12 @@ module PushJobsHelper
   def self.config_dir
     Chef::Config.platform_specific_path('/etc/chef')
   end
+
+  def self.parse_version(url)
+    if (url =~ /\-(\d+\.\d+\.\d+)\-/)
+      return $1
+    else
+      return ""
+    end
+  end
 end

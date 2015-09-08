@@ -26,7 +26,7 @@ raise 'This recipe only supports Windows' unless node['platform_family'] == 'win
 # Ensure the config is available before installing and starting the service
 include_recipe 'push-jobs::config'
 
-windows_package "Opscode Push Jobs Client Installer for Windows" do
+windows_package "Opscode Push Jobs Client Installer for Windows v#{PushJobsHelper.parse_version(node['push_jobs']['package_url'])}" do
   source node['push_jobs']['package_url']
   checksum node['push_jobs']['package_checksum']
 end

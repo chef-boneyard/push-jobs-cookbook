@@ -6,8 +6,6 @@
 <%= key %>='<%= value %>'
 <% end %>
 
-#Chef::Config.from_file(PathHelper.join(Chef::Config.platform_specific_path("/etc/chef/"), "client.rb"))
-
 # Chef server connect options
 chef_server_url   '<%= @chef_server_url %>'
 node_name         '<%= @node_name %>'

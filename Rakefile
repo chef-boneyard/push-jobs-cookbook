@@ -24,4 +24,4 @@ task :rubocop do
 end
 
 # Rubocop before rspec so we don't Rubocop vendored cookbooks
-task :default => %w{rubocop foodcritic test}
+task :default => %w(rubocop foodcritic test)

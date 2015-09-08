@@ -1,8 +1,8 @@
-source "https://supermarket.chef.io"
+source 'https://supermarket.chef.io'
 
 metadata
 
 group :integration do
   # Future, when/if minitest support for this cookbook is added
-  #cookbook "minitest-handler"
+  # cookbook "minitest-handler"
 end

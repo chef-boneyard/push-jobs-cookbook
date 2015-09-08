@@ -16,5 +16,4 @@ describe 'push-jobs::knife' do
   it 'installs push jobs knife plugin gem' do
     expect(chef_run).to install_gem_package package_file
   end
-
 end

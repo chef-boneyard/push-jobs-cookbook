@@ -21,11 +21,11 @@
 # limitations under the License.
 #
 
-supported_init_styles = %w{
+supported_init_styles = %w(
   container
   runit
   windows
-}
+)
 
 init_style = node['push_jobs']['init_style']
 
@@ -35,4 +35,3 @@ if supported_init_styles.include? init_style
 else
   log 'Could not determine service init style, manual intervention required to start up the push-jobs-client service.'
 end
-

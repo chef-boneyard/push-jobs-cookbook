@@ -32,5 +32,4 @@ describe 'push-jobs::default' do
       expect(chef_run).to include_recipe "#{described_cookbook}::windows"
     end
   end
-
 end

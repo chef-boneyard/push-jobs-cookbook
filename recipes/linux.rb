@@ -21,20 +21,20 @@
 #
 
 # Do not continue if trying to run the Linux recipe on Windows
-raise 'This recipe does not support Windows' if node['platform_family'] == 'windows'
+fail 'This recipe does not support Windows' if node['platform_family'] == 'windows'
 
 if node['push_jobs']['package_url'] && node['push_jobs']['package_checksum']
   package_url      = node['push_jobs']['package_url']
   package_file     = PushJobsHelper.package_file(node['push_jobs']['package_url'])
   package_checksum = node['push_jobs']['package_checksum']
-  
+
   remote_file "#{Chef::Config[:file_cache_path]}/#{package_file}" do
     source package_url
     checksum package_checksum
     mode 00644
   end
 
-else  
+else
   Chef::Log.info("['push_jobs']['package_url'] and ['push_jobs']['package_checksum'] not set. Chef Push client will be installed from CHEF's public repositories.")
 end
 

@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'push-jobs::windows' do
-
   cached(:chef_run) do
     runner = ChefSpec::SoloRunner.new(platform: 'windows', version: '2008R2')
     runner.node.set['push_jobs']['package_url'] = 'http://foo.bar.com/opscode-push-jobs-client-windows-1.1.5-1.windows.msi?key=value'
@@ -26,5 +25,4 @@ describe 'push-jobs::windows' do
     expect(chef_run).to enable_service 'pushy-client'
     expect(chef_run).to start_service 'pushy-client'
   end
-
 end

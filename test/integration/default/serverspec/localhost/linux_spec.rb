@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'push-jobs::default recipe' do
-
   it 'Installs the push jobs client package' do
     expect(package 'opscode-push-jobs-client').to be_installed
   end
@@ -13,5 +12,4 @@ describe 'push-jobs::default recipe' do
     expect(file '/etc/chef/push-jobs-client.rb').to contain('whitelist({"chef-client"=>"chef-client"})')
     expect(file '/etc/chef/push-jobs-client.rb').to contain("LC_ALL='en_US.UTF-8'")
   end
-
 end

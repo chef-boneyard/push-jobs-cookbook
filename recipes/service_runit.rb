@@ -20,15 +20,13 @@
 
 include_recipe 'runit'
 
-debug_flag = node['push_jobs']['debug'] || ":info"
+debug_flag = node['push_jobs']['debug'] || ':info'
 
 runit_service 'opscode-push-jobs-client' do
-  options({
-            :logging_level => node['push_jobs']['logging_level'],
-            :config => PushJobsHelper.config_path
-          })
+  options(:logging_level => node['push_jobs']['logging_level'],
+          :config => PushJobsHelper.config_path)
   default_logger true
   subscribes :restart, "template[#{PushJobsHelper.config_path}]"
-  action [ :enable, :start ]
+  action [:enable, :start]
   retries 15
 end

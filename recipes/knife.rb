@@ -20,7 +20,7 @@
 #
 
 # Do not continue without a download URL
-raise 'Please define the [\'push_jobs\'][\'gem_url\'] attribute before continuing.' unless node['push_jobs']['gem_url']
+fail 'Please define the [\'push_jobs\'][\'gem_url\'] attribute before continuing.' unless node['push_jobs']['gem_url']
 
 package_file = PushJobsHelper.package_file(node['push_jobs']['gem_url'])
 

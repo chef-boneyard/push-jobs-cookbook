@@ -25,7 +25,7 @@ default['push_jobs']['gem_url']                     = nil
 default['push_jobs']['gem_checksum']                = ''
 default['push_jobs']['whitelist']                   = { 'chef-client' => 'chef-client' }
 default['push_jobs']['config']['template_cookbook'] = nil
-default['push_jobs']['environment_variables']       = { 'LC_ALL' => 'en_US.UTF-8'}
+default['push_jobs']['environment_variables']       = { 'LC_ALL' => 'en_US.UTF-8' }
 
 case node['platform_family']
 when 'debian', 'rhel'

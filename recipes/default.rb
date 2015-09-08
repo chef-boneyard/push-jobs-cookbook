@@ -20,18 +20,18 @@
 # limitations under the License.
 #
 
-unless (node['push_jobs']['whitelist'].is_a? Hash)
-  raise "node['push_jobs']['whitelist'] should have a hash value!"
+unless node['push_jobs']['whitelist'].is_a? Hash
+  fail "node['push_jobs']['whitelist'] should have a hash value!"
 end
 
 case node['platform_family']
 when 'windows'
-  unless (node['push_jobs']['package_url'] && node['push_jobs']['package_checksum'])
-    raise "Please set both ['push_jobs']['package_url'] and ['push_jobs']['package_checksum'] attributes."
+  unless node['push_jobs']['package_url'] && node['push_jobs']['package_checksum']
+    fail "Please set both ['push_jobs']['package_url'] and ['push_jobs']['package_checksum'] attributes."
   end
   include_recipe 'push-jobs::windows'
 when 'debian', 'rhel'
   include_recipe 'push-jobs::linux'
 else
-  raise 'This cookbook currently supports only Windows, Debian-family Linux, and RHEL-family Linux.'
+  fail 'This cookbook currently supports only Windows, Debian-family Linux, and RHEL-family Linux.'
 end

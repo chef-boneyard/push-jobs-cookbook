@@ -21,7 +21,7 @@
 #
 
 # Do not continue if trying to run the Windows recipe on non-Windows
-raise 'This recipe only supports Windows' unless node['platform_family'] == 'windows'
+fail 'This recipe only supports Windows' unless node['platform_family'] == 'windows'
 
 # Ensure the config is available before installing and starting the service
 include_recipe 'push-jobs::config'

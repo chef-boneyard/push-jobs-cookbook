@@ -1,10 +1,10 @@
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
 
-guard 'rspec', :cli => "--color" do
+guard 'rspec', :cli => '--color' do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
-  watch('spec/spec_helper.rb')  { "spec" }
+  watch('spec/spec_helper.rb')  { 'spec' }
 
   watch(%r{^recipes/(.+)\.rb$}) { |m| "spec/unit/recipes/#{m[1]}_spec.rb" }
   watch(%r{^attributes/(.+)\.rb$})

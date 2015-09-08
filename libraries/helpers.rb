@@ -39,10 +39,10 @@ module PushJobsHelper
   end
 
   def self.parse_version(url)
-    if (url =~ /\-(\d+\.\d+\.\d+)\-/)
-      return $1
+    if url =~ /\-(\d+\.\d+\.\d+)\-/
+      return Regexp.last_match(1)
     else
-      return ""
+      return ''
     end
   end
 end

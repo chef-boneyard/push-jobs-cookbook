@@ -24,7 +24,7 @@ debug_flag = node['push_jobs']['debug'] || ":info"
 
 runit_service 'opscode-push-jobs-client' do
   options({
-            :debug => debug_flag,
+            :logging_level => node['push_jobs']['logging_level'],
             :config => PushJobsHelper.config_path
           })
   default_logger true

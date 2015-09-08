@@ -17,27 +17,3 @@ supports 'windows'
 depends 'runit'
 depends 'windows'
 depends 'chef-ingredient'
-
-attribute('push_jobs/package_url',
-          :description => 'URL to a client package to download
-          for installing Chef Push Job Client')
-
-attribute('push_jobs/package_checksum',
-          :description => 'Checksum of the package file from package_url,
-          use this to prevent download every Chef run')
-
-attribute('push_jobs/package_version',
-	      :description => 'Version of the package to be installed')
-
-attribute('push_jobs/gem_url',
-          :description => 'URL to the knife plugin gem file')
-
-attribute('push_jobs/gem_checksum',
-          :description => 'Checksum of the gem file from gem_url,
-          use this to prevent download every Chef run')
-
-attribute('push_jobs/whitelist',
-          :description => 'Hash of whitelist jobs for the push client configuration')
-
-attribute('push_jobs/service_string',
-          :description => 'String of the resource for the service, varies by platform.')

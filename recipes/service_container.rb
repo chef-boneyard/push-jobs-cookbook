@@ -26,10 +26,10 @@ debug_flag = node['push_jobs']['debug'] || ":info"
 
 service 'opscode-push-jobs-client' do
   provider Chef::Provider::ContainerService::Runit
-#  options({
-#            :debug => debug_flag,
-#            :config => PushJobsHelper.config_path
-#          })
-  action [:start]
+  options({
+      :logging_level => node['push_jobs']['logging_level'],
+      :config => PushJobsHelper.config_path
+    })
+  action :start
   subscribes :restart, "template[#{PushJobsHelper.config_path}]"
 end

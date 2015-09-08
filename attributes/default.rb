@@ -41,3 +41,5 @@ when 'windows'
 end
 
 default['push_jobs']['chef']['verify_api_cert']     = false
+
+default['push_jobs']['logging_level'] = 'info'

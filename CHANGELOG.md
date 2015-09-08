@@ -1,3 +1,9 @@
+v2.4.2 (2015-09-08)
+-------------------
+- #42 - Windows push client to use own config
+- #43 - Include version in package name for idempotency
+- #46 - debug flag to logging level flag
+
 v2.4.1 (2015-07-29)
 -------------------
 - #41 - fix client path and node_name

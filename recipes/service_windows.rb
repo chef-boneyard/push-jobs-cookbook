@@ -20,9 +20,9 @@
 
 registry_key 'HKLM\\SYSTEM\\CurrentControlSet\\Services\\pushy-client' do
   values([{
-           :name => 'Parameters',
-           :type => :string,
-           :data => "-c #{PushJobsHelper.config_path}"
+           name: 'Parameters',
+           type: :string,
+           data: "-c #{PushJobsHelper.config_path}"
          }])
   notifies :restart, node['push_jobs']['service_string']
 end

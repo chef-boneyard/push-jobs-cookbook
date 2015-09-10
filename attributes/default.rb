@@ -40,6 +40,6 @@ when 'windows'
   default['push_jobs']['chef']['trusted_certs_path'] = 'c:\chef\trusted_certs'
 end
 
-default['push_jobs']['chef']['verify_api_cert']     = false
+default['push_jobs']['chef']['verify_api_cert'] = false
 
 default['push_jobs']['logging_level'] = 'info'

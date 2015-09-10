@@ -1,3 +1,7 @@
+push-jobs Cookbook CHANGELOG
+============================
+This file is used to list changes made in each version of the push-jobs cookbook.
+
 v2.4.2 (2015-09-08)
 -------------------
 - #42 - Windows push client to use own config

@@ -1,14 +1,27 @@
 source 'https://rubygems.org'
 
-gem 'berkshelf', '~> 2.0'
-gem 'thor-foodcritic', '~> 0.2'
+group :lint do
+  gem 'foodcritic', '~> 4.0'
+  gem 'rubocop', '~> 0.33'
+  gem 'rake'
+end
 
-group :test do
-  gem 'chefspec', '~> 3.2.0'
-  gem 'foodcritic', '~> 2.0'
-  gem 'rake', '~> 10.1'
-  gem 'tailor', '~> 1.2'
-  gem 'rubocop'
+group :unit do
+  gem 'berkshelf',  '~> 3.2'
+  gem 'chefspec',   '~> 4.3'
+end
+
+group :kitchen_common do
+  gem 'test-kitchen', '~> 1.4'
+end
+
+group :kitchen_vagrant do
+  gem 'kitchen-vagrant', '~> 0.18'
+end
+
+group :kitchen_cloud do
+  gem 'kitchen-digitalocean'
+  gem 'kitchen-ec2'
 end
 
 group :development do
@@ -20,6 +33,3 @@ group :development do
   gem 'rb-inotify', '~> 0.9'
   gem 'ruby_gntp', '~> 0.3'
 end
-
-gem 'test-kitchen', '~> 1.0.0.beta.3', :group => :development
-gem 'kitchen-vagrant', '~> 0.11', :group => :development

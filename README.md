@@ -1,4 +1,6 @@
 # push-jobs cookbook
+[![Build Status](https://travis-ci.org/chef-cookbooks/push-jobs.svg?branch=master)](http://travis-ci.org/chef-cookbooks/push-jobs)
+[![Cookbook Version](https://img.shields.io/cookbook/v/push-jobs.svg)](https://supermarket.chef.io/cookbooks/push-jobs)
 
 Installs the Chef Push client package and sets it up to run as
 a service.
@@ -171,12 +173,12 @@ look for entries similar to the following:
 
 # Author & License
 
-* Author: Joshua Timberman (<joshua@getchef.com>)
-* Author: Charles Johnson (<charles@getchef.com>)
-* Author: Christopher Maier (<cm@getchef.com>)
-* Copyright: 2013-2014 Chef Software, Inc. (<legal@getchef.com>)
+* Author: Joshua Timberman (<joshua@chef.io>)
+* Author: Charles Johnson (<charles@chef.io>)
+* Author: Christopher Maier (<cm@chef.io>)
 
 ```text
+Copyright:: 2009-2015, Chef Software, Inc
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at

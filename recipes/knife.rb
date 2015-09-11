@@ -2,9 +2,9 @@
 # Cookbook Name:: push-jobs
 # Recipe:: knife
 #
-# Author:: Joshua Timberman <joshua@getchef.com>
-# Author:: Charles Johnson <charles@getchef.com>
-# Copyright 2013-2014 Chef Software, Inc. <legal@getchef.com>
+# Author:: Joshua Timberman <joshua@chef.io>
+# Author:: Charles Johnson <charles@chef.io>
+# Copyright 2013-2014 Chef Software, Inc. <legal@chef.io>
 #
 # Licensed under the Apache License, Version 2.0 (the 'License');
 # you may not use this file except in compliance with the License.

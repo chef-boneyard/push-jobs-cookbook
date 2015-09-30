@@ -30,6 +30,9 @@ directory PushJobsHelper.config_dir do
   end
 end
 
+chef_server_url = node['push_jobs']['chef']['chef_server_url'] || Chef::Config.chef_server_url
+node_name = node['push_jobs']['chef']['node_name'] || Chef::Config[:node_name]
+
 template PushJobsHelper.config_path do
   source 'push-jobs-client.rb.erb'
   cookbook node['push_jobs']['config']['template_cookbook']
@@ -39,8 +42,8 @@ template PushJobsHelper.config_path do
     mode 00644
   end
   variables(
-    chef_server_url: Chef::Config.chef_server_url,
-    node_name: Chef::Config[:node_name],
+    chef_server_url: chef_server_url,
+    node_name: node_name,
     client_key_path: node['push_jobs']['chef']['client_key_path'],
     trusted_certs_path: node['push_jobs']['chef']['trusted_certs_path'],
     whitelist: node['push_jobs']['whitelist'],

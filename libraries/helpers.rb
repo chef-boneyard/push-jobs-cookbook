@@ -50,6 +50,11 @@ module PushJobsHelper
            package_name: "Push Jobs Client v#{version}",
            service_name: "push-jobs-client" }
       }
+    elsif version =~ /^2\.0\.0-alpha/
+       { windows: {
+           package_name: "Push Jobs Client v#{version}",
+           service_name: "push-jobs-client" }
+      }
     else
       raise "No info for version #{version}"
     end

@@ -24,9 +24,6 @@ group :kitchen_cloud do
   gem 'kitchen-ec2'
 end
 
-group :development_guard do
-end
-
 group :development do
   gem 'guard'
   gem 'guard-kitchen'

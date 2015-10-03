@@ -23,9 +23,14 @@ default['push_jobs']['package_checksum']            = ''
 default['push_jobs']['package_version']             = nil
 default['push_jobs']['gem_url']                     = nil
 default['push_jobs']['gem_checksum']                = ''
-default['push_jobs']['whitelist']                   = { 'chef-client' => 'chef-client' }
+
 default['push_jobs']['config']['template_cookbook'] = nil
+default['push_jobs']['whitelist']                   = { 'chef-client' => 'chef-client' }
 default['push_jobs']['environment_variables']       = { 'LC_ALL' => 'en_US.UTF-8' }
+
+# These variables control whether we validate ssl
+default['push_jobs']['chef']['verify_api_cert']     = true
+default['push_jobs']['chef']['ssl_verify_mode']     = :verify_peer
 
 case node['platform_family']
 when 'debian', 'rhel'
@@ -39,7 +44,5 @@ when 'windows'
   default['push_jobs']['chef']['client_key_path']    = 'c:\chef\client.pem'
   default['push_jobs']['chef']['trusted_certs_path'] = 'c:\chef\trusted_certs'
 end
-
-default['push_jobs']['chef']['verify_api_cert'] = false
 
 default['push_jobs']['logging_level'] = 'info'

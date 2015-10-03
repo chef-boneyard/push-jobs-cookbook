@@ -2,35 +2,33 @@
 [![Build Status](https://travis-ci.org/chef-cookbooks/push-jobs.svg?branch=master)](http://travis-ci.org/chef-cookbooks/push-jobs)
 [![Cookbook Version](https://img.shields.io/cookbook/v/push-jobs.svg)](https://supermarket.chef.io/cookbooks/push-jobs)
 
-Installs the Chef Push client package and sets it up to run as
-a service.
+Installs the Chef Push client package and sets it up to run as a service.
 
 The official documentation is on
-[docs.chef.io](http://docs.chef.io/push_jobs.html)
+[docs.chef.io](https://docs.chef.io/push_jobs.html)
 
-# Requirements
+## Requirements
+Requires Chef Server with the Chef Push Server add-on.
 
-Requires Chef Server with the Chef Push
-Server add-on.
+#### Platforms
+* Debian/Ubuntu
+* Windows
 
-* Chef: 11.4.0 or higher
+Tested on Ubuntu 10.04, 12.04, CentOS 6.4, and Windows 2008 R2. It may work on other debian, rhel, or windows platform families with or without modification.
+
+Testing for Ubuntu/CentOS can be done with Test Kitchen, see TESTING.md in this repository.
+
+
+#### Chef
+- Chef 11.4+
+
+#### Cookbooks
 * [runit](https://supermarket.chef.io/cookbooks/runit)
 * [windows](https://supermarket.chef.io/cookbooks/windows)
 * [chef-ingredient](https://supermarket.chef.io/cookbooks/chef-ingredient)
 
-## Platform
 
-* Debian
-* Ubuntu
-* Windows
-
-Tested on Ubuntu 10.04, 12.04, CentOS 6.4, and Windows 2008
-R2. It may work on other debian, rhel, or windows platform families with or
-without modification.
-
-Testing for Ubuntu/CentOS can be done with Test Kitchen, see TESTING.md in this repository.
-
-# Install the Workstation
+## Install the Workstation
 To set up the Chef push jobs workstation, install the knife push plugin. The simplest way to install the plugin is by entering the following command at a shell prompt:
 
     chef gem install knife-push  
@@ -40,7 +38,7 @@ Alternatives to chef gem install be found at https://docs.chef.io/plugin_knife_c
 * knife job start
 * knife job status.
 
-# Usage
+## Usage
 
 Include the default recipe in a node's run list. On Windows, the URL to the package to install and its SHA256 checksum are required so the package may be retrieved. For example:
 
@@ -76,17 +74,17 @@ Then, run the chef-client job, and then the ntpdate job:
 In a future release, an LWRP may be added to automatically add push
 jobs.
 
-# Attributes
+## Attributes
 
 Attributes are documented in metadata.rb. See `attributes/default.rb`
 for default values.
 
-# Recipes
+## Recipes
 
 There are several recipes in this cookbook, so they can be used all
 together (include the `default` recipe), or as necessary.
 
-## default
+#### default
 
 The default recipe includes the appropriate recipe based on the node's
 `platform_family`. It will `raise` an error if:
@@ -95,7 +93,7 @@ The default recipe includes the appropriate recipe based on the node's
 - The whitelist is not a Hash.
 - The node's platform is not supported.
 
-## config
+#### config
 
 This recipe ensures the platform-specific configuration directory
 (`/etc/chef`) is created, and renders the configuration file
@@ -112,11 +110,11 @@ module's `#config_path` method. This is done to ensure the correct
 file path is used on Linux and Windows platforms, as it uses
 `Chef::Config`'s `#platform_specific_path` method.
 
-## linux
+#### linux
 
 This recipe downloads and installs the Chef Push client from CHEF's public repositories. Setting the `node['push_jobs']['package_version']` attribute installs a specific version from the public repositories. Setting the `node['push_jobs']['package_url']` and `node['push_jobs']['package_checksum']` attributes together will override the default behavior and download the package from the specified URL.
 
-## knife
+#### knife
 
 If the `node['push_jobs']['gem_url']` attribute is set, this
 recipe will download the knife-pushy gem to the system.
@@ -124,7 +122,7 @@ recipe will download the knife-pushy gem to the system.
 Use this recipe on workstation systems that should manage running jobs
 with the knife plugin.
 
-## service
+#### service
 
 This recipe is responsible for handling the service resource based on
 the node's platform. On Linux (Debian and RHEL families), it will
@@ -135,14 +133,14 @@ registry key for the Chef Push client, and manage the Windows service.
 The service resources expect to be restarted if the configuration
 template is changed, using `subscribes` notification.
 
-## windows
+#### windows
 
 The `node['push_jobs']['package_url']` and `node['push_jobs']['package_checksum']` attributes must be set
 to use this recipe. The URL will be used (with the
 checksum attribute) to install the package using the `windows_package`
 resource from the `windows` cookbook.
 
-# Client Connection Configuration
+## Client Connection Configuration
 
 The push job client establishes a command and heartbeat channel to the
 push server over **tcp**.  The tcp connection information is read from 
@@ -157,7 +155,7 @@ the Chef Server is not providing the correct push server configuration,
 please verify hostnames are correct and that both the push server and 
 Chef Server have been reconfigured.
 
-# Verify Push Jobs Client Connection
+## Verify Push Jobs Client Connection
 
 If the push client has been successfully installed on a node, the 
 client should be able to successfully respond to a `knife job` directed
@@ -171,7 +169,7 @@ look for entries similar to the following:
     INFO: [pclient] Listening for server heartbeat at tcp://private-chef-server:10000
     INFO: [pclient] Started client.
 
-# Author & License
+## License & Authors
 
 * Author: Joshua Timberman (<joshua@chef.io>)
 * Author: Charles Johnson (<charles@chef.io>)

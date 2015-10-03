@@ -42,21 +42,21 @@ module PushJobsHelper
   def self.names_by_version(version)
     if version =~ /^1\.[0-2]/
       { windows: {
-          package_name: "Opscode Push Jobs Client Installer for Windows v#{version}",
-          service_name: "pushy-client" }
+        package_name: "Opscode Push Jobs Client Installer for Windows v#{version}",
+        service_name: 'pushy-client' }
       }
     elsif version =~ /^1\.3/
       { windows: {
-           package_name: "Push Jobs Client v#{version}",
-           service_name: "push-jobs-client" }
+        package_name: "Push Jobs Client v#{version}",
+        service_name: 'push-jobs-client' }
       }
     elsif version =~ /^2\.0\.0-alpha/
-       { windows: {
-           package_name: "Push Jobs Client v#{version}",
-           service_name: "push-jobs-client" }
+      { windows: {
+        package_name: "Push Jobs Client v#{version}",
+        service_name: 'push-jobs-client' }
       }
     else
-      raise "No info for version #{version}"
+      fail "No info for version #{version}"
     end
   end
 
@@ -64,7 +64,7 @@ module PushJobsHelper
     if node['push_jobs']['package_name']
       node['push_jobs']['package_name']
     else
-      self.names_by_version(version)[:windows][:package_name]
+      names_by_version(version)[:windows][:package_name]
     end
   end
 
@@ -72,7 +72,7 @@ module PushJobsHelper
     if node['push_jobs']['service_name']
       node['push_jobs']['service_name']
     else
-      self.names_by_version(version)[:windows][:service_name]
+      names_by_version(version)[:windows][:service_name]
     end
   end
 

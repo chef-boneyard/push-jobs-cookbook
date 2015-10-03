@@ -24,10 +24,13 @@ group :kitchen_cloud do
   gem 'kitchen-ec2'
 end
 
+group :development_guard do
+end
+
 group :development do
-  gem 'guard', '~> 1.8'
-  gem 'guard-kitchen', '~> 0.0'
-  gem 'guard-rspec', '~> 3.0'
+  gem 'guard'
+  gem 'guard-kitchen'
+  gem 'guard-rspec', '~> 4.0'
   gem 'rb-fchange', '~> 0.0'
   gem 'rb-fsevent', '~> 0.9'
   gem 'rb-inotify', '~> 0.9'

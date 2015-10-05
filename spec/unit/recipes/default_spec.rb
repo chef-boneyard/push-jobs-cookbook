@@ -20,7 +20,7 @@ describe 'push-jobs::default' do
   context 'Windows' do
     cached(:chef_run) do
       runner = ChefSpec::SoloRunner.new(platform: 'windows', version: '2008R2')
-      runner.node.set['push_jobs']['package_url'] = 'http://foo.bar.com/opscode-push-jobs-client_x86_64.msi?key=value'
+      runner.node.set['push_jobs']['package_url'] = 'http://foo.bar.com/opscode-push-jobs-client-1.2.3-x86_64.msi?key=value'
       runner.converge('recipe[push-jobs::default]')
     end
 

@@ -32,6 +32,10 @@ default['push_jobs']['environment_variables']       = { 'LC_ALL' => 'en_US.UTF-8
 default['push_jobs']['chef']['verify_api_cert']     = true
 default['push_jobs']['chef']['ssl_verify_mode']     = :verify_peer
 
+# These can be overridden so that we can use chef_zero based installers to set up push
+default['push_jobs']['chef']['chef_server_url']     = nil
+default['push_jobs']['chef']['node_name']           = nil
+
 # default is this comes from url, but make it overrideable
 default['push_jobs']['version']                     = nil
 

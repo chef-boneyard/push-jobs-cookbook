@@ -18,16 +18,43 @@
 # limitations under the License.
 #
 
-registry_key 'HKLM\\SYSTEM\\CurrentControlSet\\Services\\pushy-client' do
-  values([{
-           name: 'Parameters',
-           type: :string,
-           data: "-c #{PushJobsHelper.config_path}"
-         }])
-  notifies :restart, node['push_jobs']['service_string']
+version = PushJobsHelper.parse_version(node, node['push_jobs']['package_url'])
+service_name = PushJobsHelper.windows_service_name(node, version)
+
+config_file_option = "-c #{PushJobsHelper.config_path}"
+
+values_to_set = [{ name: 'Parameters',
+                   type: :string,
+                   data: config_file_option }]
+
+# The Parameters key isn't respected by some versions. Inject the
+# config file path into ImagePath.
+#
+# This is a bit painful, since ImagePath contains a version specific
+# path to the windows_service.rb code; we can't know what it is until
+# the msi is installed. (The path incorporates the push-client ruby
+# gem version, which isn't always correlated with the version of the
+# omnibus package. So we can't create this entry before installation,
+# yet installation may fail if this isn't set.
+#
+# The approach below parses the ImagePath from the installer, and adds
+# a command line option to point to the config file.
+#
+key_path = "HKLM\\SYSTEM\\CurrentControlSet\\Services\\#{service_name}"
+if registry_key_exists?(key_path)
+  values = registry_get_values(key_path)
+  imagepath = values.find { |x| x[:name] == 'ImagePath' }
+  match = imagepath[:data].match(/^(.*ruby\.exe)\s+(\S*windows_service\.rb)/)
+  imagepath[:data] = "#{match[1]} #{match[2]} #{config_file_option}"
+  values_to_set << imagepath
 end
 
-service 'pushy-client' do
+registry_key "HKLM\\SYSTEM\\CurrentControlSet\\Services\\#{service_name}" do
+  values(values_to_set)
+  notifies :restart, "service[#{service_name}]"
+end
+
+service service_name do
   action [:enable, :start]
   subscribes :restart, "template[#{PushJobsHelper.config_path}]"
 end

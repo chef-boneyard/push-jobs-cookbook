@@ -20,8 +20,14 @@
 
 include_recipe 'runit'
 
+version = PushJobsHelper.parse_version(node, node['push_jobs']['package_url'])
+install_path = PushJobsHelper.linux_install_path(node, version)
+exec_name = PushJobsHelper.linux_exec_name(node, version)
+
 runit_service 'opscode-push-jobs-client' do
   options(logging_level: node['push_jobs']['logging_level'],
+          install_path: install_path,
+          exec_name: exec_name,
           config: PushJobsHelper.config_path)
   default_logger true
   subscribes :restart, "template[#{PushJobsHelper.config_path}]"

@@ -27,6 +27,7 @@ directory PushJobsHelper.config_dir do
     owner 'root'
     group 'root'
     mode 00755
+    recursive true
   end
 end
 

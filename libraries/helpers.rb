@@ -43,20 +43,32 @@ module PushJobsHelper
     if version =~ /^1\.[0-2]/
       { windows: {
         package_name: "Opscode Push Jobs Client Installer for Windows v#{version}",
-        service_name: 'pushy-client' }
+        service_name: 'pushy-client' },
+        linux: {
+        install_path: "/opt/opscode-pushy-client",
+        exec_name: "pushy-client"
+        }
       }
     elsif version =~ /^1\.3/
       { windows: {
         package_name: "Push Jobs Client v#{version}",
-        service_name: 'push-jobs-client' }
+        service_name: 'push-jobs-client' },
+        linux: {
+        install_path: "/opt/push-jobs-client",
+        exec_name: "pushy-client"
+        }
       }
     elsif version =~ /^2\.0\.0-alpha/
       { windows: {
         package_name: "Push Jobs Client v#{version}",
-        service_name: 'push-jobs-client' }
+        service_name: 'push-jobs-client' },
+        linux: {
+        install_path: "/opt/push-jobs-client",
+        exec_name: "pushy-client"
+        }
       }
     else
-      fail "No info for version #{version}"
+      fail "No info for version '#{version}'"
     end
   end
 
@@ -76,9 +88,16 @@ module PushJobsHelper
     end
   end
 
+  def self.linux_install_path(node, version)
+    names_by_version(version)[:linux][:install_path]
+  end
+  def self.linux_exec_name(node, version)
+    names_by_version(version)[:linux][:exec_name]
+  end
+
   def self.parse_version(node, url)
     return node['push_jobs']['version'] if node['push_jobs']['version']
-    if url =~ /\-(\d+\.\d+\.\d+)\-/
+    if url =~ /[\-_](\d+\.\d+\.\d+)\-/
       return Regexp.last_match(1)
     else
       return ''

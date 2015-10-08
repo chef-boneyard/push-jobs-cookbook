@@ -39,40 +39,6 @@ module PushJobsHelper
     Chef::Config.platform_specific_path('/etc/chef')
   end
 
-  NAMING_DATA =
-    { family_1_0:
-        {
-          windows: {
-            package_name: 'Opscode Push Jobs Client Installer for Windows v%v',
-            service_name: 'pushy-client'
-          },
-          linux: {
-            install_path: '/opt/opscode-pushy-client',
-            exec_name: 'pushy-client'
-          }
-        },
-      family_1_3:
-        {
-          windows: {
-            package_name: 'Push Jobs Client v%v',
-            service_name: 'push-jobs-client' },
-          linux: {
-            install_path: '/opt/push-jobs-client',
-            exec_name: 'pushy-client'
-          }
-        },
-      family_2_alpha:
-        {
-          windows: {
-            package_name: 'Push Jobs Client v%v',
-            service_name: 'push-jobs-client' },
-          linux: {
-            install_path: '/opt/push-jobs-client',
-            exec_name: 'pushy-client'
-          }
-        }
-    }
-
   def self.names_by_version(version, platform)
     family =
       if version =~ /^1\.[0-2]/
@@ -118,4 +84,40 @@ module PushJobsHelper
       return ''
     end
   end
+
+  NAMING_DATA ||=
+    { family_1_0:
+        {
+          windows: {
+            package_name: 'Opscode Push Jobs Client Installer for Windows v%v',
+            service_name: 'pushy-client'
+          },
+          linux: {
+            install_path: '/opt/opscode-pushy-client',
+            exec_name: 'pushy-client'
+          }
+        },
+      family_1_3:
+        {
+          windows: {
+            package_name: 'Push Jobs Client v%v',
+            service_name: 'push-jobs-client' },
+          linux: {
+            install_path: '/opt/push-jobs-client',
+            exec_name: 'pushy-client'
+          }
+        },
+      family_2_alpha:
+        {
+          windows: {
+            package_name: 'Push Jobs Client v%v',
+            service_name: 'push-jobs-client' },
+          linux: {
+            install_path: '/opt/push-jobs-client',
+            exec_name: 'pushy-client'
+          }
+        }
+    }
+
+
 end

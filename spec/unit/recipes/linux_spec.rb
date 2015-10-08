@@ -15,7 +15,7 @@ describe 'push-jobs::linux' do
   context 'linux with package_url' do
     let(:chef_run) do
       runner = ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '10.04')
-      runner.node.set['push_jobs']['package_url'] = 'http://foo.bar.com/opscode-push-jobs-client_amd64.deb?key=value'
+      runner.node.set['push_jobs']['package_url'] = 'http://foo.bar.com/opscode-push-jobs-client_1.0.0_amd64.deb?key=value'
       runner.converge('recipe[push-jobs::linux]')
     end
 

@@ -39,44 +39,59 @@ module PushJobsHelper
     Chef::Config.platform_specific_path('/etc/chef')
   end
 
-  def self.names_by_version(version)
-    if version =~ /^1\.[0-2]/
-      { windows: {
-        package_name: "Opscode Push Jobs Client Installer for Windows v#{version}",
-        service_name: 'pushy-client' },
-        linux: {
-        install_path: "/opt/opscode-pushy-client",
-        exec_name: "pushy-client"
+  NAMING_DATA =
+    { family_1_0:
+        {
+          windows: {
+            package_name: 'Opscode Push Jobs Client Installer for Windows v%v',
+            service_name: 'pushy-client'
+          },
+          linux: {
+            install_path: '/opt/opscode-pushy-client',
+            exec_name: 'pushy-client'
+          }
+        },
+      family_1_3:
+        {
+          windows: {
+            package_name: 'Push Jobs Client v%v',
+            service_name: 'push-jobs-client' },
+          linux: {
+            install_path: '/opt/push-jobs-client',
+            exec_name: 'pushy-client'
+          }
+        },
+      family_2_alpha:
+        {
+          windows: {
+            package_name: 'Push Jobs Client v%v',
+            service_name: 'push-jobs-client' },
+          linux: {
+            install_path: '/opt/push-jobs-client',
+            exec_name: 'pushy-client'
+          }
         }
-      }
-    elsif version =~ /^1\.3/
-      { windows: {
-        package_name: "Push Jobs Client v#{version}",
-        service_name: 'push-jobs-client' },
-        linux: {
-        install_path: "/opt/push-jobs-client",
-        exec_name: "pushy-client"
-        }
-      }
-    elsif version =~ /^2\.0\.0-alpha/
-      { windows: {
-        package_name: "Push Jobs Client v#{version}",
-        service_name: 'push-jobs-client' },
-        linux: {
-        install_path: "/opt/push-jobs-client",
-        exec_name: "pushy-client"
-        }
-      }
-    else
-      fail "No info for version '#{version}'"
-    end
+    }
+
+  def self.names_by_version(version, platform)
+    family =
+      if version =~ /^1\.[0-2]/
+        :family_1_0
+      elsif version =~ /^1\.3/
+        :family_1_3
+      elsif version =~ /^2\.0\.0-alpha/
+        :family_2_alpha
+      else
+        fail "No info for version '#{version}'"
+      end
+    NAMING_DATA[family][platform]
   end
 
   def self.windows_package_name(node, version)
     if node['push_jobs']['package_name']
       node['push_jobs']['package_name']
     else
-      names_by_version(version)[:windows][:package_name]
+      names_by_version(version, :windows)[:package_name] % { v: version }
     end
   end
 
@@ -84,15 +99,15 @@ module PushJobsHelper
     if node['push_jobs']['service_name']
       node['push_jobs']['service_name']
     else
-      names_by_version(version)[:windows][:service_name]
+      names_by_version(version, :windows)[:service_name]
     end
   end
 
   def self.linux_install_path(node, version)
-    names_by_version(version)[:linux][:install_path]
+    node['push_jobs']['install_path'] || names_by_version(version, :linux)[:install_path]
   end
   def self.linux_exec_name(node, version)
-    names_by_version(version)[:linux][:exec_name]
+    node['push_jobs']['exec_name'] || names_by_version(version, :linux)[:exec_name]
   end
 
   def self.parse_version(node, url)
@@ -104,21 +119,3 @@ module PushJobsHelper
     end
   end
 end
-
-#
-# Reference values
-#
-# 1.1.x opscode-push-jobs-client-windows-1.1.4-1.windows.msi
-# PName: "Opscode Push Jobs Client Installer for Windows v1.1.4"
-# Install Path: /opt/opscode/pushy (C:/opscode/pushy)
-# Registry (pushy-client)
-## DisplayName: Pushy Client Service
-## ImagePath: C:\opscode\pushy\embedded\bin\ruby.exe C:\opscode\pushy\embedded\lib\ruby\gems\1.9.1\gems\opscode-pushy-client-1.1.3\lib\pushy_client\windows_service.rb
-
-#
-# 1.3.x push-jobs-client-1.3.3-1.msi
-# PName: "Push Jobs Client v1.3.3"
-# Install Path: /opt/opscode/push-jobs-client (C:/opscode/push-jobs-client)
-# Registry (push-jobs-client)
-## DisplayName: Push Jobs Client Service
-## ImagePath: C:\opscode\push-jobs-client\embedded\bin\ruby.exe C:\opscode\push-jobs-client\embedded\lib\ruby\gems\2.1.0\gems\opscode-pushy-client-1.3.3\lib\pushy_client\windows_service.rb

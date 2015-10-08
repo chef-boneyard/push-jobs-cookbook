@@ -36,9 +36,6 @@ default['push_jobs']['chef']['ssl_verify_mode']     = :verify_peer
 default['push_jobs']['chef']['chef_server_url']     = nil
 default['push_jobs']['chef']['node_name']           = nil
 
-# default is this comes from url, but make it overrideable
-default['push_jobs']['version']                     = nil
-
 case node['platform_family']
 when 'debian', 'rhel'
   default['push_jobs']['service_string']             = 'runit_service[push-jobs-client]'

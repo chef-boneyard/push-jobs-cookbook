@@ -77,24 +77,40 @@ module PushJobsHelper
   end
 
   def self.version_from_manifest(path)
-     if File.exists?(path)
-       JSON.parse(path)['build_version']
-     else
-       nil
-     end
+
+    json_path = File.join(path, "version-manifest.json")
+    txt_path = File.join(path, "version-manifest.txt")
+
+    version = if File.exists?(json_path)
+                JSON.parse(path)['build_version']
+              elsif File.exists?(txt_path)
+                version = File.readlines(txt_path, 100).first.split(' ')[1]
+              else
+                nil
+              end
+     version
   end
 
   def self.find_installed_version(node, url)
     version = parse_version(node,url)
-    # heuristic to deduce version if we can't find it out some other fashion.
-    # this may happen if we're using chef ingredient to find latest
-    if version.nil?
-      version = version_from_manifest("/opt/push-jobs-client/version-manifest.json")
-      if version.nil?
-        version = '1.0.0'
-      end
+    return version if version
+
+    # heuristic to deduce version if we can't find it out some other
+    # fashion. This may happen if we're using chef ingredient to find
+    # latest, which doesn't provide a method to determine what it
+    # picked.
+    names = %w(/opt/push-jobs-client /opt/opscode-push-jobs-client)
+
+    possible_versions =  names.map {|d| version_from_manifest(d) }
+
+    version = possible_versions.select {|v| v }.first
+    return version if version
+
+    if File.exists?('/opt/opscode-push-jobs-client')
+      return '1.0.0'
+    else
+      return nil
     end
-    return version
   end
 
   def self.parse_version(node, url)
@@ -114,7 +130,7 @@ module PushJobsHelper
             service_name: 'pushy-client'
           },
           linux: {
-            install_path: '/opt/opscode-pushy-client',
+            install_path: '/opt/opscode-push-jobs-client',
             exec_name: 'pushy-client'
           }
         },

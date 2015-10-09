@@ -76,12 +76,33 @@ module PushJobsHelper
     node['push_jobs']['exec_name'] || names_by_version(version, :linux)[:exec_name]
   end
 
+  def self.version_from_manifest(path)
+     if File.exists?(path)
+       JSON.parse(path)['build_version']
+     else
+       nil
+     end
+  end
+
+  def self.find_installed_version(node, url)
+    version = parse_version(node,url)
+    # heuristic to deduce version if we can't find it out some other fashion.
+    # this may happen if we're using chef ingredient to find latest
+    if version.nil?
+      version = version_from_manifest("/opt/push-jobs-client/version-manifest.json")
+      if version.nil?
+        version = '1.0.0'
+      end
+    end
+    return version
+  end
+
   def self.parse_version(node, url)
-    return node['push_jobs']['version'] if node['push_jobs']['version']
-    if url =~ /[\-_](\d+\.\d+\.\d+)\-/
-      return Regexp.last_match(1)
+    return node['push_jobs']['package_version'] if node['push_jobs']['package_version']
+    if url =~ /[\-_](\d+\.\d+\.\d+(\-alpha)?)[\-_]/
+      Regexp.last_match(1)
     else
-      return ''
+      nil
     end
   end
 

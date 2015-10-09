@@ -19,7 +19,7 @@ describe 'push-jobs::linux' do
       runner.converge('recipe[push-jobs::linux]')
     end
 
-    before { @package_file = 'opscode-push-jobs-client_amd64.deb' }
+    before { @package_file = 'opscode-push-jobs-client_1.0.0_amd64.deb' }
 
     it 'fetches the push jobs package' do
       expect(chef_run).to create_remote_file "#{Chef::Config[:file_cache_path]}/#{@package_file}"

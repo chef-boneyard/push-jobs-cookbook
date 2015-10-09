@@ -24,6 +24,7 @@
 fail 'This recipe does not support Windows' if node['platform_family'] == 'windows'
 
 if node['push_jobs']['package_url'] && node['push_jobs']['package_checksum']
+  package_version  = PushJobsHelper.parse_version(node, node['push_jobs']['package_url'])
   package_url      = node['push_jobs']['package_url']
   package_file     = PushJobsHelper.package_file(node['push_jobs']['package_url'])
   package_checksum = node['push_jobs']['package_checksum']
@@ -39,7 +40,7 @@ else
 end
 
 chef_ingredient 'push-client' do
-  version node['push_jobs']['package_version']
+  version package_version || node['push_jobs']['package_version']
   package_source "#{Chef::Config[:file_cache_path]}/#{package_file}" if package_url
 end
 

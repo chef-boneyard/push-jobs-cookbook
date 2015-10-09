@@ -20,7 +20,7 @@
 
 include_recipe 'runit'
 
-version = PushJobsHelper.parse_version(node, node['push_jobs']['package_url'])
+version = PushJobsHelper.find_installed_version(node, node['push_jobs']['package_url'])
 install_path = PushJobsHelper.linux_install_path(node, version)
 exec_name = PushJobsHelper.linux_exec_name(node, version)
 

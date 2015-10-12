@@ -20,14 +20,14 @@
 
 include_recipe 'runit'
 
-version = PushJobsHelper.find_installed_version(node, node['push_jobs']['package_url'])
-install_path = PushJobsHelper.linux_install_path(node, version)
-exec_name = PushJobsHelper.linux_exec_name(node, version)
-
+# options seems to be resolved at compile time not run time in recipies.
+# To get the install path and exec name; this the template file calls:
+# PushJobsHelper.linux_install_path(node, version)
+# PushJobsHelper.linux_exec_name(node, version)
+# We must wait until compile phase because these functions may rely on prior install steps to know the version.
 runit_service 'opscode-push-jobs-client' do
   options(logging_level: node['push_jobs']['logging_level'],
-          install_path: install_path,
-          exec_name: exec_name,
+          node: { 'push_jobs' => node['push_jobs'] },
           config: PushJobsHelper.config_path)
   default_logger true
   subscribes :restart, "template[#{PushJobsHelper.config_path}]"

@@ -39,7 +39,6 @@ describe 'push-jobs::linux' do
     end
   end
 
-
   # These fail because PushJobsHelper.find_installed_version/version_from_manifest can't find
   # an installed version.
   # I'd like to stub those calls, but the following don't seem to alter the call find_installed_version in service_runit.

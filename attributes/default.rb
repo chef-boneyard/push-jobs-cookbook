@@ -42,6 +42,8 @@ when 'debian', 'rhel'
   default['push_jobs']['init_style']                 = 'runit'
   default['push_jobs']['chef']['client_key_path']    = '/etc/chef/client.pem'
   default['push_jobs']['chef']['trusted_certs_path'] = '/etc/chef/trusted_certs'
+  default['push_jobs']['chef']['install_path']       = nil
+  default['push_jobs']['chef']['exec_name']          = nil
 when 'windows'
   default['push_jobs']['service_string']             = 'service[push-jobs-client]'
   default['push_jobs']['init_style']                 = 'windows'

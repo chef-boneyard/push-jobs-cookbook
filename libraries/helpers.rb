@@ -24,7 +24,7 @@ require 'uri'
 require 'chef/config'
 
 # Helper functions for Push Jobs cookbook
-module PushJobsHelper
+module PushJobsHelper # rubocop:disable Metrics/ModuleLength
   def self.package_file(url = 'http://www.opscode.com/chef/install.sh')
     uri = ::URI.parse(::URI.unescape(url))
     package_file = File.basename(uri.path)
@@ -69,30 +69,31 @@ module PushJobsHelper
     end
   end
 
-  def self.linux_install_path(node, version)
+  def self.linux_install_path(node, version = nil)
+    version ||= find_installed_version(node)
     node['push_jobs']['install_path'] || names_by_version(version, :linux)[:install_path]
   end
-  def self.linux_exec_name(node, version)
+
+  def self.linux_exec_name(node, version = nil)
+    version ||= find_installed_version(node)
     node['push_jobs']['exec_name'] || names_by_version(version, :linux)[:exec_name]
   end
 
+  # This may be worth incorporating in to chef_ingredient
   def self.version_from_manifest(path)
-
-    json_path = File.join(path, "version-manifest.json")
-    txt_path = File.join(path, "version-manifest.txt")
-
-    version = if File.exists?(json_path)
+    json_path = File.join(path, 'version-manifest.json')
+    txt_path = File.join(path, 'version-manifest.txt')
+    version = if File.exist?(json_path)
                 JSON.parse(path)['build_version']
-              elsif File.exists?(txt_path)
-                version = File.readlines(txt_path, 100).first.split(' ')[1]
-              else
-                nil
+              elsif File.exist?(txt_path)
+                File.readlines(txt_path, 100).first.split(' ')[1]
               end
-     version
+    version
   end
 
-  def self.find_installed_version(node, url)
-    version = parse_version(node,url)
+  def self.find_installed_version(node, url = nil)
+    url ||= node['push_jobs']['package_url']
+    version = parse_version(node, url)
     return version if version
 
     # heuristic to deduce version if we can't find it out some other
@@ -101,25 +102,17 @@ module PushJobsHelper
     # picked.
     names = %w(/opt/push-jobs-client /opt/opscode-push-jobs-client)
 
-    possible_versions =  names.map {|d| version_from_manifest(d) }
+    possible_versions = names.map { |d| version_from_manifest(d) }
 
-    version = possible_versions.select {|v| v }.first
+    version = possible_versions.find { |v| v }
     return version if version
 
-    if File.exists?('/opt/opscode-push-jobs-client')
-      return '1.0.0'
-    else
-      return nil
-    end
+    return '1.0.0' if File.exist?('/opt/opscode-push-jobs-client')
   end
 
   def self.parse_version(node, url)
     return node['push_jobs']['package_version'] if node['push_jobs']['package_version']
-    if url =~ /[\-_](\d+\.\d+\.\d+(\-alpha)?)[\-_]/
-      Regexp.last_match(1)
-    else
-      nil
-    end
+    Regexp.last_match(1) if url =~ /[\-_](\d+\.\d+\.\d+(\-alpha)?)[\-_]/
   end
 
   NAMING_DATA ||=
@@ -155,6 +148,4 @@ module PushJobsHelper
           }
         }
     }
-
-
 end

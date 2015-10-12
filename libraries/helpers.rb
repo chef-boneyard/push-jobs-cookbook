@@ -89,7 +89,7 @@ module PushJobsHelper
     { family_1_0:
         {
           windows: {
-            package_name: 'Opscode Push Jobs Client Installer for Windows v%v',
+            package_name: 'Opscode Push Jobs Client Installer for Windows v%{v}',
             service_name: 'pushy-client'
           },
           linux: {
@@ -100,7 +100,7 @@ module PushJobsHelper
       family_1_3:
         {
           windows: {
-            package_name: 'Push Jobs Client v%v',
+            package_name: 'Push Jobs Client v%{v}',
             service_name: 'push-jobs-client' },
           linux: {
             install_path: '/opt/push-jobs-client',
@@ -110,7 +110,7 @@ module PushJobsHelper
       family_2_alpha:
         {
           windows: {
-            package_name: 'Push Jobs Client v%v',
+            package_name: 'Push Jobs Client v%{v}',
             service_name: 'push-jobs-client' },
           linux: {
             install_path: '/opt/push-jobs-client',

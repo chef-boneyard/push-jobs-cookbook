@@ -4,7 +4,7 @@ describe 'push-jobs::default' do
   context 'Ubuntu' do
     cached(:chef_run) do
       runner = ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '12.04')
-      runner.node.set['push_jobs']['package_url'] = 'http://foo.bar.com/opscode-push-jobs-client_x86_64.deb?key=value'
+      runner.node.set['push_jobs']['package_url'] = 'http://foo.bar.com/opscode-push-jobs-client_1.0.0_x86_64.deb?key=value'
       runner.converge('recipe[push-jobs::default]')
     end
 

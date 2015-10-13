@@ -1,5 +1,3 @@
 #!/bin/sh
 exec 2>&1
-exec /opt/opscode-push-jobs-client/bin/pushy-client -l <%= @options[:logging_level] %> -c /etc/chef/push-jobs-client.rb
-
-#exec /opt/opscode-push-jobs-client/bin/pushy-client -l <%= @options[:debug] %> -c <%= @options[:config_path] %>
+exec <%= PushJobsHelper.linux_install_path(@options['node']) %>/bin/<%= PushJobsHelper.linux_exec_name(@options['node']) %> -l <%= @options['logging_level'] %> <% if @options['config'] -%> -c <%= @options['config'] %> <% end -%>

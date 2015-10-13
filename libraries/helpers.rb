@@ -24,7 +24,7 @@ require 'uri'
 require 'chef/config'
 
 # Helper functions for Push Jobs cookbook
-module PushJobsHelper
+module PushJobsHelper # rubocop:disable Metrics/ModuleLength
   def self.package_file(url = 'http://www.opscode.com/chef/install.sh')
     uri = ::URI.parse(::URI.unescape(url))
     package_file = File.basename(uri.path)
@@ -39,32 +39,25 @@ module PushJobsHelper
     Chef::Config.platform_specific_path('/etc/chef')
   end
 
-  def self.names_by_version(version)
-    if version =~ /^1\.[0-2]/
-      { windows: {
-        package_name: "Opscode Push Jobs Client Installer for Windows v#{version}",
-        service_name: 'pushy-client' }
-      }
-    elsif version =~ /^1\.3/
-      { windows: {
-        package_name: "Push Jobs Client v#{version}",
-        service_name: 'push-jobs-client' }
-      }
-    elsif version =~ /^2\.0\.0-alpha/
-      { windows: {
-        package_name: "Push Jobs Client v#{version}",
-        service_name: 'push-jobs-client' }
-      }
-    else
-      fail "No info for version #{version}"
-    end
+  def self.names_by_version(version, platform)
+    family =
+      if version =~ /^1\.[0-2]/
+        :family_1_0
+      elsif version =~ /^1\.3/
+        :family_1_3
+      elsif version =~ /^2\.0\.0-alpha/
+        :family_2_alpha
+      else
+        fail "No info for version '#{version}'"
+      end
+    NAMING_DATA[family][platform]
   end
 
   def self.windows_package_name(node, version)
     if node['push_jobs']['package_name']
       node['push_jobs']['package_name']
     else
-      names_by_version(version)[:windows][:package_name]
+      names_by_version(version, :windows)[:package_name] % { v: version }
     end
   end
 
@@ -72,34 +65,87 @@ module PushJobsHelper
     if node['push_jobs']['service_name']
       node['push_jobs']['service_name']
     else
-      names_by_version(version)[:windows][:service_name]
+      names_by_version(version, :windows)[:service_name]
     end
+  end
+
+  def self.linux_install_path(node, version = nil)
+    version ||= find_installed_version(node)
+    node['push_jobs']['install_path'] || names_by_version(version, :linux)[:install_path]
+  end
+
+  def self.linux_exec_name(node, version = nil)
+    version ||= find_installed_version(node)
+    node['push_jobs']['exec_name'] || names_by_version(version, :linux)[:exec_name]
+  end
+
+  # This may be worth incorporating in to chef_ingredient
+  def self.version_from_manifest(path)
+    json_path = File.join(path, 'version-manifest.json')
+    txt_path = File.join(path, 'version-manifest.txt')
+    version = if File.exist?(json_path)
+                JSON.parse(path)['build_version']
+              elsif File.exist?(txt_path)
+                File.readlines(txt_path, 100).first.split(' ')[1]
+              end
+    version
+  end
+
+  def self.find_installed_version(node, url = nil)
+    url ||= node['push_jobs']['package_url']
+    version = parse_version(node, url)
+    return version if version
+
+    # heuristic to deduce version if we can't find it out some other
+    # fashion. This may happen if we're using chef ingredient to find
+    # latest, which doesn't provide a method to determine what it
+    # picked.
+    names = %w(/opt/push-jobs-client /opt/opscode-push-jobs-client)
+
+    possible_versions = names.map { |d| version_from_manifest(d) }
+
+    version = possible_versions.find { |v| v }
+    return version if version
+
+    return '1.0.0' if File.exist?('/opt/opscode-push-jobs-client')
   end
 
   def self.parse_version(node, url)
-    return node['push_jobs']['version'] if node['push_jobs']['version']
-    if url =~ /\-(\d+\.\d+\.\d+)\-/
-      return Regexp.last_match(1)
-    else
-      return ''
-    end
+    return node['push_jobs']['package_version'] if node['push_jobs']['package_version']
+    Regexp.last_match(1) if url =~ /[\-_](\d+\.\d+\.\d+(\-alpha)?)[\-_]/
   end
+
+  NAMING_DATA ||=
+    { family_1_0:
+        {
+          windows: {
+            package_name: 'Opscode Push Jobs Client Installer for Windows v%{v}',
+            service_name: 'pushy-client'
+          },
+          linux: {
+            install_path: '/opt/opscode-push-jobs-client',
+            exec_name: 'pushy-client'
+          }
+        },
+      family_1_3:
+        {
+          windows: {
+            package_name: 'Push Jobs Client v%{v}',
+            service_name: 'push-jobs-client' },
+          linux: {
+            install_path: '/opt/push-jobs-client',
+            exec_name: 'pushy-client'
+          }
+        },
+      family_2_alpha:
+        {
+          windows: {
+            package_name: 'Push Jobs Client v%{v}',
+            service_name: 'push-jobs-client' },
+          linux: {
+            install_path: '/opt/push-jobs-client',
+            exec_name: 'pushy-client'
+          }
+        }
+    }
 end
-
-#
-# Reference values
-#
-# 1.1.x opscode-push-jobs-client-windows-1.1.4-1.windows.msi
-# PName: "Opscode Push Jobs Client Installer for Windows v1.1.4"
-# Install Path: /opt/opscode/pushy (C:/opscode/pushy)
-# Registry (pushy-client)
-## DisplayName: Pushy Client Service
-## ImagePath: C:\opscode\pushy\embedded\bin\ruby.exe C:\opscode\pushy\embedded\lib\ruby\gems\1.9.1\gems\opscode-pushy-client-1.1.3\lib\pushy_client\windows_service.rb
-
-#
-# 1.3.x push-jobs-client-1.3.3-1.msi
-# PName: "Push Jobs Client v1.3.3"
-# Install Path: /opt/opscode/push-jobs-client (C:/opscode/push-jobs-client)
-# Registry (push-jobs-client)
-## DisplayName: Push Jobs Client Service
-## ImagePath: C:\opscode\push-jobs-client\embedded\bin\ruby.exe C:\opscode\push-jobs-client\embedded\lib\ruby\gems\2.1.0\gems\opscode-pushy-client-1.3.3\lib\pushy_client\windows_service.rb

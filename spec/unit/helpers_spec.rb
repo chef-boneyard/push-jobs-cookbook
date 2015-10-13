@@ -17,7 +17,7 @@ describe 'PushJobsHelper' do
 
   it 'parse_version method should return empty string' do
     url = 'http://foo-1-2.bar.com/jobs-client-renamed.msi'
-    expect(PushJobsHelper.parse_version(default_node, url)).to match ''
+    expect(PushJobsHelper.parse_version(default_node, url)).to match nil
   end
 
   it 'parse_version method should return correct version for stable version' do
@@ -31,7 +31,7 @@ describe 'PushJobsHelper' do
   end
 
   it 'parse_version method should let node["push_jobs"]["version"]' do
-    node = { 'push_jobs' => { 'version' => '1.2.3' } }
+    node = { 'push_jobs' => { 'package_version' => '1.2.3' } }
     url = 'https://foo-4.bar.com/push-jobs-client-2.0.0-alpha.1-1.msi'
     expect(PushJobsHelper.parse_version(node, url)).to match '1.2.3'
   end

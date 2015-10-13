@@ -2,6 +2,29 @@ push-jobs Cookbook CHANGELOG
 ============================
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+v2.6.0 (2015-10-13)
+-------------------
+- Use chefdk version of berks for travis.
+- #54 Unbreak chef-ingredient installs, and improve version
+  independence logic.
+
+v2.5.0 (2015-10-06)
+-------------------
+- #53 - Allow node\_name and chef\_server\_url to be overridden
+- #49 - Support the name changes in 1.3x and 2.0 push client,
+  especially on windows
+- #52 - More updates for newer rubocop and foodcritic
+- #50 - Allow ssl to be disabled
+- Cleanups for travis testing and general hygiene 
+  - test on modern ruby
+  - update kitchen.yml boxes
+  - bump gem versions
+  - rubocop update, use standard rules, misc fixes
+  - foodcritic fixes
+  - update README CONTRIBUTING
+  - update urls/emails
+
+
 v2.4.2 (2015-09-08)
 -------------------
 - #42 - Windows push client to use own config

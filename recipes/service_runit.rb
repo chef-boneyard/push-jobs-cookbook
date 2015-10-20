@@ -26,9 +26,9 @@ include_recipe 'runit'
 # PushJobsHelper.linux_exec_name(node, version)
 # We must wait until compile phase because these functions may rely on prior install steps to know the version.
 runit_service 'opscode-push-jobs-client' do
-  options(logging_level: node['push_jobs']['logging_level'],
-          node: { 'push_jobs' => node['push_jobs'] },
-          config: PushJobsHelper.config_path)
+  options('logging_level' => node['push_jobs']['logging_level'],
+          'node' => { 'push_jobs' => node['push_jobs'] },
+          'config' => PushJobsHelper.config_path)
   default_logger true
   subscribes :restart, "template[#{PushJobsHelper.config_path}]"
   action [:enable, :start]

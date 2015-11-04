@@ -21,6 +21,7 @@ end
 
 group :kitchen_vagrant do
   gem 'kitchen-vagrant', '~> 0.19'
+  gem 'winrm-transport', '~> 1.0'
 end
 
 group :kitchen_cloud do

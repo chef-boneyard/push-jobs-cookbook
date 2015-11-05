@@ -50,5 +50,6 @@ template PushJobsHelper.config_path do
     whitelist: node['push_jobs']['whitelist'],
     env_variables: node['push_jobs']['environment_variables'],
     verify_api_cert: node['push_jobs']['chef']['verify_api_cert'],
-    ssl_verify_mode: node['push_jobs']['chef']['ssl_verify_mode'])
+    ssl_verify_mode: node['push_jobs']['chef']['ssl_verify_mode'],
+    include_timestamp: node['push_jobs']['chef']['include_timestamp'])
 end

@@ -2,6 +2,14 @@ push-jobs Cookbook CHANGELOG
 ============================
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+v2.6.2 (2015-11-04)
+-------------------
+- Added an attribute so we can enable timetsamps on Windows.
+
+v2.6.1 (2015-10-21)
+-------------------
+- #56 - Replaced symbols with strings in recipe
+
 v2.6.0 (2015-10-13)
 -------------------
 - Use chefdk version of berks for travis.
@@ -15,7 +23,7 @@ v2.5.0 (2015-10-06)
   especially on windows
 - #52 - More updates for newer rubocop and foodcritic
 - #50 - Allow ssl to be disabled
-- Cleanups for travis testing and general hygiene 
+- Cleanups for travis testing and general hygiene
   - test on modern ruby
   - update kitchen.yml boxes
   - bump gem versions

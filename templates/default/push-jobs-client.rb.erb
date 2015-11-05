@@ -12,10 +12,10 @@ node_name         '<%= @node_name %>'
 client_key        '<%= @client_key_path %>'
 trusted_certs_dir '<%= @trusted_certs_path %>'
 verify_api_cert   <%= @verify_api_cert %>
-ssl_verify_mode   <%= ":#{@ssl_verify_mode}" %> 
+ssl_verify_mode   <%= ":#{@ssl_verify_mode}" %>
 
 # The whitelist comes from node['push_jobs']['whitelist']
 whitelist(<%= @whitelist.to_hash.inspect %>)
 
 # We're under runit, so don't output timestamp
-Mixlib::Log::Formatter.show_time = false
+Mixlib::Log::Formatter.show_time = <%= @include_timestamp %>

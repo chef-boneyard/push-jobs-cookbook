@@ -5,6 +5,7 @@ This file is used to list changes made in each version of the push-jobs cookbook
 v2.6.2 (2015-11-04)
 -------------------
 - Added an attribute so we can enable timetsamps on Windows.
+- Fix pushy client service registration on Windows to correctly read config file.
 
 v2.6.1 (2015-10-21)
 -------------------

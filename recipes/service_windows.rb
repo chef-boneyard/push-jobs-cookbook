@@ -25,6 +25,7 @@ version = PushJobsHelper.parse_version(node, node['push_jobs']['package_url'])
 service_name = PushJobsHelper.windows_service_name(node, version)
 
 config_file_option = "-c #{PushJobsHelper.config_path}"
+key_path = "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\#{service_name}"
 
 # The Parameters key isn't respected by some versions. Inject the
 # config file path into ImagePath.
@@ -33,23 +34,26 @@ config_file_option = "-c #{PushJobsHelper.config_path}"
 # The MSI does not pass any other arguments. So we match the above
 # path, just to be extra careful, and then append the "-c path\to\config"
 # to it. We need to restart the windows service after performing this
-# to ensure that the change takes effect.
+# to ensure that the change takes effect. We make an assumption that there
+# are no spaces anywhere in any of the paths (because we don't want to
+# write a full on command parser that handles quotes and stuff).
 #
-# If this registry key doesn't exist, then the service has not been
-# registered yet and an appropriate error will be thrown when
-# a service restart is attempted.
-key_path = "HKLM\\SYSTEM\\CurrentControlSet\\Services\\#{service_name}"
-
-registry_key key_path do
-  values lazy do
-    values = registry_get_values(key_path)
-    imagepath = values.find { |x| x[:name] == 'ImagePath' }
-    match = imagepath[:data].match(/^(.*ruby\.exe)\s+(\S*windows_service\.rb)/)
-    imagepath[:data] = "#{match[1]} #{match[2]} #{config_file_option}"
-    [imagepath]
-  end
+# We could use a registry resource from Chef here but the value we
+# wish to compute for ImagePath is resolved at run-time. As of Chef 12.5.1
+# the core registry resource does not support a lazy value for its
+# values attribute. This is a workaround.
+powershell_script 'Set the config path in the service registry key' do
+  code <<-EOH
+    $KeyPath = '#{key_path}'
+    $ImagePath = (Get-ItemProperty -Path $KeyPath).ImagePath
+    if ($ImagePath -match '^(\\S*ruby\\.exe)\\s+(\\S*windows_service\\.rb)') {
+      $ImagePath = $matches[1], $matches[2], '#{config_file_option}' -join ' '
+      Set-ItemProperty -Path $KeyPath -Name ImagePath -Type String -Value $ImagePath
+    } else {
+      throw "ImagePath of $KeyPath has unexpected value $ImagePath"
+    }
+  EOH
   notifies :restart, "service[#{service_name}]"
-  only_if { registry_key_exists?(key_path) }
 end
 
 service service_name do

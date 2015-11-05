@@ -18,39 +18,41 @@
 # limitations under the License.
 #
 
+# For now, this is guaranteed to exist. Change this when
+# chef-ingredient supports installation on windows and we don't
+# force users to specify package_url.
 version = PushJobsHelper.parse_version(node, node['push_jobs']['package_url'])
 service_name = PushJobsHelper.windows_service_name(node, version)
 
 config_file_option = "-c #{PushJobsHelper.config_path}"
-
-values_to_set = [{ name: 'Parameters',
-                   type: :string,
-                   data: config_file_option }]
+key_path = "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\#{service_name}"
 
 # The Parameters key isn't respected by some versions. Inject the
 # config file path into ImagePath.
 #
-# This is a bit painful, since ImagePath contains a version specific
-# path to the windows_service.rb code; we can't know what it is until
-# the msi is installed. (The path incorporates the push-client ruby
-# gem version, which isn't always correlated with the version of the
-# omnibus package. So we can't create this entry before installation,
-# yet installation may fail if this isn't set.
+# The ImagePath looks like "X:\Path\To\ruby.exe X:\Path\To\windows_service.rb"
+# The MSI does not pass any other arguments. So we match the above
+# path, just to be extra careful, and then append the "-c path\to\config"
+# to it. We need to restart the windows service after performing this
+# to ensure that the change takes effect. We make an assumption that there
+# are no spaces anywhere in any of the paths (because we don't want to
+# write a full on command parser that handles quotes and stuff).
 #
-# The approach below parses the ImagePath from the installer, and adds
-# a command line option to point to the config file.
-#
-key_path = "HKLM\\SYSTEM\\CurrentControlSet\\Services\\#{service_name}"
-if registry_key_exists?(key_path)
-  values = registry_get_values(key_path)
-  imagepath = values.find { |x| x[:name] == 'ImagePath' }
-  match = imagepath[:data].match(/^(.*ruby\.exe)\s+(\S*windows_service\.rb)/)
-  imagepath[:data] = "#{match[1]} #{match[2]} #{config_file_option}"
-  values_to_set << imagepath
-end
-
-registry_key "HKLM\\SYSTEM\\CurrentControlSet\\Services\\#{service_name}" do
-  values(values_to_set)
+# We could use a registry resource from Chef here but the value we
+# wish to compute for ImagePath is resolved at run-time. As of Chef 12.5.1
+# the core registry resource does not support a lazy value for its
+# values attribute. This is a workaround.
+powershell_script 'Set the config path in the service registry key' do
+  code <<-EOH
+    $KeyPath = '#{key_path}'
+    $ImagePath = (Get-ItemProperty -Path $KeyPath).ImagePath
+    if ($ImagePath -match '^(\\S*ruby\\.exe)\\s+(\\S*windows_service\\.rb)') {
+      $ImagePath = $matches[1], $matches[2], '#{config_file_option}' -join ' '
+      Set-ItemProperty -Path $KeyPath -Name ImagePath -Type String -Value $ImagePath
+    } else {
+      throw "ImagePath of $KeyPath has unexpected value $ImagePath"
+    }
+  EOH
   notifies :restart, "service[#{service_name}]"
 end
 

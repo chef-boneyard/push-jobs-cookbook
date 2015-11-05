@@ -20,7 +20,7 @@ end
 
 desc 'Runs Rubocop linter.'
 task :rubocop do
-  Rubocop::RakeTask.new
+  RuboCop::RakeTask.new
 end
 
 # Rubocop before rspec so we don't Rubocop vendored cookbooks

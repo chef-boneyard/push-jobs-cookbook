@@ -24,9 +24,6 @@
 # Do not continue if trying to run the Windows recipe on non-Windows
 fail 'This recipe only supports Windows' unless node['platform_family'] == 'windows'
 
-# Ensure the config is available before installing and starting the service
-include_recipe 'push-jobs::config'
-
 version = PushJobsHelper.parse_version(node, node['push_jobs']['package_url'])
 package_name = PushJobsHelper.windows_package_name(node, version)
 windows_package package_name do
@@ -34,4 +31,5 @@ windows_package package_name do
   checksum node['push_jobs']['package_checksum']
 end
 
+include_recipe 'push-jobs::config'
 include_recipe 'push-jobs::service'

@@ -53,6 +53,10 @@ powershell_script 'Set the config path in the service registry key' do
       throw "ImagePath of $KeyPath has unexpected value $ImagePath"
     }
   EOH
+  not_if <<-EOH
+    $KeyPath = '#{key_path}'
+    (Get-ItemProperty -Path $KeyPath).ImagePath.Contains('#{config_file_option}')
+  EOH
   notifies :restart, "service[#{service_name}]"
 end
 

@@ -37,7 +37,7 @@ default['push_jobs']['chef']['chef_server_url']     = nil
 default['push_jobs']['chef']['node_name']           = nil
 
 # Show timestamps in log by default.
-default['push_jobs']['chef']['include_timestamp']  = true
+default['push_jobs']['chef']['include_timestamp']   = true
 
 case node['platform_family']
 when 'debian', 'rhel'

@@ -84,7 +84,7 @@ module PushJobsHelper # rubocop:disable Metrics/ModuleLength
     json_path = File.join(path, 'version-manifest.json')
     txt_path = File.join(path, 'version-manifest.txt')
     version = if File.exist?(json_path)
-                JSON.parse(path)['build_version']
+                JSON.parse(File.read(json_path))['build_version']
               elsif File.exist?(txt_path)
                 File.readlines(txt_path, 100).first.split(' ')[1]
               end

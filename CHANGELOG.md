@@ -2,6 +2,10 @@ push-jobs Cookbook CHANGELOG
 ============================
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+v2.6.4 (2015-11-20)
+-------------------
+- Fix version_from_manifest helper method.
+
 v2.6.3 (2015-11-10)
 -------------------
 - Stopped the windows service from restarting with every CCR.

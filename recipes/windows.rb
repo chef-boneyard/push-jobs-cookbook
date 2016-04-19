@@ -22,7 +22,7 @@
 #
 
 # Do not continue if trying to run the Windows recipe on non-Windows
-fail 'This recipe only supports Windows' unless node['platform_family'] == 'windows'
+raise 'This recipe only supports Windows' unless node['platform_family'] == 'windows'
 
 version = PushJobsHelper.parse_version(node, node['push_jobs']['package_url'])
 package_name = PushJobsHelper.windows_package_name(node, version)

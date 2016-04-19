@@ -21,10 +21,10 @@
 #
 
 # Do not continue if trying to run the Linux recipe on Windows
-fail 'This recipe does not support Windows' if node['platform_family'] == 'windows'
+raise 'This recipe does not support Windows' if node['platform_family'] == 'windows'
 
 if node['push_jobs']['package_url']
-  fail 'Must specify package_checksum if package_url is specified' unless node['push_jobs']['package_checksum']
+  raise 'Must specify package_checksum if package_url is specified' unless node['push_jobs']['package_checksum']
 
   package_version  = PushJobsHelper.parse_version(node, node['push_jobs']['package_url'])
   package_url      = node['push_jobs']['package_url']

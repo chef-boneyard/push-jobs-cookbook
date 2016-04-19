@@ -48,7 +48,7 @@ module PushJobsHelper # rubocop:disable Metrics/ModuleLength
       elsif version =~ /^2\.0\.0-alpha/
         :family_2_alpha
       else
-        fail "No info for version '#{version}'"
+        raise "No info for version '#{version}'"
       end
     NAMING_DATA[family][platform]
   end
@@ -147,5 +147,5 @@ module PushJobsHelper # rubocop:disable Metrics/ModuleLength
             exec_name: 'pushy-client'
           }
         }
-    }
+    }.freeze
 end

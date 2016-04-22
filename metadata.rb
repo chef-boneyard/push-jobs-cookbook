@@ -16,7 +16,7 @@ supports 'windows'
 # For per-platform resources, respectively
 depends 'runit'
 depends 'windows'
-depends 'chef-ingredient'
+depends 'chef-ingredient', '>= 0.18.0'
 
 source_url 'https://github.com/chef-cookbooks/push-jobs' if respond_to?(:source_url)
 issues_url 'https://github.com/chef-cookbooks/push-jobs/issues' if respond_to?(:issues_url)

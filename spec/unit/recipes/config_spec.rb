@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'push-jobs' do
-  describe '::linux' do
+  describe '::install' do
     cached(:chef_run) do
       runner = ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '10.04')
       runner.converge('recipe[push-jobs::config]')

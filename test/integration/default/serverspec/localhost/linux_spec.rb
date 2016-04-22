@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe 'push-jobs::default recipe' do
   it 'Installs the push jobs client package' do
-    expect(package 'opscode-push-jobs-client').to be_installed
+    expect(file '/opt/push-jobs-client/bin/pushy-client').to exist
+    expect(file '/opt/push-jobs-client/bin/pushy-service-manager').to exist
   end
 
   it 'Creates the push-jobs-client.rb' do

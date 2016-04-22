@@ -53,14 +53,6 @@ module PushJobsHelper # rubocop:disable Metrics/ModuleLength
     NAMING_DATA[family][platform]
   end
 
-  def self.windows_package_name(node, version)
-    if node['push_jobs']['package_name']
-      node['push_jobs']['package_name']
-    else
-      names_by_version(version, :windows)[:package_name] % { v: version }
-    end
-  end
-
   def self.windows_service_name(node, version)
     if node['push_jobs']['service_name']
       node['push_jobs']['service_name']

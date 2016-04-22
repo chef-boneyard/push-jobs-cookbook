@@ -25,13 +25,8 @@ unless node['push_jobs']['whitelist'].is_a? Hash
 end
 
 case node['platform_family']
-when 'windows'
-  unless node['push_jobs']['package_url'] && node['push_jobs']['package_checksum']
-    raise "Please set both ['push_jobs']['package_url'] and ['push_jobs']['package_checksum'] attributes."
-  end
-  include_recipe 'push-jobs::windows'
-when 'debian', 'rhel'
-  include_recipe 'push-jobs::linux'
+when 'windows', 'debian', 'rhel'
+  include_recipe 'push-jobs::install'
 else
   raise 'This cookbook currently supports only Windows, Debian-family Linux, and RHEL-family Linux.'
 end

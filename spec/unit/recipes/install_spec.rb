@@ -15,7 +15,7 @@ describe 'push-jobs::install' do
     end
 
     it 'installs the chef_ingredient push-client' do
-      expect(chef_run).to install_chef_ingredient('push-client').with(package_source: "#{Chef::Config[:file_cache_path]}/#{@package_file}")
+      expect(chef_run).to install_chef_ingredient('push-jobs-client').with(package_source: "#{Chef::Config[:file_cache_path]}/#{@package_file}")
     end
 
     it 'includes the config recipe' do

@@ -107,6 +107,28 @@ module PushJobsHelper # rubocop:disable Metrics/ModuleLength
     Regexp.last_match(1) if url =~ /[\-_](\d+\.\d+\.\d+(\-alpha)?)[\-_]/
   end
 
+  def self.chef_server_url(node)
+    node['push_jobs']['chef']['chef_server_url'] || Chef::Config.chef_server_url
+  end
+
+  def self.node_name(node)
+    node['push_jobs']['chef']['node_name'] || Chef::Config[:node_name]
+  end
+
+  def self.config_hash(node)
+    {
+      'chef_server_url' => chef_server_url(node),
+      'node_name' => node_name(node),
+      'client_key' => node['push_jobs']['chef']['client_key_path'],
+      'trusted_certs_path' => node['push_jobs']['chef']['trusted_certs_path'],
+      'whitelist' => node['push_jobs']['whitelist'],
+      'env_variables' => node['push_jobs']['environment_variables'],
+      'verify_api_cert' => node['push_jobs']['chef']['verify_api_cert'],
+      'ssl_verify_mode' => node['push_jobs']['chef']['ssl_verify_mode'],
+      'include_timestamp' => node['push_jobs']['chef']['include_timestamp']
+    }
+  end
+
   NAMING_DATA ||=
     { family_1_0:
         {

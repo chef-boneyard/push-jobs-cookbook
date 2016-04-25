@@ -35,4 +35,14 @@ describe 'PushJobsHelper' do
     url = 'https://foo-4.bar.com/push-jobs-client-2.0.0-alpha.1-1.msi'
     expect(PushJobsHelper.parse_version(node, url)).to match '1.2.3'
   end
+
+  it 'chef_server_url method should return node["push_jobs"]["chef"]["chef_server_url"] if set' do
+    node = { 'push_jobs' => { 'chef' => { 'chef_server_url' => 'https://chefserver.mycorp.co' } } }
+    expect(PushJobsHelper.chef_server_url(node)).to match 'https://chefserver.mycorp.co'
+  end
+
+  it 'node_name method should return node["push_jobs"]["chef"]["node_name"] if set' do
+    node = { 'push_jobs' => { 'chef' => { 'node_name' => 'Felix' } } }
+    expect(PushJobsHelper.node_name(node)).to match 'Felix'
+  end
 end

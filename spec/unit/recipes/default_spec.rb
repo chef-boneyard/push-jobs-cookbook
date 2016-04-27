@@ -12,8 +12,8 @@ describe 'push-jobs::default' do
       expect { chef_run }.not_to raise_error
     end
 
-    it 'Includes the linux recipe' do
-      expect(chef_run).to include_recipe "#{described_cookbook}::linux"
+    it 'Includes the install recipe' do
+      expect(chef_run).to include_recipe "#{described_cookbook}::install"
     end
   end
 end

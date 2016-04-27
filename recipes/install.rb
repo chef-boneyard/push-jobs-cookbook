@@ -20,9 +20,6 @@
 # limitations under the License.
 #
 
-# Do not continue if trying to run the Linux recipe on Windows
-raise 'This recipe does not support Windows' if node['platform_family'] == 'windows'
-
 if node['push_jobs']['package_url']
   raise 'Must specify package_checksum if package_url is specified' unless node['push_jobs']['package_checksum']
 
@@ -38,13 +35,13 @@ if node['push_jobs']['package_url']
   end
 
 else
-  Chef::Log.info("['push_jobs']['package_url'] and ['push_jobs']['package_checksum'] not set. Chef Push client will be installed from CHEF's public repositories.")
+  Chef::Log.info("['push_jobs']['package_url'] and ['push_jobs']['package_checksum'] not set. Chef Push client will be installed from packages.chef.io.")
 end
 
 #
-# This uses the chef package repositories by default; a separate config step may be needed so that they are accepted.
-# That is superior to the "options '--force-yes'" clause that was used in one version.
-chef_ingredient 'push-client' do
+# This uses packages.chef.io by default.
+#
+chef_ingredient 'push-jobs-client' do
   version package_version || node['push_jobs']['package_version']
   package_source "#{Chef::Config[:file_cache_path]}/#{package_file}" if package_url
 end

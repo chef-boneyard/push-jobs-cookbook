@@ -2,6 +2,10 @@ push-jobs Cookbook CHANGELOG
 ============================
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+v2.6.5 (2016-04-27)
+-------------------
+- Update chef-ingredient version to install from packages.chef.io. 
+
 v2.6.4 (2015-11-20)
 -------------------
 - Fix version_from_manifest helper method.

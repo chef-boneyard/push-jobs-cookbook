@@ -12,6 +12,10 @@ describe 'push-jobs' do
     end
 
     context '/etc/chef/push-jobs-client.rb file' do
+      it 'has the expected client key' do
+        expect(chef_run).to render_file('/etc/chef/push-jobs-client.rb').with_content("client_key        \'/etc/chef/client.pem\'")
+      end
+
       it 'has the expected whitelist' do
         expect(chef_run).to render_file('/etc/chef/push-jobs-client.rb').with_content('whitelist({"chef-client"=>"chef-client"})')
       end

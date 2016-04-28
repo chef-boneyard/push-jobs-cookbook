@@ -4,7 +4,9 @@ This file is used to list changes made in each version of the push-jobs cookbook
 
 ## v2.6.6 (2016-04-28)
 
-- Fix client key entry in config.
+- Fixed client key entry in config.
+- Removed node name from the push-jobs-client.rb template
+- Updated readme to properly list the supported / tested platforms
 
 ## v2.6.5 (2016-04-27)
 

@@ -119,7 +119,7 @@ module PushJobsHelper
     {
       'chef_server_url' => chef_server_url(node),
       'node_name' => node_name(node),
-      'client_key' => node['push_jobs']['chef']['client_key_path'],
+      'client_key_path' => node['push_jobs']['chef']['client_key_path'],
       'trusted_certs_path' => node['push_jobs']['chef']['trusted_certs_path'],
       'whitelist' => node['push_jobs']['whitelist'],
       'env_variables' => node['push_jobs']['environment_variables'],

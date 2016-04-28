@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+## v2.6.6 (2016-04-28)
+
+- Fix client key entry in config.
+
 ## v2.6.5 (2016-04-27)
 
 - Update chef-ingredient version to install from packages.chef.io.

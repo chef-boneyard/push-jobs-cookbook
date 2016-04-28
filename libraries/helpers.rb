@@ -5,7 +5,7 @@
 # Author:: Joshua Timberman <joshua@chef.io>
 # Author:: Charles Johnson <charles@chef.io>
 # Author:: Mark Anderson <mark@chef.io>
-# Copyright 2013-2015 Chef Software, Inc. <legal@chef.io>
+# Copyright 2013-2016 Chef Software, Inc. <legal@chef.io>
 #
 # Licensed under the Apache License, Version 2.0 (the 'License');
 # you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ require 'uri'
 require 'chef/config'
 
 # Helper functions for Push Jobs cookbook
-module PushJobsHelper # rubocop:disable Metrics/ModuleLength
+module PushJobsHelper
   def self.package_file(url = 'http://www.opscode.com/chef/install.sh')
     uri = ::URI.parse(::URI.unescape(url))
     package_file = File.basename(uri.path)

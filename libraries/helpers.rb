@@ -40,17 +40,20 @@ module PushJobsHelper
   end
 
   def self.names_by_version(version, platform)
-    family =
-      if version =~ /^1\.[0-2]/
-        :family_1_0
-      elsif version =~ /^1\.3/
-        :family_1_3
-      elsif version =~ /^2\.0\.0-alpha/
-        :family_2_alpha
-      else
-        raise "No info for version '#{version}'"
-      end
+    family = family_by_version(version)
     NAMING_DATA[family][platform]
+  end
+
+  def self.family_by_version(version)
+    if version =~ /^1\.[0-2]/
+      :family_1_0
+    elsif version =~ /^1\.3/
+      :family_1_3
+    elsif version =~ /^2\.[0-1]/
+      :family_2_0
+    else
+      raise "No info for version '#{version}'"
+    end
   end
 
   def self.windows_service_name(node, version)
@@ -151,7 +154,7 @@ module PushJobsHelper
             exec_name: 'pushy-client'
           }
         },
-      family_2_alpha:
+      family_2_0:
         {
           windows: {
             package_name: 'Push Jobs Client v%{v}',

@@ -45,4 +45,21 @@ describe 'PushJobsHelper' do
     node = { 'push_jobs' => { 'chef' => { 'node_name' => 'Felix' } } }
     expect(PushJobsHelper.node_name(node)).to match 'Felix'
   end
+
+  describe 'family_by_version' do
+    it 'returns the family name for the corresponding version' do
+      expect(PushJobsHelper.family_by_version('1.0.0')).to eq :family_1_0
+      expect(PushJobsHelper.family_by_version('1.1.5')).to eq :family_1_0
+      expect(PushJobsHelper.family_by_version('1.3.3')).to eq :family_1_3
+      expect(PushJobsHelper.family_by_version('1.3.4')).to eq :family_1_3
+      expect(PushJobsHelper.family_by_version('2.0.0-alpha')).to eq :family_2_0
+      expect(PushJobsHelper.family_by_version('2.1.0')).to eq :family_2_0
+    end
+
+    it 'raises an error for non-recognized versions' do
+      version = '3.0.0-awesome'
+      error = "No info for version '#{version}'"
+      expect { PushJobsHelper.family_by_version(version) }.to raise_error(RuntimeError, error)
+    end
+  end
 end

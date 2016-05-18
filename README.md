@@ -15,7 +15,7 @@ Requires Chef Server with the Chef Push Server add-on.
 - Debian/Ubuntu
 - Windows
 
-Tested on Ubuntu 12.04, CentOS 6.4, and Windows 2012 R2\. It may work on other debian, rhel, or windows platform families with or without modification.
+Tested on Ubuntu 12.04/14.04/16.04, CentOS 6/7, and Windows 2012 R2. It may work on other debian, rhel, or windows platform families with or without modification.
 
 Testing for Ubuntu/CentOS can be done with Test Kitchen, see TESTING.md in this repository.
 
@@ -156,6 +156,7 @@ INFO: [pclient] Started client.
 
 ```text
 Copyright:: 2009-2016, Chef Software, Inc
+
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at

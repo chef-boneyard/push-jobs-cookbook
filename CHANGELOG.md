@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+## v2.7.0 (2016-05-18)
+
+- Allow installing push client 2.0 stable release
+
 ## v2.6.6 (2016-04-28)
 
 - Fixed client key entry in config.

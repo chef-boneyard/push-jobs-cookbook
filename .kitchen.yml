@@ -11,6 +11,8 @@ platforms:
     run_list: apt::default
   - name: ubuntu-14.04
     run_list: apt::default
+  - name: ubuntu-16.04
+    run_list: apt::default
   #
   # The following (private) boxes are shared via Atlas. Please note this
   # requires adding your Atlas account to the `Chef` org and will

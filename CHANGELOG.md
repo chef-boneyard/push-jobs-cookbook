@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+## v2.8.0 (2016-05-19)
+
+- Try a compatible package for non-suported platforms.
+
 ## v2.7.0 (2016-05-18)
 
 - Allow installing push client 2.0 stable release

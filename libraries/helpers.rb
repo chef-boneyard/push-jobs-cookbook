@@ -148,7 +148,8 @@ module PushJobsHelper
         {
           windows: {
             package_name: 'Push Jobs Client v%{v}',
-            service_name: 'push-jobs-client' },
+            service_name: 'push-jobs-client'
+          },
           linux: {
             install_path: '/opt/push-jobs-client',
             exec_name: 'pushy-client'
@@ -158,7 +159,8 @@ module PushJobsHelper
         {
           windows: {
             package_name: 'Push Jobs Client v%{v}',
-            service_name: 'push-jobs-client' },
+            service_name: 'push-jobs-client'
+          },
           linux: {
             install_path: '/opt/push-jobs-client',
             exec_name: 'pushy-client'

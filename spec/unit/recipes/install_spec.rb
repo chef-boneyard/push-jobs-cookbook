@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'push-jobs::install' do
   context 'with package_url' do
     let(:chef_run) do
-      runner = ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '10.04')
+      runner = ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '14.04')
       runner.node.set['push_jobs']['package_url'] = 'http://foo.bar.com/opscode-push-jobs-client_1.0.0_amd64.deb?key=value'
       runner.converge('recipe[push-jobs::install]')
     end
@@ -30,7 +30,7 @@ describe 'push-jobs::install' do
 
   context 'without package_url' do
     let(:chef_run) do
-      runner = ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '10.04')
+      runner = ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '14.04')
       runner.converge('recipe[push-jobs::install]')
     end
 

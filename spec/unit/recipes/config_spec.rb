@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'push-jobs' do
   describe '::install' do
     cached(:chef_run) do
-      runner = ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '10.04')
+      runner = ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '14.04')
       runner.node.set['push_jobs']['chef']['node_name'] = 'Oscar'
       runner.node.set['push_jobs']['chef']['chef_server_url'] = 'https://chefserver.mycorp.co'
       runner.converge('recipe[push-jobs::config]')

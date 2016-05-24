@@ -5,7 +5,7 @@
 # Author:: Joshua Timberman <joshua@chef.io>
 # Author:: Charles Johnson <charles@chef.io>
 # Author:: Mark Anderson <mark@chef.io>
-# Copyright 2013-2015 Chef Software, Inc. <legal@chef.io>
+# Copyright 2013-2016 Chef Software, Inc. <legal@chef.io>
 #
 # Licensed under the Apache License, Version 2.0 (the 'License');
 # you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ require 'uri'
 require 'chef/config'
 
 # Helper functions for Push Jobs cookbook
-module PushJobsHelper # rubocop:disable Metrics/ModuleLength
+module PushJobsHelper
   def self.package_file(url = 'http://www.opscode.com/chef/install.sh')
     uri = ::URI.parse(::URI.unescape(url))
     package_file = File.basename(uri.path)
@@ -40,17 +40,20 @@ module PushJobsHelper # rubocop:disable Metrics/ModuleLength
   end
 
   def self.names_by_version(version, platform)
-    family =
-      if version =~ /^1\.[0-2]/
-        :family_1_0
-      elsif version =~ /^1\.3/
-        :family_1_3
-      elsif version =~ /^2\.0\.0-alpha/
-        :family_2_alpha
-      else
-        raise "No info for version '#{version}'"
-      end
+    family = family_by_version(version)
     NAMING_DATA[family][platform]
+  end
+
+  def self.family_by_version(version)
+    if version =~ /^1\.[0-2]/
+      :family_1_0
+    elsif version =~ /^1\.3/
+      :family_1_3
+    elsif version =~ /^2\.[0-1]/
+      :family_2_0
+    else
+      raise "No info for version '#{version}'"
+    end
   end
 
   def self.windows_service_name(node, version)
@@ -119,7 +122,7 @@ module PushJobsHelper # rubocop:disable Metrics/ModuleLength
     {
       'chef_server_url' => chef_server_url(node),
       'node_name' => node_name(node),
-      'client_key' => node['push_jobs']['chef']['client_key_path'],
+      'client_key_path' => node['push_jobs']['chef']['client_key_path'],
       'trusted_certs_path' => node['push_jobs']['chef']['trusted_certs_path'],
       'whitelist' => node['push_jobs']['whitelist'],
       'env_variables' => node['push_jobs']['environment_variables'],
@@ -145,17 +148,19 @@ module PushJobsHelper # rubocop:disable Metrics/ModuleLength
         {
           windows: {
             package_name: 'Push Jobs Client v%{v}',
-            service_name: 'push-jobs-client' },
+            service_name: 'push-jobs-client'
+          },
           linux: {
             install_path: '/opt/push-jobs-client',
             exec_name: 'pushy-client'
           }
         },
-      family_2_alpha:
+      family_2_0:
         {
           windows: {
             package_name: 'Push Jobs Client v%{v}',
-            service_name: 'push-jobs-client' },
+            service_name: 'push-jobs-client'
+          },
           linux: {
             install_path: '/opt/push-jobs-client',
             exec_name: 'pushy-client'

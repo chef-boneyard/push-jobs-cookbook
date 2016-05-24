@@ -3,8 +3,7 @@
 # Recipe:: config
 #
 # Author:: Joshua Timberman <joshua@opscode.com>
-# Copyright (c) 2013, Opscode, Inc. <legal@opscode.com>
-# Copyright (c) 2014, Chef Software, Inc. <legal@chef.io>
+# Copyright (c) 2013-2016, Chef Software, Inc. <legal@chef.io>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

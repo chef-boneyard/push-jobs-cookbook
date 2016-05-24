@@ -5,7 +5,7 @@
 # Author:: Joshua Timberman <joshua@chef.io>
 # Author:: Charles Johnson <charles@chef.io>
 # Author:: Christopher Maier <cm@chef.io>
-# Copyright 2013-2014 Chef Software, Inc. <legal@chef.io>
+# Copyright 2013-2016 Chef Software, Inc. <legal@chef.io>
 #
 # Licensed under the Apache License, Version 2.0 (the 'License');
 # you may not use this file except in compliance with the License.
@@ -44,6 +44,7 @@ end
 chef_ingredient 'push-jobs-client' do
   version package_version || node['push_jobs']['package_version']
   package_source "#{Chef::Config[:file_cache_path]}/#{package_file}" if package_url
+  platform_version_compatibility_mode true
 end
 
 include_recipe 'push-jobs::config'

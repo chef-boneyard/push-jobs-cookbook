@@ -12,5 +12,6 @@ describe 'push-jobs::default recipe' do
     expect(file '/etc/chef/push-jobs-client.rb').to be_grouped_into('root')
     expect(file '/etc/chef/push-jobs-client.rb').to contain('whitelist({"chef-client"=>"chef-client"})')
     expect(file '/etc/chef/push-jobs-client.rb').to contain("LC_ALL='en_US.UTF-8'")
+    expect(file '/etc/chef/push-jobs-client.rb').to contain("allow_unencrypted true")
   end
 end

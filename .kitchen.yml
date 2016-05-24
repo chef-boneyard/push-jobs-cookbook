@@ -35,7 +35,11 @@ suites:
       push_jobs:
         whitelist: {chef-client: "chef-client"}
         environment_variables: {LC_ALL: "en_US.UTF-8"}
+        allow_unencrypted: true
     excludes: windows-2012r2
   - name: windows
     run_list: recipe[push-jobs]
     includes: windows-2012r2
+    attributes:
+      push_jobs:
+        allow_unencrypted: true

@@ -47,14 +47,14 @@ Alternatives to chef gem install be found at <https://docs.chef.io/plugin_knife_
 
 Include the default recipe in a node's run list. On Windows, the URL to the package to install and its SHA256 checksum are required so the package may be retrieved. For example:
 
-```
+```ruby
 node.default['push_jobs']['package_url'] = "http://www.example.com/pkgs/opscode-push-jobs-client-windows-1.1.5-1.windows.msi"
 node.default['push_jobs']['package_checksum'] = "a-sha256-checksum"
 ```
 
 Set a whitelist of job names and their commands in the configuration file. This is automatically generated from the `node['push_jobs']['whitelist']` attribute Hash, such as:
 
-```
+```ruby
 node.default['push_jobs']['whitelist'] = {
   "chef-client" => "chef-client",
   "apt-get-update" => "apt-get update"
@@ -82,11 +82,17 @@ knife job start chef-client A_NODE_NAME
 knife job start ntpdate A_NODE_NAME
 ```
 
-In a future release, an LWRP may be added to automatically add push jobs.
+### Enabling 1.X Server Compatibility
+
+If you're running the 2.X push jobs client with the 1.X server you'll need to set allow_unencrypted to true with this attribute:
+
+```ruby
+node.default['push_jobs']['allow_unencrypted'] = true
+```
 
 ## Attributes
 
-Attributes are documented in metadata.rb. See `attributes/default.rb` for default values.
+See `attributes/default.rb` for default values.
 
 ## Recipes
 

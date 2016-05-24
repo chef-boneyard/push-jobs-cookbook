@@ -28,6 +28,9 @@ default['push_jobs']['config']['template_cookbook'] = nil
 default['push_jobs']['whitelist']                   = { 'chef-client' => 'chef-client' }
 default['push_jobs']['environment_variables']       = { 'LC_ALL' => 'en_US.UTF-8' }
 
+# must be set to true in order to communicate with Push Jobs 1.X server
+default['push_jobs']['allow_unencrypted']           = false
+
 # These variables control whether we validate ssl
 default['push_jobs']['chef']['verify_api_cert']     = true
 default['push_jobs']['chef']['ssl_verify_mode']     = :verify_peer

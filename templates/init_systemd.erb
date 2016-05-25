@@ -1,0 +1,11 @@
+# Systemd unit file for Chef Push Jobs Client
+
+[Unit]
+Description=Chef Push Jobs Client
+After=syslog.target network.target
+
+[Service]
+ExecStart=<%= @cli_command %>
+
+[Install]
+WantedBy=multi-user.target

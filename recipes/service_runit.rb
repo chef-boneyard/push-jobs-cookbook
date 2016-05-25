@@ -42,9 +42,7 @@ end
 # PushJobsHelper.linux_exec_name(node, version)
 # We must wait until compile phase because these functions may rely on prior install steps to know the version.
 runit_service 'chef-push-jobs-client' do
-  options('logging_level' => node['push_jobs']['logging_level'],
-          'node' => { 'push_jobs' => node['push_jobs'] },
-          'config' => PushJobsHelper.config_path)
+  options('cli_command' => PushJobsHelper.cli_command(node))
   default_logger true
   subscribes :restart, "template[#{PushJobsHelper.config_path}]"
   action [:enable, :start]

@@ -21,7 +21,7 @@ Testing for Ubuntu/CentOS can be done with Test Kitchen, see TESTING.md in this 
 
 ### Chef
 
-- Chef 11.4+
+- Chef 12+
 
 ### Cookbooks
 

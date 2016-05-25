@@ -18,33 +18,6 @@
 # limitations under the License.
 #
 
-include_recipe 'runit'
-
-# disable the old service
-runit_service 'opscode-push-jobs-client' do
-  action [:stop, :disable]
-end
-
-# remove old init script link
-file '/etc/init.d/opscode-push-jobs-client' do
-  action :delete
-end
-
-# remove the old service configs
-directory '/etc/sv/opscode-push-jobs-client' do
-  recursive true
-  action :delete
-end
-
-# options seems to be resolved at compile time not run time in recipies.
-# To get the install path and exec name; this the template file calls:
-# PushJobsHelper.linux_install_path(node, version)
-# PushJobsHelper.linux_exec_name(node, version)
-# We must wait until compile phase because these functions may rely on prior install steps to know the version.
-runit_service 'chef-push-jobs-client' do
-  options('cli_command' => PushJobsHelper.cli_command(node))
-  default_logger true
-  subscribes :restart, "template[#{PushJobsHelper.config_path}]"
-  action [:enable, :start]
-  retries 15
-end
+  push_jobs_service_runit 'push-jobs' do
+    action [:start, :enable]
+  end

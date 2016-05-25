@@ -22,7 +22,6 @@
 #
 
 supported_init_styles = %w(
-  container
   runit
   windows
 )

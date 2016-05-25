@@ -18,6 +18,8 @@
 # limitations under the License.
 #
 
+provides :push_jobs_service
+
 provides :push_jobs_service_runit
 
 action :start do

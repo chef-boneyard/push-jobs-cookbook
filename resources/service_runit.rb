@@ -2,6 +2,7 @@
 # Cookbook Name:: push-jobs
 # resource:: service_runit
 #
+# Author Tim Smith <tsmith@chef.io>
 # Copyright 2009-2016, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");

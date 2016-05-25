@@ -9,7 +9,7 @@
 # Chef server connect options
 chef_server_url   '<%= @chef_server_url %>'
 node_name         '<%= @node_name %>'
-client_key        '<%= @client_key %>'
+client_key        '<%= @client_key_path %>'
 trusted_certs_dir '<%= @trusted_certs_path %>'
 verify_api_cert   <%= @verify_api_cert %>
 ssl_verify_mode   <%= ":#{@ssl_verify_mode}" %>

@@ -28,6 +28,7 @@ Testing for Ubuntu/CentOS can be done with Test Kitchen, see TESTING.md in this 
 - [runit](https://supermarket.chef.io/cookbooks/runit)
 - [windows](https://supermarket.chef.io/cookbooks/windows)
 - [chef-ingredient](https://supermarket.chef.io/cookbooks/chef-ingredient)
+- [compat_resource](https://supermarket.chef.io/cookbooks/compat_resource)
 
 ## Install the Workstation
 

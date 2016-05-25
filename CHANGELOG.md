@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+## v2.8.1 (2016-05-24)
+
+- Add attribute for setting allow_unencrypted in the config via a new attribute, which is required when 2.X clients connect to the 1.X server
+- Require at least Runit 1.2.0 cookbook to ensure compatibility with RHEL systems
+
 ## v2.8.0 (2016-05-19)
 
 - Try a compatible package for non-suported platforms.

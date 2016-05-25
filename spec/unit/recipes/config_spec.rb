@@ -3,9 +3,10 @@ require 'spec_helper'
 describe 'push-jobs' do
   describe '::install' do
     cached(:chef_run) do
-      runner = ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '10.04')
+      runner = ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '14.04')
       runner.node.set['push_jobs']['chef']['node_name'] = 'Oscar'
       runner.node.set['push_jobs']['chef']['chef_server_url'] = 'https://chefserver.mycorp.co'
+      runner.node.set['push_jobs']['allow_unencrypted'] = true
       runner.converge('recipe[push-jobs::config]')
     end
 
@@ -49,14 +50,19 @@ describe 'push-jobs' do
       it 'has timestamps disabled' do
         expect(chef_run).to render_file('/etc/chef/push-jobs-client.rb').with_content('Mixlib::Log::Formatter.show_time = false')
       end
+
+      it 'has allow_unencrypted set to true when attribute set' do
+        expect(chef_run).to render_file('/etc/chef/push-jobs-client.rb').with_content('allow_unencrypted true')
+      end
     end
   end
 
   describe '::windows' do
     cached(:chef_run) do
-      runner = ChefSpec::SoloRunner.new(platform: 'windows', version: '2012R2')
+      runner = ChefSpec::ServerRunner.new(platform: 'windows', version: '2012R2')
       runner.node.set['push_jobs']['chef']['node_name'] = 'Felix'
       runner.node.set['push_jobs']['chef']['chef_server_url'] = 'https://mychefserver.mycorp.co'
+      runner.node.set['push_jobs']['allow_unencrypted'] = true
       runner.converge('recipe[push-jobs::config]')
     end
 
@@ -95,6 +101,10 @@ describe 'push-jobs' do
 
       it 'has timestamps disabled' do
         expect(chef_run).to render_file('/etc/chef/push-jobs-client.rb').with_content('Mixlib::Log::Formatter.show_time = true')
+      end
+
+      it 'has allow_unencrypted set to true when attribute set' do
+        expect(chef_run).to render_file('/etc/chef/push-jobs-client.rb').with_content('allow_unencrypted true')
       end
     end
   end

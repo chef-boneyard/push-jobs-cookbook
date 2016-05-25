@@ -14,7 +14,7 @@ supports 'debian'
 supports 'windows'
 
 # For per-platform resources, respectively
-depends 'runit'
+depends 'runit', '>= 1.2.0'
 depends 'windows'
 depends 'chef-ingredient', '>= 0.18.0'
 

@@ -17,8 +17,6 @@
 # limitations under the License.
 #
 
-#include PushJobsHelper
-
 provides :push_jobs_service_systemd
 
 provides :push_jobs_service, platform: %w(redhat centos scientific oracle) do |node| # ~FC005

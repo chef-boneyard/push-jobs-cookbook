@@ -17,8 +17,6 @@
 # limitations under the License.
 #
 
-#include PushJobsHelper
-
 provides :push_jobs_service_upstart
 
 provides :push_jobs_service, platform: 'ubuntu' do |node|

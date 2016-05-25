@@ -85,14 +85,14 @@ action_class.class_eval do
       action :nothing
     end
 
-    template "/etc/systemd/system/chef-push-jobs.service" do
+    template "/etc/systemd/system/chef-push-jobs-client.service" do
       source 'init_systemd.erb'
       cookbook 'push-jobs'
       variables ({
         :cli_command => PushJobsHelper.cli_command(node)
       })
       notifies :run, 'execute[reload_unit_file]', :immediately
-      notifies :restart, "service['chef-push-jobs-client']", :immediately
+      notifies :restart, "service[chef-push-jobs-client]", :immediately
     end
 
     # systemd is cool like this

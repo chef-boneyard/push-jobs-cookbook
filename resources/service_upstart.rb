@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: push-jobs
-# resource:: instance_systemd
+# resource:: service_upstart
 #
 # Copyright 2016, Chef Software, Inc.
 #
@@ -19,18 +19,10 @@
 
 #include PushJobsHelper
 
-provides :push_jobs_service_systemd
-
-provides :push_jobs_service, platform: %w(redhat centos scientific oracle) do |node| # ~FC005
-  node['platform_version'].to_f >= 7.0
-end
-
-provides :push_jobs_service, platform: 'debian' do |node|
-  node['platform_version'].to_i >= 8
-end
+provides :push_jobs_service_upstart
 
 provides :push_jobs_service, platform: 'ubuntu' do |node|
-  node['platform_version'].to_f >= 15.10
+  node['platform_version'].to_f < 15.10
 end
 
 action :start do
@@ -39,6 +31,7 @@ action :start do
   service 'chef-push-jobs' do
     supports restart: true, status: true
     action :start
+    subscribes :restart, "template[#{PushJobsHelper.config_path}]"
   end
 end
 
@@ -46,7 +39,7 @@ action :stop do
   service 'chef-push-jobs' do
     supports status: true
     action :stop
-    only_if { ::File.exist?("/etc/systemd/system/chef-push-jobs.service") }
+    only_if { ::File.exist?("/etc/init/chef-push-jobs.conf") }
   end
 end
 
@@ -57,21 +50,22 @@ action :restart do
   end
 end
 
-action :disable do
-  service 'chef-push-jobs' do
-    supports status: true
-    action :disable
-    only_if { ::File.exist?("/etc/systemd/system/chef-push-jobs.service") }
-  end
-end
-
 action :enable do
   create_init
 
   service 'chef-push-jobs' do
     supports status: true
     action :enable
-    only_if { ::File.exist?("/etc/systemd/system/chef-push-jobs.service") }
+    only_if { ::File.exist?("/etc/init/chef-push-jobs.conf") }
+    subscribes :restart, "template[#{PushJobsHelper.config_path}]"
+  end
+end
+
+action :disable do
+  service 'chef-push-jobs' do
+    supports status: true
+    action :disable
+    only_if { ::File.exist?("/etc/init/chef-push-jobs.conf") }
   end
 end
 
@@ -84,20 +78,13 @@ action_class.class_eval do
       action :nothing
     end
 
-    template "/etc/systemd/system/chef-push-jobs.service" do
-      source 'init_systemd.erb'
+    template "/etc/init/chef-push-jobs.conf" do
+      source 'init_upstart.erb'
       cookbook 'push-jobs'
       variables ({
         :cli_command => PushJobsHelper.cli_command(node)
       })
-      notifies :run, 'execute[reload_unit_file]', :immediately
-      notifies :restart, "service['chef-push-jobs']", :immediately
-    end
-
-    # systemd is cool like this
-    execute 'reload_unit_file' do
-      command 'systemctl daemon-reload'
-      action :nothing
+      notifies :restart, "service[chef-push-jobs]", :immediately
     end
   end
 end

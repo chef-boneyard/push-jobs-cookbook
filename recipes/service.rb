@@ -19,7 +19,7 @@
 #
 
 if platform_family?('windows')
-  include_recipe "push-jobs::service_windows"
+  include_recipe 'push-jobs::service_windows'
 elsif node['push_jobs']['init_style'] == 'runit'
   push_jobs_service_runit 'push-jobs' do
     action [:start, :enable]

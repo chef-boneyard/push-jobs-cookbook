@@ -38,7 +38,7 @@ action :stop do
   service 'chef-push-jobs' do
     supports status: true
     action :stop
-    only_if { ::File.exist?("/etc/init/chef-push-jobs.conf") }
+    only_if { ::File.exist?('/etc/init/chef-push-jobs.conf') }
   end
 end
 
@@ -55,7 +55,7 @@ action :enable do
   service 'chef-push-jobs' do
     supports status: true
     action :enable
-    only_if { ::File.exist?("/etc/init/chef-push-jobs.conf") }
+    only_if { ::File.exist?('/etc/init/chef-push-jobs.conf') }
     subscribes :restart, "template[#{PushJobsHelper.config_path}]"
   end
 end
@@ -64,7 +64,7 @@ action :disable do
   service 'chef-push-jobs' do
     supports status: true
     action :disable
-    only_if { ::File.exist?("/etc/init/chef-push-jobs.conf") }
+    only_if { ::File.exist?('/etc/init/chef-push-jobs.conf') }
   end
 end
 
@@ -77,13 +77,11 @@ action_class.class_eval do
       action :nothing
     end
 
-    template "/etc/init/chef-push-jobs.conf" do
+    template '/etc/init/chef-push-jobs.conf' do
       source 'init_upstart.erb'
       cookbook 'push-jobs'
-      variables ({
-        :cli_command => PushJobsHelper.cli_command(node)
-      })
-      notifies :restart, "service[chef-push-jobs]", :immediately
+      variables cli_command: PushJobsHelper.cli_command(node)
+      notifies :restart, 'service[chef-push-jobs]', :immediately
     end
   end
 end

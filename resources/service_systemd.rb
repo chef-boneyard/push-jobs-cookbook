@@ -46,7 +46,7 @@ action :stop do
   service 'chef-push-jobs-client' do
     supports status: true
     action :stop
-    only_if { ::File.exist?("/etc/systemd/system/chef-push-jobs.service") }
+    only_if { ::File.exist?('/etc/systemd/system/chef-push-jobs.service') }
   end
 end
 
@@ -61,7 +61,7 @@ action :disable do
   service 'chef-push-jobs-client' do
     supports status: true
     action :disable
-    only_if { ::File.exist?("/etc/systemd/system/chef-push-jobs.service") }
+    only_if { ::File.exist?('/etc/systemd/system/chef-push-jobs.service') }
   end
 end
 
@@ -71,7 +71,7 @@ action :enable do
   service 'chef-push-jobs-client' do
     supports status: true
     action :enable
-    only_if { ::File.exist?("/etc/systemd/system/chef-push-jobs.service") }
+    only_if { ::File.exist?('/etc/systemd/system/chef-push-jobs.service') }
     subscribes :restart, "template[#{PushJobsHelper.config_path}]"
   end
 end
@@ -85,14 +85,12 @@ action_class.class_eval do
       action :nothing
     end
 
-    template "/etc/systemd/system/chef-push-jobs-client.service" do
+    template '/etc/systemd/system/chef-push-jobs-client.service' do
       source 'init_systemd.erb'
       cookbook 'push-jobs'
-      variables ({
-        :cli_command => PushJobsHelper.cli_command(node)
-      })
+      variables cli_command: PushJobsHelper.cli_command(node)
       notifies :run, 'execute[reload_unit_file]', :immediately
-      notifies :restart, "service[chef-push-jobs-client]", :immediately
+      notifies :restart, 'service[chef-push-jobs-client]', :immediately
     end
 
     # systemd is cool like this

@@ -35,7 +35,7 @@ action :stop do
   runit_service 'chef-push-jobs-client' do
     supports status: true
     action :stop
-    only_if { ::File.exist?("/etc/sv/chef-push-jobs-client/run") }
+    only_if { ::File.exist?('/etc/sv/chef-push-jobs-client/run') }
   end
 end
 
@@ -59,10 +59,9 @@ action :disable do
   runit_service 'chef-push-jobs-client' do
     supports status: true
     action :disable
-    only_if { ::File.exist?("/etc/sv/chef-push-jobs-client/run") }
+    only_if { ::File.exist?('/etc/sv/chef-push-jobs-client/run') }
   end
 end
-
 
 action_class.class_eval do
   def create_init

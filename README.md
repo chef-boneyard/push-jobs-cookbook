@@ -15,33 +15,18 @@ Requires Chef Server with the Chef Push Server add-on.
 - Debian/Ubuntu
 - Windows
 
-Tested on Ubuntu 12.04/14.04/16.04, CentOS 6/7, and Windows 2012 R2. It may work on other debian, rhel, or windows platform families with or without modification.
-
-Testing for Ubuntu/CentOS can be done with Test Kitchen, see TESTING.md in this repository.
+Tested with Test Kitchen suites on Ubuntu 12.04/14.04/16.04, CentOS 6/7, and Windows 2012 R2\. It may work on other debian, rhel, or windows platform families with or without modification.
 
 ### Chef
 
-- Chef 11.4+
+- Chef 12+
 
 ### Cookbooks
 
 - [runit](https://supermarket.chef.io/cookbooks/runit)
 - [windows](https://supermarket.chef.io/cookbooks/windows)
 - [chef-ingredient](https://supermarket.chef.io/cookbooks/chef-ingredient)
-
-## Install the Workstation
-
-To set up the Chef push jobs workstation, install the knife push plugin. The simplest way to install the plugin is by entering the following command at a shell prompt:
-
-```
-chef gem install knife-push
-```
-
-Alternatives to chef gem install be found at <https://docs.chef.io/plugin_knife_custom.html#install-a-plugin>. Once installed, the following subcommands will be available:
-
-- knife job list
-- knife job start
-- knife job status.
+- [compat_resource](https://supermarket.chef.io/cookbooks/compat_resource)
 
 ## Usage
 
@@ -112,25 +97,11 @@ This recipe ensures the platform-specific configuration directory (`/etc/chef`) 
 
 The path to the configuration file is set using the `PushJobsHelper` module's `#config_path` method. This is done to ensure the correct file path is used on Linux and Windows platforms, as it uses `Chef::Config`'s `#platform_specific_path` method.
 
-### linux
-
-This recipe downloads and installs the Chef Push client from CHEF's public repositories. Setting the `node['push_jobs']['package_version']` attribute installs a specific version from the public repositories. Setting the `node['push_jobs']['package_url']` and `node['push_jobs']['package_checksum']` attributes together will override the default behavior and download the package from the specified URL.
-
-### knife
-
-If the `node['push_jobs']['gem_url']` attribute is set, this recipe will download the knife-pushy gem to the system.
-
-Use this recipe on workstation systems that should manage running jobs with the knife plugin.
-
 ### service
 
-This recipe is responsible for handling the service resource based on the node's platform. On Linux (Debian and RHEL families), it will create a `runit` service. The default logger is used, and the log will be `/var/log/push-jobs-client/current`. On Windows, it will add a registry key for the Chef Push client, and manage the Windows service.
+This recipe is responsible for handling the service resource based on the node's platform. On Linux (Debian and RHEL families), it will create a `runit`, `upstart`, or `systemd` service. `upstart` and `systemd` will be used where those are the native init system for your distro. If neither are available or `default['push_jobs']['init_style']` is set to `runit` then runit will be installed and the service will use runit. On Windows nodes, the recipe will add a registry key for the Chef Push client, and manage the Windows service.
 
 The service resources expect to be restarted if the configuration template is changed, using `subscribes` notification.
-
-### windows
-
-The `node['push_jobs']['package_url']` and `node['push_jobs']['package_checksum']` attributes must be set to use this recipe. The URL will be used (with the checksum attribute) to install the package using the `windows_package` resource from the `windows` cookbook.
 
 ## Client Connection Configuration
 

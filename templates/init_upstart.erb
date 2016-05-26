@@ -1,0 +1,8 @@
+description "Chef Push Jobs Client"
+
+  start on runlevel [2345]
+  stop on runlevel [!2345]
+  respawn
+  respawn limit 10 5
+
+exec <%= @cli_command %>

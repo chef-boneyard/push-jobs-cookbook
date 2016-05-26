@@ -2,10 +2,7 @@
 # Cookbook Name:: push-jobs
 # Recipe:: service
 #
-# Author:: Joshua Timberman <joshua@chef.io>
-# Author:: Charles Johnson <charles@chef.io>
-# Author:: Christopher Maier <cm@chef.io>
-# Author:: Tyler Fitch <tfitch@chef.io>
+# Author:: Tim Smith <tsmith@chef.io>
 # Copyright 2013-2016 Chef Software, Inc. <legal@chef.io>
 #
 # Licensed under the Apache License, Version 2.0 (the 'License');
@@ -21,17 +18,16 @@
 # limitations under the License.
 #
 
-supported_init_styles = %w(
-  container
-  runit
-  windows
-)
-
-init_style = node['push_jobs']['init_style']
-
-# Services moved to recipes
-if supported_init_styles.include? init_style
-  include_recipe "push-jobs::service_#{init_style}"
+if platform_family?('windows')
+  include_recipe 'push-jobs::service_windows'
+elsif node['push_jobs']['init_style'] == 'runit'
+  push_jobs_service_runit 'push-jobs' do
+    action [:start, :enable]
+    subscribes :restart, "template[#{PushJobsHelper.config_path}]"
+  end
 else
-  log 'Could not determine service init style, manual intervention required to start up the push-jobs-client service.'
+  push_jobs_service 'push-jobs' do
+    action [:start, :enable]
+    subscribes :restart, "template[#{PushJobsHelper.config_path}]"
+  end
 end

@@ -21,8 +21,6 @@
 default['push_jobs']['package_url']                 = nil
 default['push_jobs']['package_checksum']            = ''
 default['push_jobs']['package_version']             = nil
-default['push_jobs']['gem_url']                     = nil
-default['push_jobs']['gem_checksum']                = ''
 
 default['push_jobs']['config']['template_cookbook'] = nil
 default['push_jobs']['whitelist']                   = { 'chef-client' => 'chef-client' }
@@ -44,8 +42,7 @@ default['push_jobs']['chef']['include_timestamp']   = true
 
 case node['platform_family']
 when 'debian', 'rhel'
-  default['push_jobs']['service_string']             = 'runit_service[push-jobs-client]'
-  default['push_jobs']['init_style']                 = 'runit'
+  default['push_jobs']['init_style']                 = nil # auto detect based on system
   default['push_jobs']['chef']['include_timestamp']  = false
   default['push_jobs']['chef']['client_key_path']    = '/etc/chef/client.pem'
   default['push_jobs']['chef']['trusted_certs_path'] = '/etc/chef/trusted_certs'

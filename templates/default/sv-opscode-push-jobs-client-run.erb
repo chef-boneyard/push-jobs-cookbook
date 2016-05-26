@@ -1,3 +1,0 @@
-#!/bin/sh
-exec 2>&1
-exec <%= PushJobsHelper.linux_install_path(@options['node']) %>/bin/<%= PushJobsHelper.linux_exec_name(@options['node']) %> -l <%= @options['logging_level'] %> <% if @options['config'] -%> -c <%= @options['config'] %> <% end -%>

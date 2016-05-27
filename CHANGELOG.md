@@ -2,6 +2,23 @@
 
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+## UNRELEASED
+
+### Breaking changes
+
+- The opscode-push-jobs-client service has been renamed chef-push-jobs-client. If the existing opscode-push-jobs-client service exists on your system it will be stopped/disabled and removed before installing the new service
+- The install recipe will now install the chef-push-jobs-client service under systemd or upstart when running on nodes where those are the native init systems. Runit will continue to be used when running on sys-v init based nodes. You can continue to use runit by setting `default['push_jobs']['service_name']` to 'runit'
+- The knife recipe has been removed. The push-jobs knife plugin can easily be installed on a workstation with a single chef_gem resource.
+- Support for 'container' as an init system option has been removed
+
+### Other changes
+
+- Converted serverspec tests to inspec
+- A new push_jobs_service provider has been added which supports setting up the push-jobs service in either upstart, systemd, or runit. The appropriate init system is selected automatically, but can also be forced by calling the full resource names. See the readme for additional properties and examples.
+- Added Chefspec matchers for the custom resources
+- Added Test Kitchen suites for the 1.0 release and the custom resources
+- Added a requirement for at least Runit 1.2.0, which was the first version that supported RHEL systems
+
 ## v2.8.1 (2016-05-24)
 
 - Add attribute for setting allow_unencrypted in the config via a new attribute, which is required when 2.X clients connect to the 1.X server
@@ -9,7 +26,7 @@ This file is used to list changes made in each version of the push-jobs cookbook
 
 ## v2.8.0 (2016-05-19)
 
-- Try a compatible package for non-suported platforms.
+- Try a compatible package for unsupported platforms.
 
 ## v2.7.0 (2016-05-18)
 
@@ -35,7 +52,7 @@ This file is used to list changes made in each version of the push-jobs cookbook
 
 ## v2.6.2 (2015-11-04)
 
-- Added an attribute so we can enable timetsamps on Windows.
+- Added an attribute so we can enable timestamps on Windows.
 - Fix pushy client service registration on Windows to correctly read config file.
 
 ## v2.6.1 (2015-10-21)

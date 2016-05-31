@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the push-jobs cookbook.
 
-## UNRELEASED
+## v3.0.0 (2016-05-31)
 
 ### Breaking changes
 

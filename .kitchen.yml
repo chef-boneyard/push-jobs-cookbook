@@ -12,11 +12,8 @@ platforms:
   - name: centos-6.7
   - name: centos-7.2
   - name: ubuntu-12.04
-    run_list: apt::default
   - name: ubuntu-14.04
-    run_list: apt::default
   - name: ubuntu-16.04
-    run_list: apt::default
   #
   # The following (private) boxes are shared via Atlas. Please note this
   # requires adding your Atlas account to the `Chef` org and will
@@ -34,33 +31,17 @@ platforms:
         package_checksum: "411520e6a2e3038cd018ffacee0e76e37e7badd1aa84de03f5469c19e8d6c576"
 suites:
   - name: default
-    run_list: recipe[push-jobs]
-    attributes:
-      push_jobs:
-        whitelist: {chef-client: "chef-client"}
-        environment_variables: {LC_ALL: "en_US.UTF-8"}
-        allow_unencrypted: true
+    run_list: recipe[test::default]
     excludes: windows-2012r2
   - name: one_oh
-    run_list: recipe[push-jobs]
+    run_list: recipe[test::default]
     attributes:
       push_jobs:
-        whitelist: {chef-client: "chef-client"}
-        environment_variables: {LC_ALL: "en_US.UTF-8"}
-        allow_unencrypted: true
         package_version: 1.3.4
     excludes: windows-2012r2
   - name: windows
     run_list: recipe[push-jobs]
     includes: windows-2012r2
-    attributes:
-      push_jobs:
-        allow_unencrypted: true
   - name: resource
     run_list: recipe[test::instance]
-    attributes:
-      push_jobs:
-        whitelist: {chef-client: "chef-client"}
-        environment_variables: {LC_ALL: "en_US.UTF-8"}
-        allow_unencrypted: true
     excludes: windows-2012r2

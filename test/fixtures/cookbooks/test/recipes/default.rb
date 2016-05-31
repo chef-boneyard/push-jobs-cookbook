@@ -7,6 +7,4 @@ unless platform?('windows')
   end
 end
 
-push_jobs_service 'service' do
-  action [:start, :enable]
-end
+include_recipe 'push-jobs::default'

@@ -90,9 +90,11 @@ platforms:
 
 suites:
   - name: default
-    run_list: recipe[push-jobs]
+    run_list: recipe[test::default]
+  - name: one_oh
+    run_list: recipe[test::default]
     attributes:
       push_jobs:
-        whitelist: {chef-client: "chef-client"}
-        environment_variables: {LC_ALL: "en_US.UTF-8"}
-        allow_unencrypted: true
+        package_version: 1.3.4
+  - name: resource
+    run_list: recipe[test::instance]

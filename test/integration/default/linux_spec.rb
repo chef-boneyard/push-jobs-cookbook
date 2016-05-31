@@ -14,3 +14,16 @@ describe file('/etc/chef/push-jobs-client.rb') do
   its('content') { should match /LC_ALL='en_US.UTF-8'/ }
   its('content') { should match /allow_unencrypted true/ }
 end
+
+if ( os[:family] == 'centos' && os[:release].to_i < 6 ||
+     os[:family] == 'debian' && os[:release].to_i > 7 ||
+     os[:family] == 'ubuntu' )
+  describe service('chef-push-jobs-client') do
+    it { should be_enabled }
+    it { should be_running }
+  end
+else
+  describe command('sv status chef-push-jobs-client') do
+    its('stdout') { should match /run: chef-push-jobs-client|want up/ }
+  end
+end

@@ -6,6 +6,8 @@ After=syslog.target network.target
 
 [Service]
 ExecStart=<%= @cli_command %>
+SuccessExitStatus=3
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target

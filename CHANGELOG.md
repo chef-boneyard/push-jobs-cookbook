@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+## v3.1.0 (2016-05-31)
+
+- Fixed not_if statements that prevented the service from being enabled under systemd
+- Fixed the service name under upstart to be chef-push-jobs-client not chef-push-jobs
+- Updated the systemd unit file to restart on failure
+- Added service inspec tests
+
 ## v3.0.0 (2016-05-31)
 
 ### Breaking changes

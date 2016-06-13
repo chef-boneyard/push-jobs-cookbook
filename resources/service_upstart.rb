@@ -25,6 +25,7 @@ provides :push_jobs_service, platform: 'ubuntu' do |node|
 end
 
 action :start do
+  delete_runit
   create_init
 
   service 'chef-push-jobs-client' do
@@ -82,6 +83,27 @@ action_class.class_eval do
       cookbook 'push-jobs'
       variables cli_command: PushJobsHelper.cli_command(node)
       notifies :restart, 'service[chef-push-jobs-client]', :immediately
+    end
+  end
+
+  def delete_runit
+    if ::File.exist?('/etc/sv/opscode-push-jobs-client/run')
+      # disable the old service
+      runit_service 'opscode-push-jobs-client' do
+        action [:stop, :disable]
+        not_if { ::File.zero?('/etc/sv/opscode-push-jobs-client/supervise/pid') }
+      end
+
+      # remove the old service configs
+      directory '/etc/sv/opscode-push-jobs-client' do
+        recursive true
+        action :delete
+      end
+
+      # remove old init script link
+      file '/etc/init.d/opscode-push-jobs-client' do
+        action :delete
+      end
     end
   end
 end

@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+## v3.2.0 (2016-06-13)
+
+- Ensure that runit jobs are deleted when switching to systemd or
+  upstart
+
 ## v3.1.0 (2016-05-31)
 
 - Fixed not_if statements that prevented the service from being enabled under systemd

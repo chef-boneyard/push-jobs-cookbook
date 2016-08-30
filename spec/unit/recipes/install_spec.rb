@@ -4,7 +4,7 @@ describe 'push-jobs::install' do
   context 'with package_url' do
     let(:chef_run) do
       runner = ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '14.04')
-      runner.node.set['push_jobs']['package_url'] = 'http://foo.bar.com/opscode-push-jobs-client_1.0.0_amd64.deb?key=value'
+      runner.node.normal['push_jobs']['package_url'] = 'http://foo.bar.com/opscode-push-jobs-client_1.0.0_amd64.deb?key=value'
       runner.converge('recipe[push-jobs::install]')
     end
 

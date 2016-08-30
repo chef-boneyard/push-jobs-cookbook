@@ -4,9 +4,9 @@ describe 'push-jobs' do
   describe '::install' do
     cached(:chef_run) do
       runner = ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '14.04')
-      runner.node.set['push_jobs']['chef']['node_name'] = 'Oscar'
-      runner.node.set['push_jobs']['chef']['chef_server_url'] = 'https://chefserver.mycorp.co'
-      runner.node.set['push_jobs']['allow_unencrypted'] = true
+      runner.node.normal['push_jobs']['chef']['node_name'] = 'Oscar'
+      runner.node.normal['push_jobs']['chef']['chef_server_url'] = 'https://chefserver.mycorp.co'
+      runner.node.normal['push_jobs']['allow_unencrypted'] = true
       runner.converge('recipe[push-jobs::config]')
     end
 
@@ -60,9 +60,9 @@ describe 'push-jobs' do
   describe '::windows' do
     cached(:chef_run) do
       runner = ChefSpec::ServerRunner.new(platform: 'windows', version: '2012R2')
-      runner.node.set['push_jobs']['chef']['node_name'] = 'Felix'
-      runner.node.set['push_jobs']['chef']['chef_server_url'] = 'https://mychefserver.mycorp.co'
-      runner.node.set['push_jobs']['allow_unencrypted'] = true
+      runner.node.normal['push_jobs']['chef']['node_name'] = 'Felix'
+      runner.node.normal['push_jobs']['chef']['chef_server_url'] = 'https://mychefserver.mycorp.co'
+      runner.node.normal['push_jobs']['allow_unencrypted'] = true
       runner.converge('recipe[push-jobs::config]')
     end
 

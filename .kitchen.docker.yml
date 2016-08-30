@@ -19,7 +19,7 @@ platforms:
     pid_one_command: /sbin/init
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install lsb-release -y
+      - RUN /usr/bin/apt-get install lsb-release procps -y
 
 - name: debian-8
   driver:
@@ -51,14 +51,14 @@ platforms:
     platform: rhel
     pid_one_command: /usr/lib/systemd/systemd
     intermediate_instructions:
-      - RUN yum -y install lsof which
+      - RUN yum -y install lsof which systemd-sysv initscripts
 
 - name: fedora-latest
   driver:
     image: fedora:latest
     pid_one_command: /usr/lib/systemd/systemd
     intermediate_instructions:
-      - RUN dnf -y install which yum
+      - RUN dnf -y install yum which systemd-sysv initscripts
 
 - name: ubuntu-12.04
   driver:

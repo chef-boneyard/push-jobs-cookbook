@@ -6,7 +6,6 @@ provisioner:
 
 verifier:
   name: inspec
-  format: doc
 
 platforms:
   - name: centos-6.8

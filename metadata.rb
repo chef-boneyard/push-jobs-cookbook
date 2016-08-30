@@ -15,7 +15,7 @@ supports 'windows'
 
 # For per-platform resources, respectively
 depends 'runit', '>= 1.2.0'
-depends 'windows'
+depends 'windows', '>= 1.42.0'
 depends 'chef-ingredient', '>= 0.18.0'
 depends 'compat_resource'
 

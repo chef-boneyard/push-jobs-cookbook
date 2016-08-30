@@ -2,10 +2,16 @@
 
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+## 3.2.1 (2016-08-30)
+
+- Require a modern Windows cookbook to prevent random failures on Windows
+- Replace node.set with node.normal in the specs
+- Add chef_version to the metadata
+- Misc testing updates
+
 ## v3.2.0 (2016-06-13)
 
-- Ensure that runit jobs are deleted when switching to systemd or
-  upstart
+- Ensure that runit jobs are deleted when switching to systemd or upstart
 
 ## v3.1.0 (2016-05-31)
 

@@ -4,7 +4,7 @@ maintainer_email 'cookbooks@chef.io'
 license 'Apache 2.0'
 description 'Installs the Chef Push Jobs Client'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '3.2.0'
+version '3.2.1'
 
 # Tested on Ubuntu 14.04, 12.04
 # Tested on CentOS 7.2, 6.7

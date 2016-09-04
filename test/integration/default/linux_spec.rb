@@ -16,8 +16,12 @@ describe file('/etc/chef/push-jobs-client.rb') do
 end
 
 if ( os[:family] == 'centos' && os[:release].to_i > 6 ||
+<<<<<<< Updated upstream
      os[:family] == 'debian' && os[:release].to_i > 7 ||
      os[:family] == 'ubuntu' )
+=======
+     os[:family] == 'debian' && os[:release].to_i > 7 )
+>>>>>>> Stashed changes
   describe service('chef-push-jobs-client') do
     it { should be_enabled }
     it { should be_running }

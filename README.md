@@ -19,12 +19,11 @@ Tested with Test Kitchen suites on Ubuntu 12.04/14.04/16.04, CentOS 6/7, and Win
 
 ### Chef
 
-- Chef 12+
+- Chef 12.1+
 
 ### Cookbooks
 
 - [runit](https://supermarket.chef.io/cookbooks/runit)
-- [windows](https://supermarket.chef.io/cookbooks/windows)
 - [chef-ingredient](https://supermarket.chef.io/cookbooks/chef-ingredient)
 - [compat_resource](https://supermarket.chef.io/cookbooks/compat_resource)
 

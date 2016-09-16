@@ -16,9 +16,9 @@ supports 'windows'
 # For per-platform resources, respectively
 depends 'runit', '>= 1.2.0'
 depends 'chef-ingredient', '>= 0.18.0'
-depends 'compat_resource'
+depends 'compat_resource', '>= 12.14.0'
 
 source_url 'https://github.com/chef-cookbooks/push-jobs'
 issues_url 'https://github.com/chef-cookbooks/push-jobs/issues'
 
-chef_version '>= 12.1' if respond_to?(:chef_version)
+chef_version '>= 12.1'

@@ -15,9 +15,7 @@ describe file('/etc/chef/push-jobs-client.rb') do
   its('content') { should match /allow_unencrypted true/ }
 end
 
-if ( os[:family] == 'centos' && os[:release].to_i > 6 ||
-     os[:family] == 'debian' && os[:release].to_i > 7 ||
-     os[:family] == 'ubuntu' )
+if os.redhat? && os[:release].to_i > 6 || os.debian? && os[:release].to_i > 7
   describe service('chef-push-jobs-client') do
     it { should be_enabled }
     it { should be_running }

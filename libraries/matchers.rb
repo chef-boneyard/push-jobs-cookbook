@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: memcached
+# Cookbook Name:: push-jobs
 # Library:: matchers
 #
 # Author:: Tim Smith (<tsmith@chef.io>)

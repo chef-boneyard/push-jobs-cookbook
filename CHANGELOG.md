@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+## 3.2.2 (2016-09-21)
+- Push jobs doesn't actually require windows cookbook
+- Specify the minimum version of compat_resource and chef-ingredient
+- Expand platforms we test on and fix inspec tests
+
 ## 3.2.1 (2016-08-30)
 
 - Require a modern Windows cookbook to prevent random failures on Windows

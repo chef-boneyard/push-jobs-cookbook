@@ -134,7 +134,7 @@ module PushJobsHelper
   end
 
   def self.cli_command(node)
-    "#{PushJobsHelper.linux_install_path(node)}/bin/#{PushJobsHelper.linux_exec_name(node)} -l #{node['push_jobs']['logging_level']} -c #{PushJobsHelper.config_path}"
+    "#{PushJobsHelper.linux_install_path(node)}/bin/#{PushJobsHelper.linux_exec_name(node)} -l #{node['push_jobs']['logging_level']} -L #{node['push_jobs']['logging_dir']}/push-jobs-client.log -c #{PushJobsHelper.config_path}"
   end
 
   NAMING_DATA ||=

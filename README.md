@@ -29,11 +29,12 @@ Tested with Test Kitchen suites on Ubuntu 12.04/14.04/16.04, CentOS 6/7, and Win
 
 ## Usage
 
-Include the default recipe in a node's run list. On Windows, the URL to the package to install and its SHA256 checksum are required so the package may be retrieved. For example:
+Include the default recipe in a node's run list. On Windows, the URL to the package to install and its SHA256 checksum are required so the package may be retrieved. Please note that if the URL cannot be parsed from the URL, the package_version attribute will also need to be set. For example:
 
 ```ruby
 node.default['push_jobs']['package_url'] = "http://www.example.com/pkgs/opscode-push-jobs-client-windows-1.1.5-1.windows.msi"
 node.default['push_jobs']['package_checksum'] = "a-sha256-checksum"
+node.default['push_jobs']['package_version'] = 'the-version-of-push-jobs' # optional - set this if the version of the installer cannot be parsed from the attribute package_url
 ```
 
 Set a whitelist of job names and their commands in the configuration file. This is automatically generated from the `node['push_jobs']['whitelist']` attribute Hash, such as:

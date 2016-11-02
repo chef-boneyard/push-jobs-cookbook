@@ -28,6 +28,8 @@ if node['push_jobs']['package_url']
   package_file     = PushJobsHelper.package_file(node['push_jobs']['package_url'])
   package_checksum = node['push_jobs']['package_checksum']
 
+  raise 'Unable to parse the package\'s version from either the [\'push_jobs\'][\'package_version\'] or [\'push_jobs\'][\'package_url\'] attributes. Please ensure that the [\'push_jobs\'][\'package_version\'] attribute is set. Alternatively, you could update the [\'push_jobs\'][\'package_url\' attribute to include a version number' if package_version.nil?
+
   remote_file "#{Chef::Config[:file_cache_path]}/#{package_file}" do
     source package_url
     checksum package_checksum

@@ -32,7 +32,7 @@ default['push_jobs']['allow_unencrypted']           = false
 
 # These variables control whether we validate ssl
 default['push_jobs']['chef']['verify_api_cert']     = true
-default['push_jobs']['chef']['ssl_verify_mode']     = :verify_peer
+default['push_jobs']['chef']['ssl_verify_mode']     = :verify_none
 
 # These can be overridden so that we can use chef_zero based installers to set up push
 default['push_jobs']['chef']['chef_server_url']     = nil

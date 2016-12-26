@@ -46,7 +46,7 @@ powershell_script 'Set the config path in the service registry key' do
   code <<-EOH
     $KeyPath = '#{key_path}'
     $ImagePath = (Get-ItemProperty -Path $KeyPath).ImagePath
-    if ($ImagePath -match '(\S*ruby.exe\b)|(\S*windows_service.rb\b)') {
+    if ($ImagePath -match "^(\\S*ruby.exe\\b)\\s+(\\S*windows_service.rb\\b)") {
       $ImagePath = $matches[1], $matches[2], '#{config_file_option}' -join ' '
       Set-ItemProperty -Path $KeyPath -Name ImagePath -Type String -Value $ImagePath
     } else {

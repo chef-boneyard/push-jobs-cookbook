@@ -37,6 +37,11 @@ node.default['push_jobs']['package_checksum'] = "a-sha256-checksum"
 node.default['push_jobs']['package_version'] = 'the-version-of-push-jobs' # optional - set this if the version of the installer cannot be parsed from the attribute package_url
 ```
 
+Optionally, if you have a copy of the package on the local filesystem you can specify it to be used for the installation. For example:
+```ruby
+node.default['push_jobs']['local_package_path'] = 'D:\\opscode-push-jobs-client-windows-1.1.5-1.windows.msi'
+```
+
 Set a whitelist of job names and their commands in the configuration file. This is automatically generated from the `node['push_jobs']['whitelist']` attribute Hash, such as:
 
 ```ruby

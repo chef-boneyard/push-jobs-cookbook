@@ -21,6 +21,8 @@ default['push_jobs']['package_url']                 = nil
 default['push_jobs']['package_checksum']            = ''
 default['push_jobs']['package_version']             = nil
 
+default['push_jobs']['local_package_path']          = nil
+
 default['push_jobs']['config']['template_cookbook'] = nil
 default['push_jobs']['whitelist']                   = { 'chef-client' => 'chef-client' }
 default['push_jobs']['environment_variables']       = { 'LC_ALL' => 'en_US.UTF-8' }

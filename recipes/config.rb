@@ -25,7 +25,7 @@ directory PushJobsHelper.config_dir do
   unless platform_family?('windows')
     owner 'root'
     group 'root'
-    mode 00755
+    mode '755'
     recursive true
   end
 end
@@ -37,7 +37,7 @@ template PushJobsHelper.config_path do
   unless platform_family?('windows')
     owner 'root'
     group 'root'
-    mode 00644
+    mode '644'
   end
   variables(PushJobsHelper.config_hash(node))
 end

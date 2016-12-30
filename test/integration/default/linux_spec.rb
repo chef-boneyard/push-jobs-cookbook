@@ -1,7 +1,7 @@
 describe 'chef-push-jobs package' do
   it 'should be installed' do
-    expect(file '/opt/push-jobs-client/bin/pushy-client').to exist
-    expect(file '/opt/push-jobs-client/bin/pushy-service-manager').to exist
+    expect(file('/opt/push-jobs-client/bin/pushy-client')).to exist
+    expect(file('/opt/push-jobs-client/bin/pushy-service-manager')).to exist
   end
 end
 

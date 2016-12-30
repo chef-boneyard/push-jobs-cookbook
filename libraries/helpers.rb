@@ -129,7 +129,7 @@ module PushJobsHelper
       'allow_unencrypted' => node['push_jobs']['allow_unencrypted'],
       'verify_api_cert' => node['push_jobs']['chef']['verify_api_cert'],
       'ssl_verify_mode' => node['push_jobs']['chef']['ssl_verify_mode'],
-      'include_timestamp' => node['push_jobs']['chef']['include_timestamp']
+      'include_timestamp' => node['push_jobs']['chef']['include_timestamp'],
     }
   end
 
@@ -142,34 +142,34 @@ module PushJobsHelper
         {
           windows: {
             package_name: 'Opscode Push Jobs Client Installer for Windows v%{v}',
-            service_name: 'pushy-client'
+            service_name: 'pushy-client',
           },
           linux: {
             install_path: '/opt/opscode-push-jobs-client',
-            exec_name: 'pushy-client'
-          }
+            exec_name: 'pushy-client',
+          },
         },
       family_1_3:
         {
           windows: {
             package_name: 'Push Jobs Client v%{v}',
-            service_name: 'push-jobs-client'
+            service_name: 'push-jobs-client',
           },
           linux: {
             install_path: '/opt/push-jobs-client',
-            exec_name: 'pushy-client'
-          }
+            exec_name: 'pushy-client',
+          },
         },
       family_2_0:
         {
           windows: {
             package_name: 'Push Jobs Client v%{v}',
-            service_name: 'push-jobs-client'
+            service_name: 'push-jobs-client',
           },
           linux: {
             install_path: '/opt/push-jobs-client',
-            exec_name: 'pushy-client'
-          }
-        }
+            exec_name: 'pushy-client',
+          },
+        },
     }.freeze
 end

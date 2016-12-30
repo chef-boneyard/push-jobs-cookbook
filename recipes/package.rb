@@ -34,7 +34,7 @@ if node['push_jobs']['package_url']
   remote_file local_package_path do
     source package_url
     checksum package_checksum
-    mode 00644
+    mode '644'
   end
 
 elsif node['push_jobs']['local_package_path']

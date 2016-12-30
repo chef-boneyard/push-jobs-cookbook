@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+## 3.3.0 (2016-12-30)
+
+- Address 'No info for version' error on Windows by including a more useful error message along with adding documentation to the readme to let everyone know about the issue.
+- Add support for using a local Push Jobs package
+- Fix upstart service being restarted on every chef run
+- Require the latest compat_resource
+
 ## 3.2.2 (2016-09-21)
 - Push jobs doesn't actually require windows cookbook
 - Specify the minimum version of compat_resource and chef-ingredient

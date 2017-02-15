@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+## 4.0.0 (2017-02-14)
+
+- Require Chef 12.5+ and remove compat_resource dependency
+
 ## 3.3.0 (2016-12-30)
 
 - Address 'No info for version' error on Windows by including a more useful error message along with adding documentation to the readme to let everyone know about the issue.

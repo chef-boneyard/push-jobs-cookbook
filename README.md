@@ -19,13 +19,12 @@ Tested with Test Kitchen suites on Ubuntu 12.04/14.04/16.04, CentOS 6/7, and Win
 
 ### Chef
 
-- Chef 12.1+
+- Chef 12.5+
 
 ### Cookbooks
 
 - [runit](https://supermarket.chef.io/cookbooks/runit)
 - [chef-ingredient](https://supermarket.chef.io/cookbooks/chef-ingredient)
-- [compat_resource](https://supermarket.chef.io/cookbooks/compat_resource)
 
 ## Usage
 
@@ -38,6 +37,7 @@ node.default['push_jobs']['package_version'] = 'the-version-of-push-jobs' # opti
 ```
 
 Optionally, if you have a copy of the package on the local filesystem you can specify it to be used for the installation. For example:
+
 ```ruby
 node.default['push_jobs']['local_package_path'] = 'D:\\opscode-push-jobs-client-windows-1.1.5-1.windows.msi'
 ```

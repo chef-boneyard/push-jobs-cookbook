@@ -92,7 +92,7 @@ action_class.class_eval do
     # disable the old service
     runit_service 'opscode-push-jobs-client' do
       action [:stop, :disable]
-      not_if { ::File.zero?('/etc/sv/opscode-push-jobs-client/supervise/pid') }
+      not_if { ::File == 0('/etc/sv/opscode-push-jobs-client/supervise/pid') }
     end
 
     # remove the old service configs

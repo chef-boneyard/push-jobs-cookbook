@@ -2,6 +2,7 @@ describe 'chef-push-jobs package' do
   it 'Installs the push jobs client' do
     expect(file 'C:/opscode/pushy/bin/pushy-client.bat').to be_file
   end
+end
 
 describe 'push client service' do
   it 'should enable and start service' do

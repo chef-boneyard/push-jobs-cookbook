@@ -120,7 +120,7 @@ The connection information for the push server is established when the push serv
 
 ## Verify Push Jobs Client Connection
 
-If the push client has been successfully installed on a node, the client should be able to successfully respond to a `knife job` directed to the node. If the node is not responding correctly, please consult the logs `/var/log/push-jobs-client/current` (for Debian and Rhel families) and look for entries similar to the following:
+If the push client has been successfully installed on a node, the client should be able to successfully respond to a `knife job` directed to the node. If the node is not responding correctly, please consult the logs `node['push_jobs']['logging_dir']/push-jobs-client.log (default: /var/log/chef/push-jobs-client.log)` (for Debian and Rhel families) and look for entries similar to the following:
 
 ```
 INFO: [pclient] Starting client ...

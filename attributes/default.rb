@@ -61,3 +61,4 @@ when 'windows'
 end
 
 default['push_jobs']['logging_level'] = 'info'
+default['push_jobs']['logging_dir'] = '/var/log/chef'

@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+## 4.0.1 (2017-03-30)
+
+- Adding log location option
+- Test with Local Delivery instead of Rake
+- Update Apache license string in metadata
+- Allow 2.2 to be identified as 2.X
+
 ## 4.0.0 (2017-02-14)
 
 - Require Chef 12.5+ and remove compat_resource dependency

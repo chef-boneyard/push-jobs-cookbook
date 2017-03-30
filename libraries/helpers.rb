@@ -49,7 +49,7 @@ module PushJobsHelper
       :family_1_0
     elsif version =~ /^1\.3/
       :family_1_3
-    elsif version =~ /^2\.[0-1]/
+    elsif version =~ /^2\./
       :family_2_0
     else
       raise "No info for version '#{version}'"

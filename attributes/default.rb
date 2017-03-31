@@ -49,6 +49,7 @@ when 'debian', 'rhel'
   default['push_jobs']['chef']['trusted_certs_path'] = '/etc/chef/trusted_certs'
   default['push_jobs']['chef']['install_path']       = nil
   default['push_jobs']['chef']['exec_name']          = nil
+  default['push_jobs']['logging_dir']                = '/var/log/chef'
 when 'windows'
   default['push_jobs']['service_string']             = 'service[push-jobs-client]'
   default['push_jobs']['init_style']                 = 'windows'
@@ -58,7 +59,7 @@ when 'windows'
   default['push_jobs']['service_name']               = nil
   default['push_jobs']['chef']['client_key_path']    = 'c:\chef\client.pem'
   default['push_jobs']['chef']['trusted_certs_path'] = 'c:\chef\trusted_certs'
+  default['push_jobs']['logging_dir']                = 'c:\chef\log'
 end
 
 default['push_jobs']['logging_level'] = 'info'
-default['push_jobs']['logging_dir'] = '/var/log/chef'

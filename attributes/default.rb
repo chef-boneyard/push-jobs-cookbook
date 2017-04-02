@@ -18,7 +18,7 @@
 #
 
 default['push_jobs']['package_url']                 = nil
-default['push_jobs']['package_checksum']            = nil
+default['push_jobs']['package_checksum']            = ''
 default['push_jobs']['package_version']             = nil
 
 default['push_jobs']['local_package_path']          = nil
@@ -32,7 +32,7 @@ default['push_jobs']['allow_unencrypted']           = false
 
 # These variables control whether we validate ssl
 default['push_jobs']['chef']['verify_api_cert']     = true
-default['push_jobs']['chef']['ssl_verify_mode']     = :verify_none
+default['push_jobs']['chef']['ssl_verify_mode']     = :verify_peer
 
 # These can be overridden so that we can use chef_zero based installers to set up push
 default['push_jobs']['chef']['chef_server_url']     = nil
@@ -49,6 +49,7 @@ when 'debian', 'rhel', 'suse'
   default['push_jobs']['chef']['trusted_certs_path'] = '/etc/chef/trusted_certs'
   default['push_jobs']['chef']['install_path']       = nil
   default['push_jobs']['chef']['exec_name']          = nil
+  default['push_jobs']['logging_dir']                = '/var/log/chef'
 when 'windows'
   default['push_jobs']['service_string']             = 'service[push-jobs-client]'
   default['push_jobs']['init_style']                 = 'windows'
@@ -61,4 +62,3 @@ when 'windows'
 end
 
 default['push_jobs']['logging_level'] = 'info'
-default['push_jobs']['logging_dir'] = '/var/log/chef'

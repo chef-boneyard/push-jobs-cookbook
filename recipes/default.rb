@@ -28,5 +28,5 @@ case node['platform_family']
 when 'windows', 'debian', 'rhel', 'suse'
   include_recipe 'push-jobs::install'
 else
-  raise 'This cookbook currently supports only Windows, Debian-family Linux, RHEL-family Linux, ans Suse.'
+  raise 'This cookbook currently supports only Windows, Debian-family Linux, RHEL-family Linux, and Suse.'
 end

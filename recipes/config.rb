@@ -40,6 +40,16 @@ directory node['push_jobs']['logging_dir'] do
   end
 end
 
+directory node['push_jobs']['logging_dir'] do
+  unless platform_family?('windows')
+    owner 'root'
+    group 'root'
+    mode 00755
+    recursive true
+    not_if { node['push_jobs']['logging_dir'].nil? }
+  end
+end
+
 # Next refactor:  generate config from chef-ingredient.
 template PushJobsHelper.config_path do
   source 'push-jobs-client.rb.erb'

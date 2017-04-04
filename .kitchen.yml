@@ -19,7 +19,7 @@ platforms:
   # requires adding your Atlas account to the `Chef` org and will
   # require a `vagrant login`.
   #
-  # The Mac OS X boxes are VMware only also. Windows boxes wupport VMWare
+  # The Mac OS X boxes are VMware only also. Windows boxes support VMWare
   # and VirtualBox only.
   #
   - name: windows-2012r2

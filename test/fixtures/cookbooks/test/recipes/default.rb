@@ -1,8 +1,14 @@
 # we need a fake pem file or push-jobs won't start
-unless platform?('windows')
+if platform?('linux')
   directory '/etc/chef'
 
   template '/etc/chef/client.pem' do
+    source 'client.pem.erb'
+  end
+else
+  directory 'C:\chefchef'
+
+  template 'C:\chef\client.pem' do
     source 'client.pem.erb'
   end
 end

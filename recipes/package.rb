@@ -42,14 +42,15 @@ elsif node['push_jobs']['local_package_path']
   local_package_path = node['push_jobs']['local_package_path']
 
 else
-  Chef::Log.info("Neither ['push_jobs']['local_package_path'] nor ['push_jobs']['package_url'] and ['push_jobs']['package_checksum'] set. Chef Push Jobs client will be installed from packages.chef.io.")
+  Chef::Log.info("Neither ['push_jobs']['local_package_path'] nor ['push_jobs']['package_url'] and ['push_jobs']['package_checksum'] set. Chef Push Jobs client will be installed from downloads.chef.io.")
+  package_version = node['push_jobs']['package_version']
 end
 
 #
 # This uses packages.chef.io by default.
 #
 chef_ingredient 'push-jobs-client' do
-  version package_version || node['push_jobs']['package_version']
-  package_source local_package_path if defined?(local_package_path)
+  version package_version if package_version
+  package_source local_package_path if local_package_path
   platform_version_compatibility_mode true
 end

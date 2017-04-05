@@ -22,6 +22,46 @@
 if defined?(ChefSpec)
   ChefSpec.define_matcher :push_jobs_service
 
+  def start_push_jobs_service_systemd(resource_name)
+    ChefSpec::Matchers::ResourceMatcher.new(:push_jobs_service, :start, resource_name)
+  end
+
+  def enable_push_jobs_service_systemd(resource_name)
+    ChefSpec::Matchers::ResourceMatcher.new(:push_jobs_service, :enable, resource_name)
+  end
+
+  def disable_push_jobs_service_systemd(resource_name)
+    ChefSpec::Matchers::ResourceMatcher.new(:push_jobs_service, :disable, resource_name)
+  end
+
+  def restart_push_jobs_service_systemd(resource_name)
+    ChefSpec::Matchers::ResourceMatcher.new(:push_jobs_service, :restart, resource_name)
+  end
+
+  def stop_push_jobs_service_systemd(resource_name)
+    ChefSpec::Matchers::ResourceMatcher.new(:push_jobs_service, :stop, resource_name)
+  end
+
+  def start_push_jobs_service_sysvinit(resource_name)
+    ChefSpec::Matchers::ResourceMatcher.new(:push_jobs_service, :start, resource_name)
+  end
+
+  def enable_push_jobs_service_sysvinit(resource_name)
+    ChefSpec::Matchers::ResourceMatcher.new(:push_jobs_service, :enable, resource_name)
+  end
+
+  def disable_push_jobs_service_sysvinit(resource_name)
+    ChefSpec::Matchers::ResourceMatcher.new(:push_jobs_service, :disable, resource_name)
+  end
+
+  def restart_push_jobs_service_sysvinit(resource_name)
+    ChefSpec::Matchers::ResourceMatcher.new(:push_jobs_service, :restart, resource_name)
+  end
+
+  def stop_push_jobs_service_sysvinit(resource_name)
+    ChefSpec::Matchers::ResourceMatcher.new(:push_jobs_service, :stop, resource_name)
+  end
+  
   def start_push_jobs_service_upstart(resource_name)
     ChefSpec::Matchers::ResourceMatcher.new(:push_jobs_service, :start, resource_name)
   end

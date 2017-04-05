@@ -18,7 +18,6 @@ end
 if os.redhat? && os[:release].to_i > 6 || os.debian? && os[:release].to_i > 7
   describe service('chef-push-jobs-client') do
     it { should be_enabled }
-    it { should be_running }
   end
 else
   describe command('sv status chef-push-jobs-client') do

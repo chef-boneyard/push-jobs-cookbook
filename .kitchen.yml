@@ -25,10 +25,7 @@ platforms:
   - name: windows-2012r2
     driver:
       box: chef/windows-server-2012r2-standard # private
-    attributes:
-      push_jobs:
-        package_url: "https://opscode-private-chef.s3.amazonaws.com/windows/2008r2/x86_64/opscode-push-jobs-client-windows-1.1.5-1.windows.msi"
-        package_checksum: "411520e6a2e3038cd018ffacee0e76e37e7badd1aa84de03f5469c19e8d6c576"
+
 suites:
   - name: default
     run_list: recipe[test::default]

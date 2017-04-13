@@ -15,9 +15,12 @@ platforms:
   - name: windows-2012R2
 
 verifier:
-  name: inspec
+  name: pester
 
 suites:
   - name: default
     run_list:
       - recipe[push-jobs]
+    attributes:
+      push_jobs:
+        package_version: 2.2.0

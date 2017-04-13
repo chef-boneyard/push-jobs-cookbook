@@ -59,6 +59,7 @@ when 'windows'
   default['push_jobs']['service_name']               = nil
   default['push_jobs']['chef']['client_key_path']    = 'c:\chef\client.pem'
   default['push_jobs']['chef']['trusted_certs_path'] = 'c:\chef\trusted_certs'
+  default['push_jobs']['logging_dir']                = 'c:\chef\log'
 end
 
 default['push_jobs']['logging_level'] = 'info'

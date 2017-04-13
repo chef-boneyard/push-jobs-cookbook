@@ -19,20 +19,20 @@ platforms:
   # requires adding your Atlas account to the `Chef` org and will
   # require a `vagrant login`.
   #
-  # The Mac OS X boxes are VMware only also. Windows boxes wupport VMWare
+  # The Mac OS X boxes are VMware only also. Windows boxes support VMWare
   # and VirtualBox only.
   #
   - name: windows-2012r2
     driver:
       box: chef/windows-server-2012r2-standard # private
-    attributes:
-      push_jobs:
-        package_url: "https://opscode-private-chef.s3.amazonaws.com/windows/2008r2/x86_64/opscode-push-jobs-client-windows-1.1.5-1.windows.msi"
-        package_checksum: "411520e6a2e3038cd018ffacee0e76e37e7badd1aa84de03f5469c19e8d6c576"
+
 suites:
   - name: default
     run_list: recipe[test::default]
     excludes: windows-2012r2
+    attributes:
+      push_jobs:
+        package_version: 2.2.0
   - name: one_oh
     run_list: recipe[test::default]
     attributes:
@@ -41,6 +41,9 @@ suites:
     excludes: windows-2012r2
   - name: windows
     run_list: recipe[push-jobs]
+    attributes:
+      push_jobs:
+        package_version: 2.2.0
     includes: windows-2012r2
   - name: resource
     run_list: recipe[test::instance]

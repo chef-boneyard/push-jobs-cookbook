@@ -75,17 +75,3 @@ platforms:
   driver:
     image: opensuse:leap
     pid_one_command: /bin/systemd
-
-suites:
-  - name: default
-    run_list: recipe[test::default]
-    attributes:
-      push_jobs:
-        package_version: 2.2.0
-  - name: one_oh
-    run_list: recipe[test::default]
-    attributes:
-      push_jobs:
-        package_version: 1.3.4
-  - name: resource
-    run_list: recipe[test::instance]

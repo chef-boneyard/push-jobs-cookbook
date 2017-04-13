@@ -25,3 +25,5 @@ suites:
     attributes:
       push_jobs:
         package_version: 2.2.0
+        package_url: https://packages.chef.io/files/stable/push-jobs-client/2.2.0/windows/2012/push-jobs-client-2.2.0-1-x64.msi
+        package_checksum: 10be439289a9a4c1fe24b5fbfa8062b0eea61eaab60e4f72ed3fc7525fa5c7f4

@@ -71,7 +71,7 @@ describe 'push-jobs' do
     before { @config_dir_win = Chef::Config.platform_specific_path('/etc/chef') }
 
     it 'Creates the /etc/chef directory in Windows' do
-      expect(chef_run).to create_directory(Chef::Config.platform_specific_path(@config_dir_win))
+      expect(chef_run).to create_directory(@config_dir_win)
     end
 
     context 'C:\chef\push-jobs-client.rb file' do

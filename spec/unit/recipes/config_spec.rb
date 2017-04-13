@@ -10,10 +10,10 @@ describe 'push-jobs' do
       runner.converge('recipe[push-jobs::config]')
     end
 
-    before { @config_dir = '/etc/chef' }
+    before { @config_dir = Chef::Config.platform_specific_path('/etc/chef') }
 
-    it 'Creates the /etc/chef directory' do
-      expect(chef_run).to create_directory(Chef::Config.platform_specific_path(@config_dir))
+    it 'Creates the /etc/chef directory in Linux' do
+      expect(chef_run).to create_directory(@config_dir)
     end
 
     context '/etc/chef/push-jobs-client.rb file' do
@@ -70,7 +70,7 @@ describe 'push-jobs' do
 
     before { @config_dir_win = Chef::Config.platform_specific_path('/etc/chef') }
 
-    it 'Creates the /etc/chef directory' do
+    it 'Creates the /etc/chef directory in Windows' do
       expect(chef_run).to create_directory(Chef::Config.platform_specific_path(@config_dir_win))
     end
 

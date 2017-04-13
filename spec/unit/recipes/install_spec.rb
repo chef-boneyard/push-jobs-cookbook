@@ -39,7 +39,6 @@ describe 'push-jobs::install' do
       @package_file = 'opscode-push-jobs-client_1.0.0_amd64.deb'
     end
 
-
     it 'installs the chef_ingredient push-client' do
       expect(chef_run).to install_chef_ingredient('push-jobs-client').with(package_source: "#{Chef::Config[:file_cache_path]}/opscode-push-jobs-client_1.0.0_amd64.deb")
     end

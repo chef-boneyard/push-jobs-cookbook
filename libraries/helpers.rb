@@ -32,8 +32,7 @@ module PushJobsHelper
   end
 
   def self.config_path
-    path = ::File.join(config_dir, 'push-jobs-client.rb')
-    Chef::Config.platform_specific_path(path)
+    ::File.join(config_dir, 'push-jobs-client.rb')
   end
 
   def self.config_dir

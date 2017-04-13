@@ -12,7 +12,7 @@ describe 'PushJobsHelper' do
   end
 
   it 'config_path method should return a valid filename' do # This could be redundant
-    expect(PushJobsHelper.config_path).to match Chef::Config.platform_specific_path('/etc/chef/push-jobs-client.rb')
+    expect(PushJobsHelper.config_path).to match "#{Chef::Config.platform_specific_path('/etc/chef')}/push-jobs-client.rb"
   end
 
   it 'parse_version method should return empty string' do

@@ -49,7 +49,7 @@ end
 # This uses packages.chef.io by default.
 #
 chef_ingredient 'push-jobs-client' do
-  version package_version || node['push_jobs']['package_version']
+  version package_version || node['push_jobs']['package_version'] || :latest
   package_source local_package_path if defined?(local_package_path)
   platform_version_compatibility_mode true
 end

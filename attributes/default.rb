@@ -53,13 +53,13 @@ when 'debian', 'rhel', 'suse'
 when 'windows'
   default['push_jobs']['service_string']             = 'service[push-jobs-client]'
   default['push_jobs']['init_style']                 = 'windows'
-
+  default['push_jobs']['logging_dir']                = nil
   # default is this comes from url, but make it overrideable
   default['push_jobs']['package_name']               = nil
   default['push_jobs']['service_name']               = nil
-  default['push_jobs']['chef']['client_key_path']    = 'c:\chef\client.pem'
-  default['push_jobs']['chef']['trusted_certs_path'] = 'c:\chef\trusted_certs'
-  default['push_jobs']['logging_dir']                = 'c:\chef\log'
+  default['push_jobs']['chef']['client_key_path']    = 'C:\chef\client.pem'
+  default['push_jobs']['chef']['trusted_certs_path'] = 'C:\chef\trusted_certs'
+  default['push_jobs']['logging_dir']                = 'C:\chef\log'
 end
 
 default['push_jobs']['logging_level'] = 'info'

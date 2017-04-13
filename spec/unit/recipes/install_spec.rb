@@ -31,14 +31,17 @@ describe 'push-jobs::install' do
   context 'with local_package_path' do
     let(:chef_run) do
       runner = ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '14.04')
-      runner.node.normal['push_jobs']['local_package_path'] = '/tmp/opscode-push-jobs-client_1.0.0_amd64.deb'
+      runner.node.normal['push_jobs']['local_package_path'] = "#{Chef::Config[:file_cache_path]}/opscode-push-jobs-client_1.0.0_amd64.deb"
       runner.converge('recipe[push-jobs::install]')
     end
 
-    before { @package_file = 'opscode-push-jobs-client_1.0.0_amd64.deb' }
+    before do
+      @package_file = 'opscode-push-jobs-client_1.0.0_amd64.deb'
+    end
+
 
     it 'installs the chef_ingredient push-client' do
-      expect(chef_run).to install_chef_ingredient('push-jobs-client').with(package_source: '/tmp/opscode-push-jobs-client_1.0.0_amd64.deb')
+      expect(chef_run).to install_chef_ingredient('push-jobs-client').with(package_source: "#{Chef::Config[:file_cache_path]}/opscode-push-jobs-client_1.0.0_amd64.deb")
     end
 
     it 'includes the config recipe' do

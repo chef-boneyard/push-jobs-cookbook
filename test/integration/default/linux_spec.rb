@@ -12,7 +12,7 @@ describe file('/etc/chef/push-jobs-client.rb') do
   its('mode') { should cmp 0644 }
   its('content') { should match /whitelist\({"chef-client"=>"chef-client"}\)/ }
   its('content') { should match /LC_ALL='en_US.UTF-8'/ }
-  its('content') { should match /allow_unencrypted true/ }
+  its('content') { should match /allow_unencrypted false/ }
 end
 
 if os.redhat? && os[:release].to_i > 6 || os.debian? && os[:release].to_i > 7

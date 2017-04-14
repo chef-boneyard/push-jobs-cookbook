@@ -61,7 +61,7 @@ if defined?(ChefSpec)
   def stop_push_jobs_service_sysvinit(resource_name)
     ChefSpec::Matchers::ResourceMatcher.new(:push_jobs_service, :stop, resource_name)
   end
-  
+
   def start_push_jobs_service_upstart(resource_name)
     ChefSpec::Matchers::ResourceMatcher.new(:push_jobs_service, :start, resource_name)
   end

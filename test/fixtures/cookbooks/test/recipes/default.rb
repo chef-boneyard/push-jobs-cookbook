@@ -12,6 +12,4 @@ else
   end
 end
 
-
-
 include_recipe 'push-jobs::default'

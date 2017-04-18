@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+## 5.0.0 (2017-04-17)
+
+- Add sysvinit service for centos 6 and debian 7 hosts.
+
 ## 4.0.2 (2017-03-31)
 
 - set logging_dir per platform to resolve issues on Windows hosts

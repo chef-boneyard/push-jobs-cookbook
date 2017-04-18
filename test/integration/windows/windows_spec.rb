@@ -15,5 +15,5 @@ describe file('C:/chef/push-jobs-client.rb') do
   it { should be_file }
   its('content') { should match /whitelist\({"chef-client"=>"chef-client"}\)/ }
   its('content') { should match /LC_ALL='en_US.UTF-8'/ }
-  its('content') { should match /allow_unencrypted true/ }
+  its('content') { should match /allow_unencrypted false/ }
 end

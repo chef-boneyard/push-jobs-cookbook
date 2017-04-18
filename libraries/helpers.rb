@@ -25,7 +25,7 @@ require 'chef/config'
 
 # Helper functions for Push Jobs cookbook
 module PushJobsHelper
-  def self.package_file(url = 'http://www.opscode.com/chef/install.sh')
+  def self.package_file(url = 'https://omnitruck.chef.io/install.sh')
     uri = ::URI.parse(::URI.unescape(url))
     package_file = File.basename(uri.path)
     package_file

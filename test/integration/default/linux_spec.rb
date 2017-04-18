@@ -18,6 +18,7 @@ end
 if os.redhat? || os.debian? 
   describe service('chef-push-jobs-client') do
     it { should be_enabled }
+    it { should be_running }
   end
 else
   describe command('sv status chef-push-jobs-client') do

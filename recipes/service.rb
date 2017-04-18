@@ -27,7 +27,7 @@ elsif node['push_jobs']['init_style'] == 'runit'
   end
 else
   push_jobs_service 'push-jobs' do
-    action :enable
+    action [:enable, :start]
     subscribes :restart, "template[#{PushJobsHelper.config_path}]"
   end
 end

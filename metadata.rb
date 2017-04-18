@@ -6,17 +6,13 @@ description 'Installs the Chef Push Jobs Client'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version '4.0.2'
 
-# Tested on Ubuntu 14.04 - 16.04
-# Tested on CentOS 6-7
-# Tested on Debian 7-8
 supports 'ubuntu'
 supports 'centos'
 supports 'debian'
 supports 'windows'
 
-# For per-platform resources, respectively
 depends 'runit', '>= 1.2.0'
-depends 'chef-ingredient', '>= 0.19.0'
+depends 'chef-ingredient'
 
 source_url 'https://github.com/chef-cookbooks/push-jobs'
 issues_url 'https://github.com/chef-cookbooks/push-jobs/issues'

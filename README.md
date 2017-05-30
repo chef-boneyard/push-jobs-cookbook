@@ -19,7 +19,7 @@ Tested with Test Kitchen suites on Ubuntu 12.04/14.04/16.04, CentOS 6/7, and Win
 
 ### Chef
 
-- Chef 12.5+
+- Chef 12.7+
 
 ### Cookbooks
 

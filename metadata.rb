@@ -16,4 +16,4 @@ depends 'chef-ingredient'
 
 source_url 'https://github.com/chef-cookbooks/push-jobs'
 issues_url 'https://github.com/chef-cookbooks/push-jobs/issues'
-chef_version '>= 12.5' if respond_to?(:chef_version)
+chef_version '>= 12.7' if respond_to?(:chef_version)

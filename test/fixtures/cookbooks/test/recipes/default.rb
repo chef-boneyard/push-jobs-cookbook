@@ -3,7 +3,7 @@ unless platform?('windows')
   directory '/etc/chef'
 
   cookbook_file '/etc/chef/client.pem' do
-  	source 'client.pem'
+    source 'client.pem'
   end
 else
   directory 'C:\chef'

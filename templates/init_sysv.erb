@@ -42,7 +42,7 @@ get_pid() {
 }
 
 is_running() {
-    [ -f "$PID_FILE" ] && ps $PID_FILE > /dev/null 2>&1
+    [ -f "$PID_FILE" ] && ps p `cat $PID_FILE` > /dev/null 2>&1
 }
 
 case "$1" in
@@ -51,7 +51,7 @@ case "$1" in
         echo "Already started"
     else
         echo "Starting $NAME"
-        $SU -c "<%= @cli_command %>"
+        $SU -c "<%= @cli_command %>" &> /dev/null &
         echo $! > "$PID_FILE"
         if ! is_running; then
             echo "Unable to start, check the logs <%= @log_dir %>."
@@ -84,7 +84,7 @@ case "$1" in
             if [ -f "$PID_FILE" ]; then
                 rm "$PID_FILE"
             fi
-            if [-f "$LOCK_DIR/$NAME"]; then
+            if [ -f "$LOCK_DIR/$NAME" ]; then
             	rm "$LOCK_DIR/$NAME"
             fi
         fi

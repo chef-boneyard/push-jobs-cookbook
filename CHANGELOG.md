@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+## 5.1.1 (2017-05-31)
+
+- Fix issue #123: installation failure on CentOS 6
+
 ## 5.1.0 (2017-05-30)
 
 - Remove class_eval usage and require Chef 12.7+

@@ -13,7 +13,7 @@ provides :push_jobs_service, platform: 'debian' do |node|
 end
 
 provides :push_jobs_service, platform_family: 'rhel' do |node|
-  node['platform_version'].to_i == 6
+  node['platform_version'].to_i <= 6
 end
 
 action :start do

@@ -15,7 +15,7 @@ describe file('/etc/chef/push-jobs-client.rb') do
   its('content') { should match /allow_unencrypted false/ }
 end
 
-if os.redhat? || os.debian? 
+if os.redhat? || os.debian? || os[:family] == 'amazon'
   describe service('chef-push-jobs-client') do
     it { should be_enabled }
     it { should be_running }

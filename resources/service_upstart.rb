@@ -31,6 +31,7 @@ action :start do
   create_init
 
   service 'chef-push-jobs-client' do
+    provider Chef::Provider::Service::Upstart
     supports restart: true, status: true
     action :start
     subscribes :restart, "template[#{PushJobsHelper.config_path}]"
@@ -39,6 +40,7 @@ end
 
 action :stop do
   service 'chef-push-jobs-client' do
+    provider Chef::Provider::Service::Upstart
     supports status: true
     action :stop
     only_if { ::File.exist?('/etc/init/chef-push-jobs-client.conf') }
@@ -47,6 +49,7 @@ end
 
 action :restart do
   service 'chef-push-jobs-client' do
+    provider Chef::Provider::Service::Upstart
     supports restart: true, status: true
     action :restart
   end
@@ -56,6 +59,7 @@ action :enable do
   create_init
 
   service 'chef-push-jobs-client' do
+    provider Chef::Provider::Service::Upstart
     supports status: true
     action :enable
     only_if { ::File.exist?('/etc/init/chef-push-jobs-client.conf') }
@@ -65,6 +69,7 @@ end
 
 action :disable do
   service 'chef-push-jobs-client' do
+    provider Chef::Provider::Service::Upstart
     supports status: true
     action :disable
     only_if { ::File.exist?('/etc/init/chef-push-jobs-client.conf') }
@@ -77,6 +82,7 @@ action_class do
 
     # service resource for notification
     service 'chef-push-jobs-client' do
+      provider Chef::Provider::Service::Upstart
       action :nothing
     end
 

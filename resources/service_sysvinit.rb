@@ -16,8 +16,6 @@ provides :push_jobs_service, platform_family: 'rhel' do |node|
   node['platform_version'].to_i == 6
 end
 
-provides :push_jobs_service, platform_family: 'amazon'
-
 action :start do
   delete_runit
   create_init

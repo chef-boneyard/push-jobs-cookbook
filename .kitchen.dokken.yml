@@ -72,3 +72,12 @@ platforms:
   driver:
     image: opensuse:leap
     pid_one_command: /bin/systemd
+
+- name: amazon-2017.03
+  driver:
+    image: amazonlinux:2017.03
+    platform: rhel
+    pid_one_command: /sbin/init
+    intermediate_instructions:
+      - RUN yum -y install which initscripts sudo
+

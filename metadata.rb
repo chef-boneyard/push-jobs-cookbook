@@ -9,6 +9,7 @@ version '5.1.1'
 supports 'ubuntu'
 supports 'centos'
 supports 'debian'
+supports 'amazon'
 supports 'windows'
 
 depends 'runit', '>= 1.2.0'

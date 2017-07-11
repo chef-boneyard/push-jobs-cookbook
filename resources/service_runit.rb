@@ -18,9 +18,9 @@
 # limitations under the License.
 #
 
-provides :push_jobs_service
+resource_name :push_jobs_service_runit
 
-provides :push_jobs_service_runit
+provides :push_jobs_service
 
 action :start do
   create_init

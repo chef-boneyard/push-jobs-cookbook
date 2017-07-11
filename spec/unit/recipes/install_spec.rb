@@ -23,7 +23,7 @@ describe 'push-jobs::install' do
     end
 
     it 'enables the chef-push-jobs-client' do
-      expect(chef_run).to enable_push_jobs_service_upstart 'push-jobs'
+      expect(chef_run).to enable_push_jobs_service 'push-jobs'
     end
   end
 
@@ -45,7 +45,7 @@ describe 'push-jobs::install' do
     end
 
     it 'enables the chef-push-jobs-client' do
-      expect(chef_run).to enable_push_jobs_service_upstart 'push-jobs'
+      expect(chef_run).to enable_push_jobs_service 'push-jobs'
     end
   end
 
@@ -64,7 +64,7 @@ describe 'push-jobs::install' do
     end
 
     it 'enables the opscode-push-jobs-client' do
-      expect(chef_run).to enable_push_jobs_service_upstart 'push-jobs'
+      expect(chef_run).to enable_push_jobs_service 'push-jobs'
     end
 
     it 'converges successfully' do

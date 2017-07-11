@@ -5,8 +5,7 @@
 # Author:: Jennifer Davis <sigje@chef.io>
 # Copyright:: 2017, Chef Software, Inc.
 #
-
-provides :push_jobs_service_sysvinit
+resource_name :push_jobs_service_sysvinit
 
 provides :push_jobs_service, platform: 'debian' do |node|
   node['platform_version'].to_i == 7

@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+## 5.1.2 (2017-07-11)
+
+- Chef/Ohai 13 Amazon support
+- Allow RHEL-ish 5 to continue working
+
 ## 5.1.1 (2017-05-31)
 
 - Fix issue #123: installation failure on CentOS 6

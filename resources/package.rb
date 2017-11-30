@@ -48,14 +48,14 @@ end
 
 action_class do
   def download_remote_file
-    if new_resource.package_source
-      # parse the file from the source URL
-      package_file = PushJobsHelper.package_file(node['push_jobs']['package_url'])
+    return unless new_resource.package_source
 
-      remote_file "#{Chef::Config[:file_cache_path]}/#{package_file}" do
-        source new_resource.package_source
-        checksum new_resource.package_checksum unless new_resourcce.package_checksum.nil?
-      end
+    # parse the file from the source URL
+    package_file = PushJobsHelper.package_file(node['push_jobs']['package_url'])
+
+    remote_file "#{Chef::Config[:file_cache_path]}/#{package_file}" do
+      source new_resource.package_source
+      checksum new_resource.package_checksum unless new_resourcce.package_checksum.nil?
     end
   end
 end

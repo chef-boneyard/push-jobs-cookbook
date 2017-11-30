@@ -80,4 +80,3 @@ platforms:
     pid_one_command: /sbin/init
     intermediate_instructions:
       - RUN yum -y install which initscripts sudo
-

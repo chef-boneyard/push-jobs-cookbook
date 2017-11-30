@@ -7,12 +7,12 @@ describe 'PushJobsHelper' do
     expect(PushJobsHelper.package_file(package_url)).to match 'opscode-push-jobs-client_amd64.deb'
   end
 
-  it 'config_dir method should return a valid pathname' do
-    expect(PushJobsHelper.config_dir).to match '/etc/chef'
+  it 'config_dir method should return a valid pathname' do # This could be redundant
+    expect(PushJobsHelper.config_dir).to match Chef::Config.platform_specific_path('/etc/chef')
   end
 
-  it 'config_path method should return a valid filename' do
-    expect(PushJobsHelper.config_path).to match '/etc/chef/push-jobs-client.rb'
+  it 'config_path method should return a valid filename' do # This could be redundant
+    expect(PushJobsHelper.config_path).to match "#{Chef::Config.platform_specific_path('/etc/chef')}/push-jobs-client.rb"
   end
 
   it 'parse_version method should return empty string' do

@@ -42,7 +42,7 @@ default['push_jobs']['chef']['node_name']           = nil
 default['push_jobs']['chef']['include_timestamp']   = true
 
 case node['platform_family']
-when 'debian', 'rhel', 'amazon'
+when 'debian', 'rhel', 'suse', 'amazon'
   default['push_jobs']['init_style']                 = nil # auto detect based on system
   default['push_jobs']['chef']['include_timestamp']  = false
   default['push_jobs']['chef']['client_key_path']    = '/etc/chef/client.pem'
@@ -53,13 +53,13 @@ when 'debian', 'rhel', 'amazon'
 when 'windows'
   default['push_jobs']['service_string']             = 'service[push-jobs-client]'
   default['push_jobs']['init_style']                 = 'windows'
-
+  default['push_jobs']['logging_dir']                = nil
   # default is this comes from url, but make it overrideable
   default['push_jobs']['package_name']               = nil
   default['push_jobs']['service_name']               = nil
-  default['push_jobs']['chef']['client_key_path']    = 'c:\chef\client.pem'
-  default['push_jobs']['chef']['trusted_certs_path'] = 'c:\chef\trusted_certs'
-  default['push_jobs']['logging_dir']                = 'c:\chef\log'
+  default['push_jobs']['chef']['client_key_path']    = 'C:\chef\client.pem'
+  default['push_jobs']['chef']['trusted_certs_path'] = 'C:\chef\trusted_certs'
+  default['push_jobs']['logging_dir']                = 'C:\chef\log'
 end
 
 default['push_jobs']['logging_level'] = 'info'

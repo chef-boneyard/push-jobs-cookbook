@@ -1,14 +1,15 @@
 # we need a fake pem file or push-jobs won't start
-unless platform?('windows')
+if platform?('linux')
   directory '/etc/chef'
 
-  cookbook_file '/etc/chef/client.pem' do
-    source 'client.pem'
+  template '/etc/chef/client.pem' do
+    source 'client.pem.erb'
   end
 else
-  directory 'C:\chef'
-  cookbook_file 'C:\chef\client.pem' do
-    source 'client.pem'
+  directory 'C:\chefchef'
+
+  template 'C:\chef\client.pem' do
+    source 'client.pem.erb'
   end
 end
 

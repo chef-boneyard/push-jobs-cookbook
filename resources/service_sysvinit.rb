@@ -70,13 +70,7 @@ action_class do
       'default' => '/var/lock'
     )
 
-    if platform_family?('rhel', 'fedora')
-      if node['platform_version'].to_i < 6.0
-        package 'redhat-lsb'
-      else
-        package 'redhat-lsb-core'
-      end
-    end
+    package 'redhat-lsb-core' if platform_family?('rhel', 'fedora', 'amazon')
 
     template '/etc/init.d/chef-push-jobs-client' do
       mode '0755'

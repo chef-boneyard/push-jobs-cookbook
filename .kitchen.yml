@@ -38,18 +38,15 @@ suites:
     excludes: windows-2012r2
     attributes:
       push_jobs:
-        package_version: 2.2.0
-  - name: one_oh
-    run_list: recipe[test::default]
-    attributes:
-      push_jobs:
-        package_version: 1.3.4
+        package_version: 2.4.5
+  - name: package_resource
+    run_list: recipe[test::package_resource]
     excludes: windows-2012r2
   - name: windows
     run_list: recipe[push-jobs]
     attributes:
       push_jobs:
-        package_version: 2.2.0
+        package_version: 2.4.5
     includes: windows-2012r2
   - name: resource
     run_list: recipe[test::instance]

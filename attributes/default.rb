@@ -52,7 +52,6 @@ when 'debian', 'rhel', 'suse', 'amazon'
   default['push_jobs']['logging_dir']                = '/var/log/chef'
 when 'windows'
   default['push_jobs']['service_string']             = 'service[push-jobs-client]'
-  default['push_jobs']['init_style']                 = 'windows'
   default['push_jobs']['logging_dir']                = nil
   # default is this comes from url, but make it overrideable
   default['push_jobs']['package_name']               = nil

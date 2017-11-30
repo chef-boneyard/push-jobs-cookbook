@@ -11,10 +11,6 @@ provides :push_jobs_service, platform: 'debian' do |node|
   node['platform_version'].to_i == 7
 end
 
-provides :push_jobs_service, platform_family: 'rhel' do |node|
-  node['platform_version'].to_i <= 6
-end
-
 action :start do
   delete_runit
   create_init

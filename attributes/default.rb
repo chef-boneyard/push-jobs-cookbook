@@ -42,7 +42,7 @@ default['push_jobs']['chef']['node_name']           = nil
 default['push_jobs']['chef']['include_timestamp']   = true
 
 case node['platform_family']
-when 'debian', 'rhel', 'suse'
+when 'debian', 'rhel', 'suse', 'amazon'
   default['push_jobs']['init_style']                 = nil # auto detect based on system
   default['push_jobs']['chef']['include_timestamp']  = false
   default['push_jobs']['chef']['client_key_path']    = '/etc/chef/client.pem'

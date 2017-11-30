@@ -2,6 +2,23 @@
 
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+## 5.1.2 (2017-07-11)
+
+- Chef/Ohai 13 Amazon support
+- Allow RHEL-ish 5 to continue working
+
+## 5.1.1 (2017-05-31)
+
+- Fix issue #123: installation failure on CentOS 6
+
+## 5.1.0 (2017-05-30)
+
+- Remove class_eval usage and require Chef 12.7+
+
+## 5.0.0 (2017-04-17)
+
+- Add sysvinit service for centos 6 and debian 7 hosts.
+
 ## 4.0.2 (2017-03-31)
 
 - set logging_dir per platform to resolve issues on Windows hosts

@@ -18,9 +18,9 @@
 # limitations under the License.
 #
 
-provides :push_jobs_service
+resource_name :push_jobs_service_runit
 
-provides :push_jobs_service_runit
+provides :push_jobs_service
 
 action :start do
   create_init
@@ -63,7 +63,7 @@ action :disable do
   end
 end
 
-action_class.class_eval do
+action_class do
   def create_init
     include_recipe 'runit'
     include_recipe 'push-jobs::package'

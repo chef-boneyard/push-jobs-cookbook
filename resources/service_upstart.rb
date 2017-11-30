@@ -18,7 +18,7 @@
 # limitations under the License.
 #
 
-provides :push_jobs_service_upstart
+resource_name :push_jobs_service_upstart
 
 provides :push_jobs_service, platform: 'ubuntu' do |node|
   node['platform_version'].to_f < 15.10
@@ -28,11 +28,14 @@ provides :push_jobs_service, platform_family: 'rhel' do |node|
   node['platform_version'].to_i == 6
 end
 
+provides :push_jobs_service, platform: 'amazon'
+
 action :start do
   delete_runit
   create_init
 
   service 'chef-push-jobs-client' do
+    provider Chef::Provider::Service::Upstart
     supports restart: true, status: true
     action :start
     subscribes :restart, "template[#{PushJobsHelper.config_path}]"
@@ -41,6 +44,7 @@ end
 
 action :stop do
   service 'chef-push-jobs-client' do
+    provider Chef::Provider::Service::Upstart
     supports status: true
     action :stop
     only_if { ::File.exist?('/etc/init/chef-push-jobs-client.conf') }
@@ -49,6 +53,7 @@ end
 
 action :restart do
   service 'chef-push-jobs-client' do
+    provider Chef::Provider::Service::Upstart
     supports restart: true, status: true
     action :restart
   end
@@ -58,6 +63,7 @@ action :enable do
   create_init
 
   service 'chef-push-jobs-client' do
+    provider Chef::Provider::Service::Upstart
     supports status: true
     action :enable
     only_if { ::File.exist?('/etc/init/chef-push-jobs-client.conf') }
@@ -67,18 +73,20 @@ end
 
 action :disable do
   service 'chef-push-jobs-client' do
+    provider Chef::Provider::Service::Upstart
     supports status: true
     action :disable
     only_if { ::File.exist?('/etc/init/chef-push-jobs-client.conf') }
   end
 end
 
-action_class.class_eval do
+action_class do
   def create_init
     include_recipe 'push-jobs::package'
 
     # service resource for notification
     service 'chef-push-jobs-client' do
+      provider Chef::Provider::Service::Upstart
       action :nothing
     end
 

@@ -22,9 +22,8 @@ describe 'push-jobs::install' do
       expect(chef_run).to include_recipe("#{described_cookbook}::config")
     end
 
-    it 'starts the chef-push-jobs-client' do
-      expect(chef_run).to start_push_jobs_service_upstart 'push-jobs'
-      expect(chef_run).to enable_push_jobs_service_upstart 'push-jobs'
+    it 'enables the chef-push-jobs-client' do
+      expect(chef_run).to enable_push_jobs_service 'push-jobs'
     end
   end
 
@@ -47,9 +46,8 @@ describe 'push-jobs::install' do
       expect(chef_run).to include_recipe("#{described_cookbook}::config")
     end
 
-    it 'starts the chef-push-jobs-client' do
-      expect(chef_run).to start_push_jobs_service_upstart 'push-jobs'
-      expect(chef_run).to enable_push_jobs_service_upstart 'push-jobs'
+    it 'enables the chef-push-jobs-client' do
+      expect(chef_run).to enable_push_jobs_service 'push-jobs'
     end
   end
 
@@ -67,9 +65,8 @@ describe 'push-jobs::install' do
       expect(chef_run).to include_recipe("#{described_cookbook}::config")
     end
 
-    it 'starts the opscode-push-jobs-client' do
-      expect(chef_run).to start_push_jobs_service_upstart 'push-jobs'
-      expect(chef_run).to enable_push_jobs_service_upstart 'push-jobs'
+    it 'enables the opscode-push-jobs-client' do
+      expect(chef_run).to enable_push_jobs_service 'push-jobs'
     end
 
     it 'converges successfully' do

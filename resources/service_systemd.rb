@@ -18,7 +18,7 @@
 # limitations under the License.
 #
 
-provides :push_jobs_service_systemd
+resource_name :push_jobs_service_systemd
 
 provides :push_jobs_service, platform: %w(redhat centos scientific oracle) do |node| # ~FC005
   node['platform_version'].to_f >= 7.0
@@ -81,7 +81,7 @@ action :enable do
   end
 end
 
-action_class.class_eval do
+action_class do
   def create_init
     include_recipe 'push-jobs::package'
 

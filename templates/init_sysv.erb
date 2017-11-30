@@ -1,0 +1,117 @@
+#!/bin/bash
+#
+# push-jobs-client This shell script takes care of starting and stopping push-jobs-client
+#
+### BEGIN INIT INFO
+# Provides:
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start push-jobs-client at boot time
+# Description:       Enable service provided by push-jobs-client.
+### END INIT INFO
+#
+# This init script is based off Felix Dahlke's init-script-template
+# https://github.com/fhd/init-script-template
+#
+
+## Source function library.
+#. /etc/rc.d/init.d/functions
+# Source LSB function library.
+if [ -r /lib/lsb/init-functions ]; then
+    . /lib/lsb/init-functions
+else
+    echo 'Could not find necessary /lib/lsb/init-functions'
+    exit 1
+fi
+
+DISTRIB_ID=$(lsb_release -i -s 2>/dev/null)
+NAME="$(basename $0)"
+PID_FILE="/var/run/$NAME.pid"
+LOCK_DIR="<%= @lock_dir %>"
+
+if [ -x "/sbin/runuser" ]; then
+    SU="/sbin/runuser -s /bin/sh"
+else
+    SU="/bin/su -s /bin/sh"
+fi
+
+get_pid() {
+    cat "$PID_FILE"
+}
+
+is_running() {
+    [ -f "$PID_FILE" ] && ps p `cat $PID_FILE` > /dev/null 2>&1
+}
+
+case "$1" in
+    start)
+    if is_running; then
+        echo "Already started"
+    else
+        echo "Starting $NAME"
+        $SU -c "<%= @cli_command %>" &> /dev/null &
+        echo $! > "$PID_FILE"
+        if ! is_running; then
+            echo "Unable to start, check the logs <%= @log_dir %>."
+            exit 1
+        else
+        	touch $LOCK_DIR/$NAME
+        fi
+    fi
+    ;;
+    stop)
+    if is_running; then
+        echo -n "Stopping $name.."
+        kill `get_pid`
+        for i in {1..10}
+        do
+            if ! is_running; then
+                break
+            fi
+
+            echo -n "."
+            sleep 1
+        done
+        echo
+
+        if is_running; then
+            echo "Not stopped; may still be shutting down or shutdown may have failed"
+            exit 1
+        else
+            echo "Stopped"
+            if [ -f "$PID_FILE" ]; then
+                rm "$PID_FILE"
+            fi
+            if [ -f "$LOCK_DIR/$NAME" ]; then
+            	rm "$LOCK_DIR/$NAME"
+            fi
+        fi
+    else
+        echo "Not running"
+    fi
+    ;;
+    restart)
+    $0 stop
+    if is_running; then
+        echo "Unable to stop, will not attempt to start"
+        exit 1
+    fi
+    $0 start
+    ;;
+    status)
+    if is_running; then
+        echo "Running"
+    else
+        echo "Stopped"
+        exit 1
+    fi
+    ;;
+    *)
+    echo "Usage: $0 {start|stop|restart|status}"
+    exit 1
+    ;;
+esac
+
+exit 0

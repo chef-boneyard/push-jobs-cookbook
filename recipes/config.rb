@@ -34,7 +34,7 @@ directory node['push_jobs']['logging_dir'] do
   unless platform_family?('windows')
     owner 'root'
     group 'root'
-    mode 00755
+    mode '755'
     recursive true
     not_if { node['push_jobs']['logging_dir'].nil? }
   end

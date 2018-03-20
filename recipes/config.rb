@@ -23,8 +23,8 @@
 # See libraries/helpers for the PushJobsHelper module.
 directory PushJobsHelper.config_dir do
   unless platform_family?('windows')
-    owner 'root'
-    group 'root'
+    owner 0
+    group 0
     mode '755'
     recursive true
   end
@@ -32,8 +32,8 @@ end
 
 directory node['push_jobs']['logging_dir'] do
   unless platform_family?('windows')
-    owner 'root'
-    group 'root'
+    owner 0
+    group 0
     mode '755'
     recursive true
     not_if { node['push_jobs']['logging_dir'].nil? }
@@ -45,8 +45,8 @@ template PushJobsHelper.config_path do
   source 'push-jobs-client.rb.erb'
   cookbook node['push_jobs']['config']['template_cookbook']
   unless platform_family?('windows')
-    owner 'root'
-    group 'root'
+    owner 0
+    group 0
     mode '644'
   end
   variables(PushJobsHelper.config_hash(node))

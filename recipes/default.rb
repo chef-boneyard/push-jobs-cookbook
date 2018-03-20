@@ -25,8 +25,8 @@ unless node['push_jobs']['whitelist'].is_a? Hash
 end
 
 case node['platform_family']
-when 'windows', 'debian', 'rhel', 'suse'
+when 'windows', 'debian', 'rhel', 'suse', 'aix'
   include_recipe 'push-jobs::install'
 else
-  raise 'This cookbook currently supports only Windows, Debian-family Linux, RHEL-family Linux, and Suse.'
+  raise 'This cookbook currently supports only Windows, Debian-family Linux, RHEL-family Linux, Suse, and AIX Unix.'
 end

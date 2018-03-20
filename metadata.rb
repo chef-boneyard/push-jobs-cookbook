@@ -11,9 +11,11 @@ supports 'centos'
 supports 'debian'
 supports 'amazon'
 supports 'windows'
+supports 'aix'
 
 depends 'runit', '>= 1.2.0'
 depends 'chef-ingredient'
+depends 'aix', '>= 2.2.0'
 
 source_url 'https://github.com/chef-cookbooks/push-jobs'
 issues_url 'https://github.com/chef-cookbooks/push-jobs/issues'

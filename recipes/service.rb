@@ -25,6 +25,20 @@ elsif node['push_jobs']['init_style'] == 'runit'
     action [:start, :enable]
     subscribes :restart, "template[#{PushJobsHelper.config_path}]"
   end
+elsif platform_family?('aix')
+  aix_subsystem 'push-jobs-client' do
+    program '/opt/push-jobs-client/bin/pushy-client'
+    arguments '-l info -L /var/log/chef/push-jobs-client.log -c /etc/chef/push-jobs-client.rb'
+    use_signals true
+    normal_stop_signal 15
+    force_stop_signal 9
+    user '0'
+    action :create
+  end
+  push_jobs_service_aix 'push-jobs-client' do
+    action [:start]
+    subscribes :restart, "template[#{PushJobsHelper.config_path}]"
+  end
 else
   push_jobs_service 'push-jobs' do
     action [:enable, :start]

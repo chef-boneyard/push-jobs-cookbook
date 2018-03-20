@@ -46,11 +46,19 @@ else
   package_version = node['push_jobs']['package_version']
 end
 
-#
-# This uses packages.chef.io by default.
-#
-chef_ingredient 'push-jobs-client' do
-  version package_version if package_version
-  package_source local_package_path if local_package_path
-  platform_version_compatibility_mode true
+case node['platform_family']
+when 'aix'
+  bff_package 'push-jobs-client' do
+    source local_package_path
+    action :install
+  end
+else
+  #
+  # This uses packages.chef.io by default.
+  #
+  chef_ingredient 'push-jobs-client' do
+    version package_version if package_version
+    package_source local_package_path if local_package_path
+    platform_version_compatibility_mode true
+  end
 end

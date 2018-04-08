@@ -12,7 +12,7 @@ provides :push_jobs_service, platform: 'debian' do |node|
 end
 
 provides :push_jobs_service, platform: 'suse' do |node|
-  node['platform_version'].to_f <= 11.4
+  node['platform_version'].to_i < 12
 end
 
 action :start do

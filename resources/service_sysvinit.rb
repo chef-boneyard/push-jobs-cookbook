@@ -11,6 +11,10 @@ provides :push_jobs_service, platform: 'debian' do |node|
   node['platform_version'].to_i == 7
 end
 
+provides :push_jobs_service, platform: 'suse' do |node|
+  node['platform_version'].to_f <= 11.4
+end
+
 action :start do
   delete_runit
   create_init
@@ -77,6 +81,7 @@ action_class do
         lock_dir: platform_lock_dir,
         log_dir: "#{node['push_jobs']['logging_dir']}/push-jobs-client.log"
       )
+      notifies :restart, 'service[chef-push-jobs-client]', :immediately
     end
   end
 

@@ -37,7 +37,6 @@ shared_examples 'calls the push-jobs service systemd resource' do
 end
 
 describe 'push-jobs::service' do
-
   context 'when platform is suse version 11.4' do
     let(:platform_details) do
       { platform: 'suse', version: '11.4', step_into: 'push_jobs_service' }

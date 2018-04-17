@@ -15,6 +15,19 @@ verify_api_cert   <%= @verify_api_cert %>
 ssl_verify_mode   <%= ":#{@ssl_verify_mode}" %>
 allow_unencrypted <%= @allow_unencrypted %>
 
+<% @proxy.keys.each do |proto|
+     next if @proxy[proto]['url'].nil? -%>
+<%= proto %>_proxy '<%= @proxy[proto]['url'] %>'
+<%   %w[user pass].each do |key|
+       if @proxy[proto][key] -%>
+<%= proto %>_proxy_<%= key %> '<%= @proxy[proto][key] %>'
+<%     end -%>
+<%   end -%>
+<% end -%>
+<% unless @no_proxy.nil? -%>
+no_proxy '<%= @no_proxy %>'
+<% end -%>
+
 # The whitelist comes from node['push_jobs']['whitelist']
 whitelist(<%= @whitelist.to_hash.inspect %>)
 

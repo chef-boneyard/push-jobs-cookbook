@@ -130,6 +130,8 @@ module PushJobsHelper
       'verify_api_cert' => node['push_jobs']['chef']['verify_api_cert'],
       'ssl_verify_mode' => node['push_jobs']['chef']['ssl_verify_mode'],
       'include_timestamp' => node['push_jobs']['chef']['include_timestamp'],
+      'proxy' => node['push_jobs']['proxy'],
+      'no_proxy' => node['push_jobs']['no_proxy'],
     }
   end
 

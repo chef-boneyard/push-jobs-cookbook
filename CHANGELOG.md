@@ -2,6 +2,16 @@
 
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+## 5.2.0 (2018-04-18)
+
+- Added basic SLES 11/12 support
+- Corrected the regex for service creation on Windows
+- Added support for RHEL 6 using upstart.
+- Made sure updating the sys-v init script triggers a restart of the service
+- Simplified the logic in the systemd service resource to not require updating when new platforms come out
+- Added initial support for Amazon Linux 2.0
+- Added Debian 9 / Ubuntu 18.04 testing
+
 ## 5.1.2 (2017-07-11)
 
 - Chef/Ohai 13 Amazon support
@@ -42,6 +52,7 @@ This file is used to list changes made in each version of the push-jobs cookbook
 - Require the latest compat_resource
 
 ## 3.2.2 (2016-09-21)
+
 - Push jobs doesn't actually require windows cookbook
 - Specify the minimum version of compat_resource and chef-ingredient
 - Expand platforms we test on and fix inspec tests

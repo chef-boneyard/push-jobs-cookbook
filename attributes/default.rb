@@ -41,6 +41,16 @@ default['push_jobs']['chef']['node_name']           = nil
 # Show timestamps in log by default.
 default['push_jobs']['chef']['include_timestamp']   = true
 
+# Forward proxy configuration, url and optional user/pass for each http and https protocol
+default['push_jobs']['proxy']['http']['url'] = nil
+default['push_jobs']['proxy']['http']['user'] = nil
+default['push_jobs']['proxy']['http']['pass'] = nil
+default['push_jobs']['proxy']['https']['url'] = nil
+default['push_jobs']['proxy']['https']['user'] = nil
+default['push_jobs']['proxy']['https']['pass'] = nil
+# Domains or suffixes to bypass proxy usage
+default['push_jobs']['no_proxy'] = nil
+
 case node['platform_family']
 when 'debian', 'rhel', 'suse', 'amazon'
   default['push_jobs']['init_style']                 = nil # auto detect based on system

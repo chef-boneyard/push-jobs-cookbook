@@ -20,20 +20,8 @@
 
 resource_name :push_jobs_service_systemd
 
-provides :push_jobs_service, platform: %w(redhat centos scientific oracle) do |node| # ~FC005
-  node['platform_version'].to_f >= 7.0
-end
-
-provides :push_jobs_service, platform: 'debian' do |node|
-  node['platform_version'].to_i >= 8
-end
-
-provides :push_jobs_service, platform: 'ubuntu' do |node|
-  node['platform_version'].to_f >= 15.10
-end
-
-provides :push_jobs_service, platform: 'suse' do |node|
-  node['platform_version'].to_f >= 12.1
+provides :push_jobs_service, os: 'linux' do |_node|
+  Chef::Platform::ServiceHelpers.service_resource_providers.include?(:systemd)
 end
 
 action :start do

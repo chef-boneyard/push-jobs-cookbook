@@ -28,7 +28,9 @@ provides :push_jobs_service, platform_family: 'rhel' do |node|
   node['platform_version'].to_i == 6
 end
 
-provides :push_jobs_service, platform: 'amazon'
+provides :push_jobs_service, platform_family: 'amazon' do |node|
+  node['platform_version'].to_i > 2000 # old amazon linux
+end
 
 action :start do
   delete_runit

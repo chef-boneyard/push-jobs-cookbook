@@ -53,4 +53,5 @@ chef_ingredient 'push-jobs-client' do
   version package_version if package_version
   package_source local_package_path if local_package_path
   platform_version_compatibility_mode true
+  action :upgrade
 end

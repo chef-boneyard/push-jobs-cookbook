@@ -27,7 +27,7 @@ else
 fi
 
 DISTRIB_ID=$(lsb_release -i -s 2>/dev/null)
-NAME="$(basename $0)"
+NAME="chef-push-jobs-client"
 PID_FILE="/var/run/$NAME.pid"
 LOCK_DIR="<%= @lock_dir %>"
 

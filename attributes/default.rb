@@ -54,6 +54,7 @@ default['push_jobs']['no_proxy'] = nil
 case node['platform_family']
 when 'debian', 'rhel', 'suse', 'amazon'
   default['push_jobs']['init_style']                 = nil # auto detect based on system
+  default['push_jobs']['service_name']               = 'chef-push-jobs-client'
   default['push_jobs']['chef']['include_timestamp']  = false
   default['push_jobs']['chef']['client_key_path']    = '/etc/chef/client.pem'
   default['push_jobs']['chef']['trusted_certs_path'] = '/etc/chef/trusted_certs'

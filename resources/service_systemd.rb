@@ -28,7 +28,7 @@ action :start do
   delete_runit
   create_init
 
-  service 'chef-push-jobs-client' do
+  service node['push_jobs']['service_name'] do
     supports restart: true, status: true
     action :start
     subscribes :restart, "template[#{PushJobsHelper.config_path}]"
@@ -36,35 +36,35 @@ action :start do
 end
 
 action :stop do
-  service 'chef-push-jobs-client' do
+  service node['push_jobs']['service_name'] do
     supports status: true
     action :stop
-    only_if { ::File.exist?('/etc/systemd/system/chef-push-jobs-client.service') }
+    only_if { ::File.exist?("/etc/systemd/system/#{node['push_jobs']['service_name']}.service") }
   end
 end
 
 action :restart do
-  service 'chef-push-jobs-client' do
+  service node['push_jobs']['service_name'] do
     supports restart: true, status: true
     action :restart
   end
 end
 
 action :disable do
-  service 'chef-push-jobs-client' do
+  service node['push_jobs']['service_name'] do
     supports status: true
     action :disable
-    only_if { ::File.exist?('/etc/systemd/system/chef-push-jobs-client.service') }
+    only_if { ::File.exist?("/etc/systemd/system/#{node['push_jobs']['service_name']}.service") }
   end
 end
 
 action :enable do
   create_init
 
-  service 'chef-push-jobs-client' do
+  service node['push_jobs']['service_name'] do
     supports status: true
     action :enable
-    only_if { ::File.exist?('/etc/systemd/system/chef-push-jobs-client.service') }
+    only_if { ::File.exist?("/etc/systemd/system/#{node['push_jobs']['service_name']}.service") }
     subscribes :restart, "template[#{PushJobsHelper.config_path}]"
   end
 end
@@ -74,16 +74,16 @@ action_class do
     include_recipe 'push-jobs::package'
 
     # service resource for notification
-    service 'chef-push-jobs-client' do
+    service node['push_jobs']['service_name'] do
       action :nothing
     end
 
-    template '/etc/systemd/system/chef-push-jobs-client.service' do
+    template "/etc/systemd/system/#{node['push_jobs']['service_name']}.service" do
       source 'init_systemd.erb'
       cookbook 'push-jobs'
       variables cli_command: PushJobsHelper.cli_command(node)
       notifies :run, 'execute[reload_unit_file]', :immediately
-      notifies :restart, 'service[chef-push-jobs-client]', :immediately
+      notifies :restart, "service[#{node['push_jobs']['service_name']}]", :immediately
     end
 
     # systemd is cool like this

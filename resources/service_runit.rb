@@ -25,22 +25,22 @@ provides :push_jobs_service
 action :start do
   create_init
 
-  runit_service 'chef-push-jobs-client' do
+  runit_service node['push_jobs']['service_name'] do
     supports restart: true, status: true
     action :start
   end
 end
 
 action :stop do
-  runit_service 'chef-push-jobs-client' do
+  runit_service node['push_jobs']['service_name'] do
     supports status: true
     action :stop
-    only_if { ::File.exist?('/etc/sv/chef-push-jobs-client/run') }
+    only_if { ::File.exist?("/etc/sv/#{node['push_jobs']['service_name']}/run") }
   end
 end
 
 action :restart do
-  runit_service 'chef-push-jobs-client' do
+  runit_service node['push_jobs']['service_name'] do
     supports restart: true, status: true
     action :restart
   end
@@ -49,17 +49,17 @@ end
 action :enable do
   create_init
 
-  runit_service 'chef-push-jobs-client' do
+  runit_service node['push_jobs']['service_name'] do
     supports status: true
     action :enable
   end
 end
 
 action :disable do
-  runit_service 'chef-push-jobs-client' do
+  runit_service node['push_jobs']['service_name'] do
     supports status: true
     action :disable
-    only_if { ::File.exist?('/etc/sv/chef-push-jobs-client/run') }
+    only_if { ::File.exist?("/etc/sv/#{node['push_jobs']['service_name']}/run") }
   end
 end
 
@@ -84,7 +84,7 @@ action_class do
       action :delete
     end
 
-    runit_service 'chef-push-jobs-client' do
+    runit_service node['push_jobs']['service_name'] do
       options('cli_command' => PushJobsHelper.cli_command(node))
       default_logger true
       subscribes :restart, "template[#{PushJobsHelper.config_path}]"

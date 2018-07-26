@@ -19,7 +19,7 @@ action :start do
   delete_runit
   create_init
 
-  service 'chef-push-jobs-client' do
+  service node['push_jobs']['service_name'] do
     supports restart: true, status: true
     action :start
     subscribes :restart, "template[#{PushJobsHelper.config_path}]"
@@ -27,15 +27,15 @@ action :start do
 end
 
 action :stop do
-  service 'chef-push-jobs-client' do
+  service node['push_jobs']['service_name'] do
     supports status: true
     action :stop
-    only_if { ::File.exist?('/etc/init.d/chef-push-jobs-client.conf') }
+    only_if { ::File.exist?("/etc/init.d/#{node['push_jobs']['service_name']}.conf") }
   end
 end
 
 action :restart do
-  service 'chef-push-jobs-client' do
+  service node['push_jobs']['service_name'] do
     supports restart: true, status: true
     action :restart
   end
@@ -44,19 +44,19 @@ end
 action :enable do
   create_init
 
-  service 'chef-push-jobs-client' do
+  service node['push_jobs']['service_name'] do
     supports status: true
     action :enable
-    only_if { ::File.exist?('/etc/init.d/chef-push-jobs-client') }
+    only_if { ::File.exist?("/etc/init.d/#{node['push_jobs']['service_name']}.conf") }
     subscribes :restart, "template[#{PushJobsHelper.config_path}]"
   end
 end
 
 action :disable do
-  service 'chef-push-jobs-client' do
+  service node['push_jobs']['service_name'] do
     supports status: true
     action :disable
-    only_if { ::File.exist?('/etc/init.d/chef-push-jobs-client.conf') }
+    only_if { ::File.exist?("/etc/init.d/#{node['push_jobs']['service_name']}.conf") }
   end
 end
 
@@ -72,7 +72,7 @@ action_class do
 
     package 'redhat-lsb-core' if platform_family?('rhel', 'fedora', 'amazon')
 
-    template '/etc/init.d/chef-push-jobs-client' do
+    template "/etc/init.d/#{node['push_jobs']['service_name']}.conf" do
       mode '0755'
       source 'init_sysv.erb'
       cookbook 'push-jobs'
@@ -81,7 +81,7 @@ action_class do
         lock_dir: platform_lock_dir,
         log_dir: "#{node['push_jobs']['logging_dir']}/push-jobs-client.log"
       )
-      notifies :restart, 'service[chef-push-jobs-client]', :immediately
+      notifies :restart, "service[#{node['push_jobs']['service_name']}]", :immediately
     end
   end
 

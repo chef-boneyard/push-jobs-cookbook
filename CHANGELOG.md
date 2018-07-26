@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+## 5.3.0 (2018-07-26)
+
+- Add proxy configuration support
+- Upgrade the push-jobs client if a newer package is available
+- Update the sys-v script to properly setup the PID
+- Add an attribute for the service name
+
 ## 5.2.0 (2018-04-18)
 
 - Added basic SLES 11/12 support

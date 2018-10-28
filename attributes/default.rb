@@ -61,6 +61,7 @@ when 'debian', 'rhel', 'suse', 'amazon'
   default['push_jobs']['chef']['install_path']       = nil
   default['push_jobs']['chef']['exec_name']          = nil
   default['push_jobs']['logging_dir']                = '/var/log/chef'
+  default['push_jobs']['file_dir']                   = '/tmp/pushy'
 when 'windows'
   default['push_jobs']['service_string']             = 'service[push-jobs-client]'
   default['push_jobs']['logging_dir']                = nil
@@ -70,6 +71,7 @@ when 'windows'
   default['push_jobs']['chef']['client_key_path']    = 'C:\chef\client.pem'
   default['push_jobs']['chef']['trusted_certs_path'] = 'C:\chef\trusted_certs'
   default['push_jobs']['logging_dir']                = 'C:\chef\log'
+  default['push_jobs']['file_dir']                   = 'C:\chef\pushy'
 end
 
 default['push_jobs']['logging_level'] = 'info'

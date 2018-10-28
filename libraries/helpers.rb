@@ -132,6 +132,7 @@ module PushJobsHelper
       'include_timestamp' => node['push_jobs']['chef']['include_timestamp'],
       'proxy' => node['push_jobs']['proxy'],
       'no_proxy' => node['push_jobs']['no_proxy'],
+      'file_dir' => node['push_jobs']['file_dir'],
     }
   end
 

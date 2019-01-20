@@ -57,11 +57,7 @@ module PushJobsHelper
   end
 
   def self.windows_service_name(node, version)
-    if node['push_jobs']['service_name']
-      node['push_jobs']['service_name']
-    else
-      names_by_version(version, :windows)[:service_name]
-    end
+    node['push_jobs']['service_name'] || names_by_version(version, :windows)[:service_name]
   end
 
   def self.linux_install_path(node, version = nil)

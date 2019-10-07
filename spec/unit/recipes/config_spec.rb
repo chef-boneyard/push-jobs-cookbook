@@ -48,16 +48,16 @@ describe 'push-jobs' do
   describe '::install' do
     cached(:chef_run) do
       runner = ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '14.04')
-      runner.node.normal['push_jobs']['chef']['node_name'] = 'Oscar'
-      runner.node.normal['push_jobs']['chef']['chef_server_url'] = 'https://chefserver.mycorp.co'
-      runner.node.normal['push_jobs']['allow_unencrypted'] = true
-      runner.node.normal['push_jobs']['proxy']['http']['url'] = 'http://proxy.mycorp.co'
-      runner.node.normal['push_jobs']['proxy']['http']['user'] = 'foo'
-      runner.node.normal['push_jobs']['proxy']['http']['pass'] = 'bar'
-      runner.node.normal['push_jobs']['proxy']['https']['url'] = 'https://proxy.mycorp.co'
-      runner.node.normal['push_jobs']['proxy']['https']['user'] = 'biz'
-      runner.node.normal['push_jobs']['proxy']['https']['pass'] = 'baz'
-      runner.node.normal['push_jobs']['no_proxy'] = '127.0.0.1'
+      runner.node.override['push_jobs']['chef']['node_name'] = 'Oscar'
+      runner.node.override['push_jobs']['chef']['chef_server_url'] = 'https://chefserver.mycorp.co'
+      runner.node.override['push_jobs']['allow_unencrypted'] = true
+      runner.node.override['push_jobs']['proxy']['http']['url'] = 'http://proxy.mycorp.co'
+      runner.node.override['push_jobs']['proxy']['http']['user'] = 'foo'
+      runner.node.override['push_jobs']['proxy']['http']['pass'] = 'bar'
+      runner.node.override['push_jobs']['proxy']['https']['url'] = 'https://proxy.mycorp.co'
+      runner.node.override['push_jobs']['proxy']['https']['user'] = 'biz'
+      runner.node.override['push_jobs']['proxy']['https']['pass'] = 'baz'
+      runner.node.override['push_jobs']['no_proxy'] = '127.0.0.1'
       runner.converge('recipe[push-jobs::config]')
     end
 
@@ -92,16 +92,16 @@ describe 'push-jobs' do
   describe '::windows' do
     cached(:chef_run) do
       runner = ChefSpec::ServerRunner.new(platform: 'windows', version: '2012R2')
-      runner.node.normal['push_jobs']['chef']['node_name'] = 'Felix'
-      runner.node.normal['push_jobs']['chef']['chef_server_url'] = 'https://chefserver.mycorp.co'
-      runner.node.normal['push_jobs']['allow_unencrypted'] = true
-      runner.node.normal['push_jobs']['proxy']['http']['url'] = 'http://proxy.mycorp.co'
-      runner.node.normal['push_jobs']['proxy']['http']['user'] = 'foo'
-      runner.node.normal['push_jobs']['proxy']['http']['pass'] = 'bar'
-      runner.node.normal['push_jobs']['proxy']['https']['url'] = 'https://proxy.mycorp.co'
-      runner.node.normal['push_jobs']['proxy']['https']['user'] = 'biz'
-      runner.node.normal['push_jobs']['proxy']['https']['pass'] = 'baz'
-      runner.node.normal['push_jobs']['no_proxy'] = '127.0.0.1'
+      runner.node.override['push_jobs']['chef']['node_name'] = 'Felix'
+      runner.node.override['push_jobs']['chef']['chef_server_url'] = 'https://chefserver.mycorp.co'
+      runner.node.override['push_jobs']['allow_unencrypted'] = true
+      runner.node.override['push_jobs']['proxy']['http']['url'] = 'http://proxy.mycorp.co'
+      runner.node.override['push_jobs']['proxy']['http']['user'] = 'foo'
+      runner.node.override['push_jobs']['proxy']['http']['pass'] = 'bar'
+      runner.node.override['push_jobs']['proxy']['https']['url'] = 'https://proxy.mycorp.co'
+      runner.node.override['push_jobs']['proxy']['https']['user'] = 'biz'
+      runner.node.override['push_jobs']['proxy']['https']['pass'] = 'baz'
+      runner.node.override['push_jobs']['no_proxy'] = '127.0.0.1'
       runner.converge('recipe[push-jobs::config]')
     end
 

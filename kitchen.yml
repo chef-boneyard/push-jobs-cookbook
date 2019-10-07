@@ -14,8 +14,8 @@ platforms:
       box: mvbcoding/awslinux
   - name: centos-6
   - name: centos-7
-  - name: debian-8
   - name: debian-9
+  - name: debian-10
   - name: opensuse-leap-42
   - name: ubuntu-14.04
   - name: ubuntu-16.04
@@ -30,7 +30,7 @@ platforms:
   #
   - name: windows-2012r2
     driver:
-      box: chef/windows-server-2012r2-standard # private
+      box: tas50/windows_2012r2
 
 suites:
   - name: default

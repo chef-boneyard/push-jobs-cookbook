@@ -3,7 +3,7 @@
 # resource:: service_sysvinit
 #
 # Author:: Jennifer Davis <sigje@chef.io>
-# Copyright:: 2017, Chef Software, Inc.
+# Copyright:: 2017-2019, Chef Software, Inc.
 #
 resource_name :push_jobs_service_sysvinit
 

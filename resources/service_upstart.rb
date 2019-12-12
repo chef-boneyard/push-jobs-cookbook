@@ -20,7 +20,7 @@
 
 resource_name :push_jobs_service_upstart
 
-provides :push_jobs_service, platform: 'ubuntu' do |node| # ~FC005
+provides :push_jobs_service, platform: 'ubuntu' do |node|
   node['platform_version'].to_f < 15.10
 end
 

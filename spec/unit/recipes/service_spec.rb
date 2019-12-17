@@ -5,7 +5,7 @@ require 'spec_helper'
 shared_context 'chef run' do
   let(:chef_run) do
     runner = ChefSpec::SoloRunner.new(platform_details)
-    runner.node.normal['push_jobs']['package_url'] = pkg_url
+    runner.node.override['push_jobs']['package_url'] = pkg_url
     runner.converge(described_recipe)
   end
 end
@@ -37,19 +37,9 @@ shared_examples 'calls the push-jobs service systemd resource' do
 end
 
 describe 'push-jobs::service' do
-  context 'when platform is suse version 11.4' do
+  context 'when platform is suse version 12' do
     let(:platform_details) do
-      { platform: 'suse', version: '11.4', step_into: 'push_jobs_service' }
-    end
-    let(:pkg_url) { 'http://foo.bar.com/push-jobs-client-2.4.5-1.x86_64.rpm' }
-    let(:service_file) { '/etc/init.d/chef-push-jobs-client' }
-    include_context 'chef run'
-    include_examples 'creates push-jobs service'
-  end
-
-  context 'when platform is suse version 12.3' do
-    let(:platform_details) do
-      { platform: 'suse', version: '12.3', step_into: 'push_jobs_service' }
+      { platform: 'suse', version: '12', step_into: 'push_jobs_service' }
     end
     let(:pkg_url) { 'http://foo.bar.com/push-jobs-client_2.4.5-1.x86_64.rpm' }
     let(:service_file) { '/etc/systemd/system/chef-push-jobs-client.service' }

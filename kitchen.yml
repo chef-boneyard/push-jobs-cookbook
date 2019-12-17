@@ -17,7 +17,6 @@ platforms:
   - name: debian-9
   - name: debian-10
   - name: opensuse-leap-42
-  - name: ubuntu-14.04
   - name: ubuntu-16.04
   - name: ubuntu-18.04
   #

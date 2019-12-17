@@ -47,7 +47,7 @@ describe 'push-jobs' do
 
   describe '::install' do
     cached(:chef_run) do
-      runner = ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '14.04')
+      runner = ChefSpec::ServerRunner.new(platform: 'ubuntu')
       runner.node.override['push_jobs']['chef']['node_name'] = 'Oscar'
       runner.node.override['push_jobs']['chef']['chef_server_url'] = 'https://chefserver.mycorp.co'
       runner.node.override['push_jobs']['allow_unencrypted'] = true

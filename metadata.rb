@@ -16,4 +16,4 @@ depends 'chef-ingredient'
 
 source_url 'https://github.com/chef-cookbooks/push-jobs'
 issues_url 'https://github.com/chef-cookbooks/push-jobs/issues'
-chef_version '>= 12.7'
+chef_version '>= 12.15'

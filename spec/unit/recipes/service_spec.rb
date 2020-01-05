@@ -37,9 +37,9 @@ shared_examples 'calls the push-jobs service systemd resource' do
 end
 
 describe 'push-jobs::service' do
-  context 'when platform is suse version 12' do
+  context 'when platform is suse version 15' do
     let(:platform_details) do
-      { platform: 'suse', version: '12', step_into: 'push_jobs_service' }
+      { platform: 'suse', version: '15', step_into: 'push_jobs_service' }
     end
     let(:pkg_url) { 'http://foo.bar.com/push-jobs-client_2.4.5-1.x86_64.rpm' }
     let(:service_file) { '/etc/systemd/system/chef-push-jobs-client.service' }

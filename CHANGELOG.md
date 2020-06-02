@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+## Unreleased
+
+- resolved cookstyle error: resources/package.rb:21:1 warning: `ChefDeprecations/ResourceUsesOnlyResourceName`
+
 ## 5.3.0 (2018-07-26)
 
 - Add proxy configuration support

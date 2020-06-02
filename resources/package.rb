@@ -18,7 +18,7 @@
 # limitations under the License.
 #
 
-resource_name :push_jobs_package
+provides :push_jobs_package
 
 property :version
 property :channel, Symbol, default: :stable, equal_to: [:stable, :current, :unstable]

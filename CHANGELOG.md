@@ -2,9 +2,16 @@
 
 This file is used to list changes made in each version of the push-jobs cookbook.
 
-## Unreleased
+## 5.3.1 (2020-06-02)
 
-- resolved cookstyle error: resources/package.rb:21:1 warning: `ChefDeprecations/ResourceUsesOnlyResourceName`
+- Remove the legacy foodcritic comments - [@tas50](https://github.com/tas50)
+- Simplify the platform check code - [@tas50](https://github.com/tas50)
+- Spec and testing cleanup - [@tas50](https://github.com/tas50)
+- Remove the unnecessary .rubocop.yml file - [@tas50](https://github.com/tas50)
+- Update spec for SLES 15 - [@tas50](https://github.com/tas50)
+- Require Chef 12.15+ - [@tas50](https://github.com/tas50)
+- Chef Infra Client 16 compatibility - [@xorimabot](https://github.com/xorimabot)
+  - resolved cookstyle error: resources/package.rb:21:1 warning: `ChefDeprecations/ResourceUsesOnlyResourceName`
 
 ## 5.3.0 (2018-07-26)
 

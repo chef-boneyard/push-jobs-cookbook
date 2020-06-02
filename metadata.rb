@@ -3,7 +3,7 @@ maintainer 'Chef Software, Inc.'
 maintainer_email 'cookbooks@chef.io'
 license 'Apache-2.0'
 description 'Installs the Chef Push Jobs Client'
-version '5.3.0'
+version '5.3.1'
 
 supports 'ubuntu'
 supports 'centos'

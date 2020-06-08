@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+## 5.3.2 (2020-06-08)
+
+- Support Chef Infra Client 16.2+ - [@tas50](https://github.com/tas50)
+
 ## 5.3.1 (2020-06-02)
 
 - Remove the legacy foodcritic comments - [@tas50](https://github.com/tas50)

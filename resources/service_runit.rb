@@ -19,6 +19,7 @@
 #
 
 resource_name :push_jobs_service_runit
+provides :push_jobs_service_runit
 
 provides :push_jobs_service
 

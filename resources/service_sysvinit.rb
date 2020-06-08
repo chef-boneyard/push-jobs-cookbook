@@ -6,6 +6,7 @@
 # Copyright:: 2017-2019, Chef Software, Inc.
 #
 resource_name :push_jobs_service_sysvinit
+provides :push_jobs_service_sysvinit
 
 provides :push_jobs_service, platform: 'debian' do |node|
   node['platform_version'].to_i == 7

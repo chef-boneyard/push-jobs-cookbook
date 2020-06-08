@@ -19,6 +19,7 @@
 #
 
 resource_name :push_jobs_service_systemd
+provides :push_jobs_service_systemd
 
 provides :push_jobs_service, os: 'linux' do |_node|
   Chef::Platform::ServiceHelpers.service_resource_providers.include?(:systemd)

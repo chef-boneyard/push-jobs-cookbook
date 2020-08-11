@@ -27,8 +27,7 @@ require 'chef/config'
 module PushJobsHelper
   def self.package_file(url = 'https://omnitruck.chef.io/install.sh')
     uri = ::URI.parse(::URI.unescape(url))
-    package_file = File.basename(uri.path)
-    package_file
+    File.basename(uri.path)
   end
 
   def self.config_path
@@ -74,12 +73,11 @@ module PushJobsHelper
   def self.version_from_manifest(path)
     json_path = File.join(path, 'version-manifest.json')
     txt_path = File.join(path, 'version-manifest.txt')
-    version = if File.exist?(json_path)
-                JSON.parse(IO.read(json_path))['build_version']
-              elsif File.exist?(txt_path)
-                File.readlines(txt_path, 100).first.split(' ')[1]
-              end
-    version
+    if File.exist?(json_path)
+      JSON.parse(IO.read(json_path))['build_version']
+    elsif File.exist?(txt_path)
+      File.readlines(txt_path, 100).first.split(' ')[1]
+    end
   end
 
   def self.find_installed_version(node, url = nil)

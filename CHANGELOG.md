@@ -2,6 +2,19 @@
 
 This file is used to list changes made in each version of the push-jobs cookbook.
 
+## Unreleased
+
+- resolved cookstyle error: libraries/helpers.rb:30:5 convention: `Style/RedundantAssignment`
+- resolved cookstyle error: libraries/helpers.rb:31:1 convention: `Layout/EmptyLinesAroundMethodBody`
+- resolved cookstyle error: libraries/helpers.rb:31:1 convention: `Layout/TrailingWhitespace`
+- resolved cookstyle error: libraries/helpers.rb:77:5 convention: `Style/RedundantAssignment`
+- resolved cookstyle error: libraries/helpers.rb:78:5 convention: `Layout/IndentationWidth`
+- resolved cookstyle error: libraries/helpers.rb:79:15 convention: `Layout/ElseAlignment`
+- resolved cookstyle error: libraries/helpers.rb:80:5 convention: `Layout/IndentationWidth`
+- resolved cookstyle error: libraries/helpers.rb:81:15 warning: `Layout/EndAlignment`
+- resolved cookstyle error: libraries/helpers.rb:82:1 convention: `Layout/EmptyLinesAroundMethodBody`
+- resolved cookstyle error: libraries/helpers.rb:82:1 convention: `Layout/TrailingWhitespace`
+
 ## 5.3.2 (2020-06-08)
 
 - Support Chef Infra Client 16.2+ - [@tas50](https://github.com/tas50)
